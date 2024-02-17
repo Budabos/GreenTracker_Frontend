@@ -59,6 +59,30 @@ const AboutUs = () => {
                                 Through our app, we seek to empower individuals to become agents of positive change and contribute to the collective effort of combating climate change.
                             </p>
                         </div>
+                        <div>
+                            <h5 className="text-center text-success">Our Goals</h5>
+                        </div>
+                        <div className="col-lg-6 col-md-6 col-sm-12">
+                            <ul>
+                                <li>Empower individuals to make sustainable choices</li>
+                                <li>Provide accessible tools for tracking carbon footprint</li>
+                                <li>Foster a sense of community around sustainability</li>
+                                <li>Offer educational resources on eco-friendly practices</li>
+                                <li>Promote positive environmental impact</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 className="text-center text-success">Our Core Values</h5>
+                        </div>
+                        <div className="col-lg-6 col-md-6 col-sm-12">
+                            <ul>
+                                <li>Environmental stewardship</li>
+                                <li>Community engagement</li>
+                                <li>Transparency and accountability</li>
+                                <li>Innovation and creativity</li>
+                                <li>Continuous improvement</li>
+                            </ul>
+                        </div>
                         <div className="text-center text-success font-italic">
                             <h5>GreenTracker: Your Ultimate Destination for Sustainable Living!</h5>
                         </div>
