@@ -5,9 +5,11 @@ import { Button } from "./ui/button";
 import Logo from "./Logo";
 import NavLinks from "./NavLinks";
 import logo from "../../greentrackrlogo.png";
+import { useAuth } from "@/providers/AuthProvider";
 
 const Navbar = () => {
   const { pathname } = useLocation();
+  const { userCred } = useAuth();
 
   if (pathname === "/login" || pathname === "/signup") return;
 
@@ -23,7 +25,7 @@ const Navbar = () => {
       </Link>
       {/* <Logo /> */}
       <NavLinks />
-      {localStorage.getItem("access_token") ? (
+      {userCred ? (
         <UserCircle className="h-8 w-8" />
       ) : (
         <div className="flex items-center gap-4">

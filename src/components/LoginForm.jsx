@@ -3,6 +3,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button, buttonVariants } from "@/components/ui/button";
+import axios from "axios";
 import {
   Form,
   FormControl,
@@ -13,9 +14,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { cn } from "@/lib/utils";
+import { BASE_URL, cn } from "@/lib/utils";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { useAuth } from "@/providers/AuthProvider";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -26,6 +30,27 @@ const loginSchema = z.object({
 
 const LoginForm = () => {
   const [hidden, setHidden] = useState(true);
+  const { setUserCred, getUser } = useAuth();
+
+  const {
+    data: res,
+    isPending,
+    mutate,
+  } = useMutation({
+    mutationKey: ["login"],
+    mutationFn: async (values) => {
+      const res = await axios
+        .post(`${BASE_URL}/login`, values)
+        .then((res) => {
+          setUserCred(JSON.stringify(res.data));
+
+          toast.success(res.data.message);
+        })
+        .catch((err) => toast.error(err.response.data.message));
+
+      return res;
+    },
+  });
 
   const form = useForm({
     resolver: zodResolver(loginSchema),
@@ -36,7 +61,7 @@ const LoginForm = () => {
   });
 
   function onSubmit(values) {
-    console.log(values);
+    mutate(values);
   }
 
   return (
@@ -74,6 +99,7 @@ const LoginForm = () => {
                   <Button
                     className="absolute top-1/2 right-0 translate-y-[-50%] border text-black"
                     size="icon"
+                    type="button"
                     onClick={() => setHidden((prev) => !prev)}
                   >
                     {hidden ? (
@@ -100,7 +126,12 @@ const LoginForm = () => {
           >
             Don&apos;t have an account?
           </Link>
-          <Button className="bg-black text-white" type="submit">
+          <Button
+            className="bg-black text-white"
+            type="submit"
+            disabled={isPending}
+          >
+            {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Submit
           </Button>
         </div>

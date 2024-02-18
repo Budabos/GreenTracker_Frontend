@@ -25,12 +25,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 import { Label } from "./ui/label";
+import { toast } from "sonner";
+import { useMutation } from "@tanstack/react-query";
+import { useAuth } from "@/providers/AuthProvider";
 
 const signupSchema = z
   .object({
@@ -43,7 +46,6 @@ const signupSchema = z
     email: z.string().email(),
     phone: z.string().transform((val) => parseInt(val)),
     gender: z.string(),
-    status: z.string(),
     age: z.string().transform((val) => parseInt(val)),
     password: z.string().min(6, {
       message: "Password must be at least 6 characters",
@@ -70,6 +72,28 @@ const SignupForm = () => {
     },
   ];
 
+  const { setUserCred, getUser } = useAuth();
+
+  const {
+    data: res,
+    isPending,
+    mutate,
+  } = useMutation({
+    mutationKey: ["signup"],
+    mutationFn: async (values) => {
+      const res = await axios
+        .post(`${BASE_URL}/signup`, values)
+        .then((res) => {
+          setUserCred(JSON.stringify(res.data));
+
+          toast.success(res.data.message);
+        })
+        .catch((err) => toast.error(err.response.data.message));
+
+      return res;
+    },
+  });
+
   const form = useForm({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -79,7 +103,7 @@ const SignupForm = () => {
   });
 
   function onSubmit(values) {
-    console.log({ ...values, interests });
+    mutate({ ...values, interests, role: "member" });
   }
 
   return (
@@ -159,7 +183,7 @@ const SignupForm = () => {
             control={form.control}
             name="gender"
             render={({ field }) => (
-              <FormItem className="w-1/3">
+              <FormItem className="w-1/2">
                 <FormLabel>Gender</FormLabel>
                 <Select
                   onValueChange={field.onChange}
@@ -179,20 +203,8 @@ const SignupForm = () => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="status"
-            render={({ field }) => (
-              <FormItem className="w-1/3">
-                <FormLabel>Status</FormLabel>
-                <FormControl>
-                  <Input placeholder="status" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="space-y-2 w-1/3">
+
+          <div className="space-y-2 w-1/2">
             <Label>Interests</Label>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -311,7 +323,8 @@ const SignupForm = () => {
           >
             Already have an account?
           </Link>
-          <Button className="bg-black text-white" type="submit">
+          <Button className="bg-black text-white" type="submit" disabled={isPending}>
+            {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Submit
           </Button>
         </div>

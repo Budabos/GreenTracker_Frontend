@@ -5,7 +5,4 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
-export const BASE_URL =
-  process.env.NODE_ENV === "development"
-    ? `http://localhost:5000`
-    : process.env.BASE_URL;
+export const BASE_URL = import.meta.env.DEV ? `http://localhost:5555` : '';

@@ -16,8 +16,8 @@ const NavLinks = () => {
       route: "/carbon-calculation",
     },
     {
-      text: "Explore",
-      route: "/explore",
+      text: "Products",
+      route: "/products",
     },
     {
       text: "Donation",
