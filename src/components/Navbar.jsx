@@ -8,7 +8,7 @@ import { useAuth } from "@/providers/AuthProvider";
 
 const Navbar = () => {
   const { pathname } = useLocation();
-  const { token } = useAuth();
+  const { userCred } = useAuth();
 
   if (pathname === "/login" || pathname === "/signup") return;
 
@@ -16,7 +16,7 @@ const Navbar = () => {
     <div className="flex items-center justify-between py-4 px-6 bg-[#245501] text-white font-bold">
       <Logo />
       <NavLinks />
-      {token ? (
+      {userCred ? (
         <UserCircle className="h-8 w-8" />
       ) : (
         <div className="flex items-center gap-4">
