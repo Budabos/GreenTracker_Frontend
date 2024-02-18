@@ -26,7 +26,7 @@ const Home = () => {
   const slides = [
     {
       title:
-        "Welcome to GreenTrackr, your new favourite sustainability tracking app",
+        "Welcome to Greentrackr, your new favourite sustainability tracking app",
       description:
         "Join GreenTrack, the app that transforms your daily choices into impactful steps towards a greener future. From reducing your carbon footprint to tracking your eco-friendly habits, every action you take counts towards a more sustainable lifestyle. ",
       imageSrc:
@@ -151,10 +151,12 @@ const Home = () => {
             backgroundColor: "rgba(0, 0, 0, 0.7)",
           }}
         >
-          <h1 className="font-serif">{slides[currentSlide].title} </h1>
+          <h1 style={{ fontSize: "20px" }}>{slides[currentSlide].title} </h1>
           <br />
           <div style={{ width: "50%" }}>
-            <p className="font-serif">{slides[currentSlide].description}</p>
+            <p style={{ fontSize: "15px" }}>
+              {slides[currentSlide].description}
+            </p>
           </div>
         </div>
       </div>
