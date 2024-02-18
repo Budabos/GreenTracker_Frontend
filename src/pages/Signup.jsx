@@ -2,11 +2,16 @@ import mount from "@/assets/mount.jpg";
 import SignupForm from "@/components/SignupForm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { BASE_URL } from "@/lib/utils";
+import { useAuth } from "@/providers/AuthProvider";
 import { MoveLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
+
+  const { token } = useAuth();
+  console.log(token, BASE_URL);
 
   return (
     <div className="relative h-[100vh] flex items-center justify-center">

@@ -4,9 +4,11 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import Logo from "./Logo";
 import NavLinks from "./NavLinks";
+import { useAuth } from "@/providers/AuthProvider";
 
 const Navbar = () => {
   const { pathname } = useLocation();
+  const { token } = useAuth();
 
   if (pathname === "/login" || pathname === "/signup") return;
 
@@ -14,7 +16,7 @@ const Navbar = () => {
     <div className="flex items-center justify-between py-4 px-6 bg-[#245501] text-white font-bold">
       <Logo />
       <NavLinks />
-      {localStorage.getItem("access_token") ? (
+      {token ? (
         <UserCircle className="h-8 w-8" />
       ) : (
         <div className="flex items-center gap-4">
