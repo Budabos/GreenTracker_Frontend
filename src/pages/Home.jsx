@@ -142,7 +142,7 @@ const Home = () => {
           className="text-overlay"
           style={{
             position: "absolute",
-            bottom: "50px", // Adjust this value to move the text higher
+            bottom: "70px", // Adjust this value to move the text higher
             left: 0,
             textAlign: "left",
             width: "100%",

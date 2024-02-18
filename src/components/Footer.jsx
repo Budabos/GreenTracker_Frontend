@@ -5,7 +5,7 @@ import logo from "../../greentrackrlogo.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-green-900 text-white py-8">
+    <footer className="text-white py-8" style={{ backgroundColor: "#245501" }}>
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
         {/* Logo */}
         <div className="flex items-center mb-4 md:mb-0">
