@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import Logo from "./Logo";
 import NavLinks from "./NavLinks";
+import logo from "../../greentrackrlogo.png";
 import { useAuth } from "@/providers/AuthProvider";
 
 
@@ -15,7 +16,15 @@ const Navbar = () => {
 
   return (
     <div className="flex items-center justify-between py-4 px-6 bg-[#245501] text-white font-bold">
-      <Logo />
+      <Link to="/">
+        <img
+          src={logo}
+          alt="GreenTrackr Logo"
+          className="w-16 h-16 mr-2"
+          style={{ height: "12vh", width: "12vh" }}
+        />
+      </Link>
+      {/* <Logo /> */}
       <NavLinks />
       {userCred ? (
         <UserCircle className="h-8 w-8" />
