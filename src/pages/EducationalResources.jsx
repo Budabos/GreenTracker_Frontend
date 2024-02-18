@@ -33,7 +33,7 @@ const EducationalResources = () => {
   
         // Fetch educational resources on component mount
         try {
-          const response = await fetch('YOUR_BACKEND_API_ENDPOINT');
+          const response = await fetch('http://127.0.0.1:4000/education-resources');
           const data = await response.json();
           setResources(data);
         } catch (error) {
@@ -60,7 +60,7 @@ const EducationalResources = () => {
       });
 
       // Refetch the resources after adding a new one
-      const response = await fetch('YOUR_BACKEND_API_ENDPOINT');
+      const response = await fetch('http://127.0.0.1:4000/education-resources');
       const data = await response.json();
       setResources(data);
 
