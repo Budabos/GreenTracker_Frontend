@@ -67,28 +67,6 @@ const EducationalResources = () => {
        You need to Know this!!
       </h1>
         {/* Displaying the available resources */}
-
-      <div>
-        <h2 className="text-2xl text-black mb-4 font-bold">Available Resources</h2>
-        <ul className="text-black">
-          {resources.map((resource) => (
-            <li key={resource.id} className="mb-4">
-              <h3 className="text-xl font-bold">{resource.title}</h3>
-              <p className="text-gray-700 mb-2">
-                <strong>Description:</strong> {resource.description}
-              </p>
-              <p className="text-gray-700 mb-2">
-                <strong>Author:</strong> {resource.author}
-              </p>
-              <p className="mb-2">{resource.content}</p>
-              <p className="text-gray-700">
-                <strong>Date Published:</strong> {resource.date_published}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </div>
-
       {/* Add New Resource form */}
       <div className="flex">
       <div className="w-1/2">
@@ -135,11 +113,46 @@ const EducationalResources = () => {
             Add Resource
           </button>
         </form>
-      </div>
-           
+      </div>   
     </div>
+    <div
+  style={{
+    background: "url('https://i.pinimg.com/originals/ab/46/f5/ab46f5e1687357038c0f1fb96715e0c3.webp')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    padding: "20px",
+    borderRadius: "10px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    marginTop: "20px", 
+    backdropFilter: "blur(500px)", 
+  }}
+  
+>
+<div style={{ textAlign: "center" }}>
+    <h1 className="text-2xl text-black mb-4 font-bold">Available Resources</h1>
+  </div>
+  <ul className="text-white">
+    {resources.map((resource) => (
+      <li key={resource.id} className="mb-4">
+        <h3 className="text-xl font-bold">{resource.title}</h3>
+        <p className="text-gray-700 mb-2">
+          <strong>Description:</strong> {resource.description}
+        </p>
+        <p className="text-gray-700 mb-2">
+          <strong>Author:</strong> {resource.author}
+        </p>
+        <p className="mb-2">{resource.content}</p>
+        <p className="text-gray-700">
+          <strong>Date Published:</strong> {resource.date_published}
+        </p>
+      </li>
+    ))}
+  </ul>
+</div>
     </div>
   );
 };
 
 export default EducationalResources;
+
