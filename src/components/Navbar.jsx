@@ -7,6 +7,7 @@ import NavLinks from "./NavLinks";
 import logo from "../../greentrackrlogo.png";
 import { useAuth } from "@/providers/AuthProvider";
 
+
 const Navbar = () => {
   const { pathname } = useLocation();
   const { userCred } = useAuth();
