@@ -74,7 +74,7 @@ const Home = () => {
     {
       title: "Carbon Footprint Calculation",
       description:
-        "Gain deep insight into your carbon footprint and embark on a transformative journey to reduce it with our intuitive carbon calculation tool. Our platform empowers you to understand the intricate details of your emissions, pinpointing their sources and magnitudes. Armed with this knowledge, you'll discover actionable steps tailored to your lifestyle, facilitating meaningful reductions in your environmental impact. Join us in fostering a greener, more sustainable future for generations to come.",
+        "Gain deep insight into your carbon footprint and embark on a transformative journey to reduce it with our intuitive carbon calculation tool. Our platform empowers you to understand the intricate details of your emissions. Armed with this knowledge, you'll discover actionable steps tailored to your lifestyle, facilitating meaningful reductions in your environmental impact. Join us in fostering a greener, more sustainable future for generations to come.",
       imageSrc:
         "https://images.unsplash.com/photo-1611270418597-a6c77f4b7271?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDl8fHxlbnwwfHx8fHw%3D",
       link: "/about",
@@ -82,7 +82,7 @@ const Home = () => {
     {
       title: "Impact Tracking",
       description:
-        "Embark on a journey of self-discovery and environmental stewardship with our comprehensive impact tracking feature. Seamlessly monitor your emissions over time, gaining invaluable insights into their trends and patterns. Armed with this knowledge, you'll uncover effective strategies to minimize your ecological footprint and contribute to a healthier planet. Through informed decision-making and sustainable practices, you'll play a vital role in preserving our natural world for future generations.",
+        "Embark on a journey of self-discovery and environmental stewardship with our comprehensive impact tracking feature. Seamlessly monitor your emissions over time, gaining invaluable insights into their trends and patterns. Armed with this knowledge, you'll uncover effective strategies to minimize your ecological footprint and contribute to a healthier planet.",
       imageSrc:
         "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3VzdGFpbmFiaWxpdHl8ZW58MHx8MHx8fDA%3D",
       link: "/about",
@@ -90,7 +90,7 @@ const Home = () => {
     {
       title: "Educational Resources",
       description:
-        "Dive deep into a wealth of educational materials meticulously curated to deepen your understanding of sustainability and eco-conscious behaviors. Our platform offers a diverse array of resources, ranging from informative articles and engaging videos to interactive workshops and insightful webinars. Empower yourself and others with the knowledge needed to adopt more environmentally friendly habits, fostering a culture of sustainability and collective responsibility for the planet's well-being.",
+        "Dive deep into a wealth of educational materials meticulously curated to deepen your understanding of sustainability and eco-conscious behaviors. Our platform offers a diverse array of resources, ranging from informative articles and engaging videos to interactive workshops and insightful webinars. Empower yourself and others with knowledge.",
       imageSrc:
         " https://images.unsplash.com/photo-1572202808998-93788f6d39da?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEzfHx8ZW58MHx8fHx8",
       link: "/about",
@@ -98,7 +98,7 @@ const Home = () => {
     {
       title: "Eco-Friendly Shopping Guide",
       description:
-        "Embark on a journey towards sustainable living with our comprehensive eco-friendly shopping guide. Navigate through a curated selection of products and services designed to promote a more environmentally conscious lifestyle. From household essentials to personal care items, discover alternatives that not only meet your needs but also support the well-being of both people and the planet. Join us in making conscious consumer choices that pave the way for a brighter, greener future.",
+        "Embark on a journey towards sustainable living with our comprehensive eco-friendly shopping guide. Navigate through a curated selection of products and services designed to promote a more environmentally conscious lifestyle. From household essentials to personal care items, discover alternatives that not only meet your needs but also support the well-being of both people and the planet.",
       imageSrc:
         "https://images.pexels.com/photos/3806752/pexels-photo-3806752.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
       link: "/about",
@@ -106,7 +106,7 @@ const Home = () => {
     {
       title: "Community Engagement",
       description:
-        "Join a vibrant community of like-minded individuals committed to making a positive impact on the planet. Participate in engaging challenges and collaborative initiatives aimed at collectively reducing our environmental footprint. Through shared experiences and mutual support, we inspire and motivate each other to adopt greener practices and lead by example. Together, we can harness the power of community to create meaningful change and build a more sustainable future for all.",
+        "Join a vibrant community of like-minded individuals committed to making a positive impact on the planet. Participate in engaging challenges and collaborative initiatives aimed at collectively reducing our environmental footprint. Through shared experiences and mutual support, we inspire and motivate each other to adopt greener practices and lead by example. Together, we can harness the power of community to create meaningful change.",
       imageSrc:
         "https://images.pexels.com/photos/8543606/pexels-photo-8543606.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       link: "/about",
@@ -124,7 +124,7 @@ const Home = () => {
     <div>
       {/* Hero Section */}
       <div className="hero-section" style={{ position: "relative" }}>
-        <Slider {...settings} ref={sliderRef} style={{ paddingTop: "20px" }}>
+        <Slider {...settings} ref={sliderRef}>
           {slides.map((slide, index) => (
             <div key={index} onClick={handleImageClick}>
               {" "}
@@ -173,7 +173,7 @@ const Home = () => {
               <div
                 key={index}
                 className="w-full md:w-1/2 lg:w-1/3 p-4 flex"
-                style={{ width: "70%", height: "70%" }}
+                style={{ width: "70%", height: "70vh" }}
               >
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden flex-1">
                   <img

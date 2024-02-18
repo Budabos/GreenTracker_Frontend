@@ -3,15 +3,19 @@ import Home from "../src/pages/Home";
 import Login from "../src/pages/Login";
 import Signup from "../src/pages/Signup";
 import About from "../src/pages/About";
+import Footer from "./components/Footer";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/about" element={<About />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+      <Footer />
+    </>
   );
 }
 
