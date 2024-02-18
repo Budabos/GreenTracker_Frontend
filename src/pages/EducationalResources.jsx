@@ -44,7 +44,7 @@ const EducationalResources = () => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const addedResource = await response.json(); 
+      const addedResource = await response.json();
       setResources((prevResources) => [...prevResources, addedResource]);
 
       // Reset the form
@@ -61,18 +61,48 @@ const EducationalResources = () => {
     }
   };
 
-
   return (
-    <div className="bg-green-100 py-12">
+    <div className="bg-green-100 p-8">
       <h1 className="text-4xl text-black mb-6 font-bold">
-        Climate Change Educational Resources
+       You need to Know this!!
       </h1>
+        {/* Displaying the available resources */}
 
-      <div className="mb-8">
+      <div>
+        <h2 className="text-2xl text-black mb-4 font-bold">Available Resources</h2>
+        <ul className="text-black">
+          {resources.map((resource) => (
+            <li key={resource.id} className="mb-4">
+              <h3 className="text-xl font-bold">{resource.title}</h3>
+              <p className="text-gray-700 mb-2">
+                <strong>Description:</strong> {resource.description}
+              </p>
+              <p className="text-gray-700 mb-2">
+                <strong>Author:</strong> {resource.author}
+              </p>
+              <p className="mb-2">{resource.content}</p>
+              <p className="text-gray-700">
+                <strong>Date Published:</strong> {resource.date_published}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Add New Resource form */}
+      <div className="flex">
+      <div className="w-1/2">
+          <img src="https://climate.nasa.gov/system/internal_resources/details/original/1209_shutterstock_88550854.jpg" 
+          alt="Climate Image" 
+          className="max-w-full h-auto pr-4"
+          style={{height:'100%'}} />
+          {/* You can replace the above 'src' attribute with the path to your image */}
+        </div> 
+      <div className="w-1/2 pr-8">
         <h2 className="text-2xl text-black mb-4 font-bold">Add New Resource</h2>
         <form>
           {['title', 'description', 'category', 'content', 'author', 'date_published'].map((field) => (
-            <div key={field} className="mb-4">
+            <div key={field} className="pl-4">
               <label className="block text-black text-sm font-semibold mb-2">
                 {field.charAt(0).toUpperCase() + field.slice(1).replace('_', ' ')}:
               </label>
@@ -106,27 +136,8 @@ const EducationalResources = () => {
           </button>
         </form>
       </div>
-
-      <div>
-  <h2 className="text-2xl text-black mb-4 font-bold">Available Resources</h2>
-  <ul className="text-black">
-    {resources.map((resource) => (
-      <li key={resource.id} className="mb-4">
-        <h3 className="text-xl font-bold">{resource.title}</h3>
-        <p className="text-gray-700 mb-2">
-          <strong>Description:</strong> {resource.description}
-        </p>
-        <p className="text-gray-700 mb-2">
-          <strong>Author:</strong> {resource.author}
-        </p>
-        <p className="mb-2">{resource.content}</p>
-        <p className="text-gray-700">
-          <strong>Date Published:</strong> {resource.date_published}
-        </p>
-      </li>
-    ))}
-  </ul>
-</div>
+           
+    </div>
     </div>
   );
 };
