@@ -4,6 +4,7 @@ import Login from '../src/pages/Login'
 import Signup from '../src/pages/Signup'
 import AboutUs from '../src/pages/AboutUs'
 import ContactUs from '../src/pages/ContactUs'
+import Review from "./pages/Review";
 import Profile from "./pages/Profile";
 
 
@@ -20,6 +21,7 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/about" element={<AboutUs />} />
       <Route path="/contact-us" element={<ContactUs />} />
+      <Route path="/Review" element={<Review />} />
       <Route path="/profile" element={<Profile />} />
 
     </Routes>
