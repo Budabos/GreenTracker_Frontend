@@ -6,6 +6,7 @@ import Logo from "./Logo";
 import NavLinks from "./NavLinks";
 import { useAuth } from "@/providers/AuthProvider";
 
+
 const Navbar = () => {
   const { pathname } = useLocation();
   const { userCred } = useAuth();

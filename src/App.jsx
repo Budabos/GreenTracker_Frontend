@@ -7,6 +7,7 @@ import ContactUs from '../src/pages/ContactUs'
 import Review from "./pages/Review";
 import Profile from "./pages/Profile";
 import Products from "./pages/Products";
+import EducationalResources from "./pages/EducationalResources";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route path="/contact-us" element={<ContactUs />} />
       <Route path="/review" element={<Review />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/educational-resources" element={<EducationalResources />} />
     </Routes>
   );
 }
