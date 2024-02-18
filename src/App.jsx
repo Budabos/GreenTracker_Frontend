@@ -1,9 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import Footer from "./components/Footer";
-import Donation from "./pages/Donation";
+
 import Home from "../src/pages/Home";
 import Login from "../src/pages/Login";
 import Signup from "../src/pages/Signup";
+import Footer from "./components/Footer";
+import Donation from "./pages/Donation";
 import AboutUs from "../src/pages/AboutUs";
 import ContactUs from "../src/pages/ContactUs";
 import Review from "./pages/Review";
