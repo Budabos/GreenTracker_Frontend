@@ -44,7 +44,7 @@ const EducationalResources = () => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const addedResource = await response.json(); // directly use response.json()
+      const addedResource = await response.json(); 
       setResources((prevResources) => [...prevResources, addedResource]);
 
       // Reset the form
@@ -108,15 +108,25 @@ const EducationalResources = () => {
       </div>
 
       <div>
-        <h2 className="text-2xl text-black mb-4 font-bold">Available Resources</h2>
-        <ul className="text-white">
-          {resources.map((resource) => (
-            <li key={resource.id} className="mb-2">
-              <strong>{resource.title}</strong> - {resource.description}
-            </li>
-          ))}
-        </ul>
-      </div>
+  <h2 className="text-2xl text-black mb-4 font-bold">Available Resources</h2>
+  <ul className="text-black">
+    {resources.map((resource) => (
+      <li key={resource.id} className="mb-4">
+        <h3 className="text-xl font-bold">{resource.title}</h3>
+        <p className="text-gray-700 mb-2">
+          <strong>Description:</strong> {resource.description}
+        </p>
+        <p className="text-gray-700 mb-2">
+          <strong>Author:</strong> {resource.author}
+        </p>
+        <p className="mb-2">{resource.content}</p>
+        <p className="text-gray-700">
+          <strong>Date Published:</strong> {resource.date_published}
+        </p>
+      </li>
+    ))}
+  </ul>
+</div>
     </div>
   );
 };
