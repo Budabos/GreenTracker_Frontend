@@ -1,8 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-
-import Home from "../src/pages/Home";
-import Login from "../src/pages/Login";
-import Signup from "../src/pages/Signup";
 import Footer from "./components/Footer";
 import Donation from "./pages/Donation";
 import Home from "../src/pages/Home";

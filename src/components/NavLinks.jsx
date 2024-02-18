@@ -27,6 +27,14 @@ const NavLinks = () => {
       text: "Contact us",
       route: "/contact-us",
     },
+    {
+      text: "Feedback",
+      route: "/feedback",
+    },
+    {
+      text: "FAQs",
+      route: "/faqs",
+    },
   ];
 
   return (
