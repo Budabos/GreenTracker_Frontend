@@ -148,7 +148,7 @@ const EducationalResources = () => {
       <div className="flex">
       <ul className="text-white">
   {resources.map((resource) => (
-    <li key={resource.id} className="mb-4" style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px', marginBottom: '15px' }}>
+    <li key={resource.id} className="mb-4" style={{ borderBottom: '3px solid #ccc', paddingBottom: '10px', marginBottom: '15px' }}>
       <h3 className="text-xl font-bold">{resource.title}</h3>
       <img
         src={resource.image_url}
