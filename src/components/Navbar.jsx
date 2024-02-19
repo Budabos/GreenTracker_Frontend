@@ -5,6 +5,7 @@ import logo from "../../greentrackrlogo.png";
 import NavLinks from "./NavLinks";
 import { Button } from "./ui/button";
 
+
 const Navbar = () => {
   const { pathname } = useLocation();
   const { userCred } = useAuth();

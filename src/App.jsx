@@ -1,9 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import Footer from "./components/Footer";
-import Donation from "./pages/Donation";
+
 import Home from "../src/pages/Home";
 import Login from "../src/pages/Login";
 import Signup from "../src/pages/Signup";
+import Footer from "./components/Footer";
+import Donation from "./pages/Donation";
 import AboutUs from "../src/pages/AboutUs";
 import ContactUs from "../src/pages/ContactUs";
 import Review from "./pages/Review";
@@ -11,6 +12,7 @@ import Profile from "./pages/Profile";
 import Faqs from "../src/pages/Faqs";
 import Feedback from "../src/pages/Feedback";
 import Products from "./pages/Products";
+import EducationalResources from "./pages/EducationalResources";
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
         <Route path="/review" element={<Review />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/donations" element={<Donation />} />
+        <Route path="/educational-resources" element={<EducationalResources />} />
       </Routes>
       <Footer />
     </>

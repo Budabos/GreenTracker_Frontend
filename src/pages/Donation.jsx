@@ -121,12 +121,12 @@ const Donation = () => {
         <div className="p-12 text-white flex items-center justify-center h-full relative z-10">
           <div className="max-w-md text-center">
             <h2 className="text-3xl font-bold mb-4">GreenTrackr Donations</h2>
-            <p className="text-lg">Donate to a cause</p>
+            <p className="text-lg">Donate to a purpose</p>
             {/* Longer statement emphasizing the importance of donating */}
             <p className="text-sm text-gray-300 mt-2">
               Making a donation is more than just giving money; it's about
               making a positive impact on the world around us. By donating to a
-              cause, you're contributing to the greater good and helping those
+              purpose, you're contributing to the greater good and helping those
               in need. Make a difference today!
             </p>
           </div>
@@ -138,7 +138,11 @@ const Donation = () => {
         <div className="w-[24rem]">
           <h2 className="text-3xl font-bold mb-8">Make a Donation</h2>
           {/* Your donation form here */}
-          {/* <form>
+        
+          {/* donation form here */}
+
+          {/* purpose input */}
+         {/* <form>
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
@@ -150,13 +154,13 @@ const Donation = () => {
                 <select
                   className="shadow appearance-none border rounded w-full py-2 px-3 pr-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="purpose"
-                  required // Form validation suggestion
+                  required
                   value={selectedOption}
                   onChange={handleSelectChange}
-                  disabled={!!customCause}
+                  disabled={!!customPurpose}
                 >
                   <option value="" disabled>
-                    Select or Type a Cause
+                    Select or Type a Purpose
                   </option>
                   <option value="environment">
                     Environmental Conservation
@@ -173,9 +177,9 @@ const Donation = () => {
                     viewBox="0 0 20 20"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M4.293 5.293a1 1 0 011.414 0L10 9.586l4.293-4.293a1 1 0 111.414 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     />
                   </svg>
                 </div>
@@ -186,7 +190,7 @@ const Donation = () => {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="customPurpose"
               >
-                Or Enter Custom Cause
+                Or Enter Custom Purpose
               </label>
               <input
                 className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
@@ -194,9 +198,9 @@ const Donation = () => {
                 }`}
                 id="customPurpose"
                 type="text"
-                placeholder="Custom Cause"
-                value={customCause}
-                onChange={handleCustomCauseChange}
+                placeholder="Custom Purpose"
+                value={customPurpose}
+                onChange={handleCustomPurposeChange}
                 disabled={!!selectedOption}
               />
             </div>
@@ -204,16 +208,17 @@ const Donation = () => {
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="amount"
-                type="number"
               >
                 Amount
               </label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="amount"
-                type="text"
+                type="number"
                 placeholder="Amount"
-                required // Form validation suggestion
+                required
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
               />
             </div>
             <div className="mb-4">
@@ -223,12 +228,16 @@ const Donation = () => {
               >
                 Date
               </label>
+
+             
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="date"
                 type="date"
                 placeholder="Date"
-                required // Form validation suggestion
+                required
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
               />
             </div>
             <div className="flex items-center justify-center">
