@@ -14,6 +14,7 @@ import Feedback from "../src/pages/Feedback";
 import Products from "./pages/Products";
 import Carbon from "./pages/Carbon";
 import EducationalResources from "./pages/EducationalResources";
+import Events from "./pages/Events";
 
 function App() {
   return (
@@ -30,8 +31,15 @@ function App() {
         <Route path="/review" element={<Review />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/donations" element={<Donation />} />
-        <Route path="/carbon" element={<Carbon />} />
-        <Route path="/educational-resources" element={<EducationalResources />} />
+
+        <Route
+          path="/educational-resources"
+          element={<EducationalResources />}
+        />
+        <Route path="/events" element={<Events />} />
+
+        <Route path="/carbon" element={<Carbon />} /
+
       </Routes>
       <Footer />
     </>
