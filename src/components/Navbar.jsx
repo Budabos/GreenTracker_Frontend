@@ -1,11 +1,9 @@
-import { MoveRight, UserCircle } from "lucide-react";
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Button } from "./ui/button";
-import Logo from "./Logo";
-import NavLinks from "./NavLinks";
-import logo from "../../greentrackrlogo.png";
 import { useAuth } from "@/providers/AuthProvider";
+import { MoveRight, UserCircle } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import logo from "../../greentrackrlogo.png";
+import NavLinks from "./NavLinks";
+import { Button } from "./ui/button";
 
 
 const Navbar = () => {
@@ -27,7 +25,9 @@ const Navbar = () => {
       {/* <Logo /> */}
       <NavLinks />
       {userCred ? (
-        <UserCircle className="h-8 w-8" />
+        <Link to={"/profile"}>
+          <UserCircle className="h-8 w-8" />
+        </Link>
       ) : (
         <div className="flex items-center gap-4">
           <Button asChild>
