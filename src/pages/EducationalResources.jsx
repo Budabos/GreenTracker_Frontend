@@ -146,28 +146,28 @@ const EducationalResources = () => {
   ))}
 </div> */}
       <div className="flex">
-  <ul className="text-white">
-    {resources.map((resource) => (
-      <li key={resource.id} className="mb-4">
-        <h3 className="text-xl font-bold">{resource.title}</h3>
-        <img
+      <ul className="text-white">
+  {resources.map((resource) => (
+    <li key={resource.id} className="mb-4" style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px', marginBottom: '15px' }}>
+      <h3 className="text-xl font-bold">{resource.title}</h3>
+      <img
         src={resource.image_url}
         alt={resource.title}
         style={{ width: '60%', height: '150%' }}
       />
-        <p className="text-black mb-2">
-          <strong>Description:</strong> {resource.description}
-        </p>
-        <p className="text-black mb-2">
-          <strong>Author:</strong> {resource.author}
-        </p>
-        <p className="mb-2">{resource.content}</p>
-        <p className="text-black">
-          <strong>Date Published:</strong> {resource.date_published}
-        </p>
-      </li>
-    ))}
-  </ul>
+      <p className="text-black mb-2">
+        <strong>Description:</strong> {resource.description}
+      </p>
+      <p className="text-black mb-2">
+        <strong>Author:</strong> {resource.author}
+      </p>
+      <p className="mb-2">{resource.content}</p>
+      <p className="text-black">
+        <strong>Date Published:</strong> {resource.date_published}
+      </p>
+    </li>
+  ))}
+</ul>
   </div>
   </div>
 </div>
