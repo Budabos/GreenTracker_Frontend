@@ -12,6 +12,7 @@ import Profile from "./pages/Profile";
 import Faqs from "../src/pages/Faqs";
 import Feedback from "../src/pages/Feedback";
 import Products from "./pages/Products";
+import Carbon from "./pages/Carbon";
 import EducationalResources from "./pages/EducationalResources";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Route path="/review" element={<Review />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/donations" element={<Donation />} />
+        <Route path="/carbon" element={<Carbon />} />
         <Route path="/educational-resources" element={<EducationalResources />} />
       </Routes>
       <Footer />
