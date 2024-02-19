@@ -195,7 +195,10 @@ const Events = () => {
               key={event.id}
               className="max-w-sm rounded overflow-hidden shadow-md m-4"
             >
-              <img className="w-full" src={event.image_url} />
+              <img
+                className="w-full"
+                src="https://images.pexels.com/photos/9037229/pexels-photo-9037229.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+              />
               <div className="px-6 py-4">
                 <div className="font-bold text-xl mb-2">{event.title}</div>
                 <p className="text-gray-700 text-base mb-2">
