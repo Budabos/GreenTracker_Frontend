@@ -118,7 +118,7 @@ const EducationalResources = () => {
     </div>
     <div
   style={{
-    background: "url('https://static.vecteezy.com/system/resources/previews/006/898/555/large_2x/blur-green-background-free-photo.jpg')",
+    background: "url('https://www.arthomepatna.com/wp-content/uploads/2019/02/SEA_GREEN-600x600.jpg')",
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
@@ -155,14 +155,14 @@ const EducationalResources = () => {
         alt={resource.title}
         style={{ width: '60%', height: '150%' }}
       />
-        <p className="text-gray-700 mb-2">
+        <p className="text-black mb-2">
           <strong>Description:</strong> {resource.description}
         </p>
-        <p className="text-gray-700 mb-2">
+        <p className="text-black mb-2">
           <strong>Author:</strong> {resource.author}
         </p>
         <p className="mb-2">{resource.content}</p>
-        <p className="text-gray-700">
+        <p className="text-black">
           <strong>Date Published:</strong> {resource.date_published}
         </p>
       </li>
