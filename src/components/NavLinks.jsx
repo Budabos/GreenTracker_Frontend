@@ -28,6 +28,10 @@ const NavLinks = () => {
       route: "/donations",
     },
     {
+      text: "Events",
+      route: "/events",
+    },
+    {
       text: "Contact us",
       route: "/contact-us",
     },
