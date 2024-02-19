@@ -1,48 +1,81 @@
+import { useAuth } from "@/providers/AuthProvider";
+import { User } from "lucide-react";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
-  const [userData, setUserData] = useState(null);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  // const [userData, setUserData] = useState(null);
+  // const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-  useEffect(() => {
-    fetch("http://127.0.0.1:4000/signup")
-      .then((response) => response.json())
-      .then((data) => {
-        const { password, ...filteredData } = data;
-        setUserData(filteredData);
-      })
-      .catch((error) =>
-        console.error("Error fetching user information:", error)
-      );
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://127.0.0.1:4000/signup")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       const { password, ...filteredData } = data;
+  //       setUserData(filteredData);
+  //     })
+  //     .catch((error) =>
+  //       console.error("Error fetching user information:", error)
+  //     );
+  // }, []);
 
-  const openProfile = () => {
-    setIsProfileOpen(true);
-  };
+  // const openProfile = () => {
+  //   setIsProfileOpen(true);
+  // };
 
-  const closeProfile = () => {
-    setIsProfileOpen(false);
-  };
+  // const closeProfile = () => {
+  //   setIsProfileOpen(false);
+  // };
+
+  const { getUser } = useAuth();
+  const user = getUser();
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate("/login");
+  }
+
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">User Profile</h1>
-      {userData && (
-        <div className="cursor-pointer" onClick={openProfile}>
+      {user && (
+        <div className="cursor-pointer">
           <div className="bg-gray-100 p-4 rounded-lg">
             <h2 className="text-xl font-bold mb-2">User Information</h2>
-            <ul>
-              {Object.entries(userData).map(([key, value]) => (
+
+            <div className="flex flex-col items-center justify-center">
+              {user.image_url ? <img /> : <User className="w-24 h-24" />}
+
+              <ul className="flex flex-col mt-8 text-xl">
+                <li>
+                  <span className="text-2xl">Name</span> : {user.first_name}{" "}
+                  {user.last_name}
+                </li>
+                <li>
+                  <span className="text-2xl">Email:</span> {user.email}
+                </li>
+                <li>
+                  <span className="text-2xl">Phone:</span> {user.phone}
+                </li>
+                <li>
+                  <span className="text-2xl">Interests:</span> {user.interests}
+                </li>
+                <li>
+                  <span className="text-2xl">Age:</span> {user.age}
+                </li>
+                {/* {Object.entries(userData).map(([key, value]) => (
                 <li key={key} className="mb-1">
                   <strong className="mr-2">{key}:</strong> {value}
                 </li>
-              ))}
-            </ul>
+              ))} */}
+              </ul>
+            </div>
           </div>
         </div>
       )}
 
-      {isProfileOpen && (
+      {/* {isProfileOpen && (
         <div className="fixed z-10 inset-0 overflow-y-auto">
           <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div
@@ -91,7 +124,7 @@ function Profile() {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
