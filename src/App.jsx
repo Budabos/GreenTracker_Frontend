@@ -15,6 +15,7 @@ import Profile from "./pages/Profile";
 import Faqs from "../src/pages/Faqs";
 import Feedback from "../src/pages/Feedback";
 import Products from "./pages/Products";
+import Carbon from "./pages/Carbon";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/review" element={<Review />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/donations" element={<Donation />} />
+        <Route path="/carbon" element={<Carbon />} />
       </Routes>
       <Footer />
     </>
