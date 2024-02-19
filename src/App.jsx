@@ -13,6 +13,7 @@ import Faqs from "../src/pages/Faqs";
 import Feedback from "../src/pages/Feedback";
 import Products from "./pages/Products";
 import EducationalResources from "./pages/EducationalResources";
+import Events from "./pages/Events";
 
 function App() {
   return (
@@ -29,7 +30,11 @@ function App() {
         <Route path="/review" element={<Review />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/donations" element={<Donation />} />
-        <Route path="/educational-resources" element={<EducationalResources />} />
+        <Route
+          path="/educational-resources"
+          element={<EducationalResources />}
+        />
+        <Route path="/events" element={<Events />} />
       </Routes>
       <Footer />
     </>
