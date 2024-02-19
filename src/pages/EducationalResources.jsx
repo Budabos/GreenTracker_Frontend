@@ -51,6 +51,7 @@ const EducationalResources = () => {
       setNewResource({
         title: '',
         description: '',
+        image_url:'',
         category: '',
         content: '',
         author: '',
@@ -79,7 +80,7 @@ const EducationalResources = () => {
       <div className="w-1/2 pr-8">
         <h2 className="text-2xl text-black mb-4 font-bold">Add New Resource</h2>
         <form>
-          {['title', 'description', 'category', 'content', 'author', 'date_published'].map((field) => (
+          {['title', 'description', 'image_url','category', 'content', 'author', 'date_published'].map((field) => (
             <div key={field} className="pl-4">
               <label className="block text-black text-sm font-semibold mb-2">
                 {field.charAt(0).toUpperCase() + field.slice(1).replace('_', ' ')}:
@@ -108,7 +109,7 @@ const EducationalResources = () => {
           <button
             type="button"
             onClick={handleAddResource}
-            className="bg-green-800 text-white py-2 px-4 rounded"
+            className="bg-green-800 text-white py-2 px-2 rounded mt-4 ml-4"
           >
             Add Resource
           </button>
@@ -117,7 +118,7 @@ const EducationalResources = () => {
     </div>
     <div
   style={{
-    background: "url('https://i.pinimg.com/originals/ab/46/f5/ab46f5e1687357038c0f1fb96715e0c3.webp')",
+    background: "url('https://static.vecteezy.com/system/resources/previews/006/898/555/large_2x/blur-green-background-free-photo.jpg')",
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
@@ -125,17 +126,35 @@ const EducationalResources = () => {
     borderRadius: "10px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
     marginTop: "20px", 
-    backdropFilter: "blur(500px)", 
+    backdropFilter: "blur(90px)", 
   }}
   
 >
 <div style={{ textAlign: "center" }}>
     <h1 className="text-2xl text-black mb-4 font-bold">Available Resources</h1>
   </div>
+  {/* <div className="flex">
+  <div className="w-1/2">
+  {resources.map((resource) => (
+    <li key={resource.id} className="mb-4">
+      <img
+        src={resource.image_url}
+        alt={resource.title}
+        style={{ width: '100%', height: '150%' }}
+      />
+    </li>
+  ))}
+</div> */}
+      <div className="flex">
   <ul className="text-white">
     {resources.map((resource) => (
       <li key={resource.id} className="mb-4">
         <h3 className="text-xl font-bold">{resource.title}</h3>
+        <img
+        src={resource.image_url}
+        alt={resource.title}
+        style={{ width: '60%', height: '150%' }}
+      />
         <p className="text-gray-700 mb-2">
           <strong>Description:</strong> {resource.description}
         </p>
@@ -149,8 +168,9 @@ const EducationalResources = () => {
       </li>
     ))}
   </ul>
+  </div>
+  </div>
 </div>
-    </div>
   );
 };
 
