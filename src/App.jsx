@@ -1,4 +1,4 @@
-import { Route, Routes} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import Home from "../src/pages/Home";
 import Login from "../src/pages/Login";
@@ -15,6 +15,7 @@ import Products from "./pages/Products";
 import Carbon from "./pages/Carbon";
 import EducationalResources from "./pages/EducationalResources";
 import Events from "./pages/Events";
+import ProductById from "./pages/ProductById";
 
 function App() {
   return (
@@ -37,9 +38,8 @@ function App() {
           element={<EducationalResources />}
         />
         <Route path="/events" element={<Events />} />
-
-        <Route path="/carbon" element={<Carbon />} /
-
+        <Route path="/carbon" element={<Carbon />} />
+        <Route path="/products/:id" element={<ProductById />} />
       </Routes>
       <Footer />
     </>

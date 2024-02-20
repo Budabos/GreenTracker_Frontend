@@ -8,6 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import dayjs from "dayjs";
+import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 
 const ProductItem = ({ product }) => {
   return (
@@ -15,13 +17,15 @@ const ProductItem = ({ product }) => {
       <CardHeader>
         <CardTitle className="mb-6">{product.name}</CardTitle>
         <img src={product.image_url} className="rounded " alt="" />
-        <div>
+        <div className="py-2">
           <Badge variant="outline">{product.category}</Badge>
         </div>
         <CardDescription>{product.description}</CardDescription>
       </CardHeader>
       <CardFooter>
-        <p>Uploaded on: {dayjs(product.createdAt).format("DD MMM YYYY")}</p>
+        <Button asChild className="bg-black text-white">
+          <Link to={`/products/${product.id}`}>See more</Link>
+        </Button>
       </CardFooter>
     </Card>
   );
