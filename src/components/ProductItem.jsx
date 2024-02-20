@@ -14,7 +14,7 @@ const ProductItem = ({ product }) => {
     <Card>
       <CardHeader>
         <CardTitle className="mb-6">{product.name}</CardTitle>
-        <img src={bottle} className="rounded " alt="" />
+        <img src={product.image_url} className="rounded " alt="" />
         <div>
           <Badge variant="outline">{product.category}</Badge>
         </div>
