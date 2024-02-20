@@ -12,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Loader2, MoveLeft, Star } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
+import Review from "./Review";
 
 const ProductById = () => {
   const { id } = useParams();
@@ -35,8 +36,6 @@ const ProductById = () => {
       </div>
     );
   }
-
-  // console.log(product.reviews[1].user);
 
   return (
     <div className="py-10 px-16">
@@ -71,31 +70,7 @@ const ProductById = () => {
           </p>
         </div>
       </div>
-      <h2 className="mt-8 font-bold text-2xl">Reviews</h2>
-      <div className="mt-4 grid grid-cols-3 gap-6">
-        {product.reviews.map((review) => (
-          <Card>
-            <CardHeader>
-              <CardTitle>{review.review_text}</CardTitle>
-              <CardDescription className="flex">
-                {[
-                  ...Array(review.rating)
-                    .fill(0)
-                    .map((_, index) => (
-                      <Star
-                        key={index}
-                        className="h-6 w-6 fill-orange-500 text-transparent"
-                      />
-                    )),
-                ]}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="opacity-70">{review.user.email}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      <Review product={product} />
     </div>
   );
 };
