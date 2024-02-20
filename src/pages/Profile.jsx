@@ -35,7 +35,6 @@ function Profile() {
     navigate("/login");
   }
 
-
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">User Profile</h1>
@@ -45,7 +44,11 @@ function Profile() {
             <h2 className="text-xl font-bold mb-2">User Information</h2>
 
             <div className="flex flex-col items-center justify-center">
-              {user.image_url ? <img /> : <User className="w-24 h-24" />}
+              {user.image_url ? (
+                <img src={user.image_url} className="" />
+              ) : (
+                <User className="w-24 h-24" />
+              )}
 
               <ul className="flex flex-col mt-8 text-xl">
                 <li>
