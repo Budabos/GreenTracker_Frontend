@@ -2,6 +2,7 @@ import bottle from "@/assets/bottle.jpg";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
+  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -10,6 +11,7 @@ import {
 import dayjs from "dayjs";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
+import { numberFormat } from "@/lib/utils";
 
 const ProductItem = ({ product }) => {
   return (
@@ -22,8 +24,12 @@ const ProductItem = ({ product }) => {
         </div>
         <CardDescription>{product.description}</CardDescription>
       </CardHeader>
-      <CardFooter>
-        <Button asChild className="bg-black text-white">
+      <CardContent>
+        <p>{numberFormat(product.price)}</p>
+      </CardContent>
+      <CardFooter className="flex items-center justify-between">
+        <Button className="bg-black text-white">Add to cart</Button>
+        <Button asChild variant="outline">
           <Link to={`/products/${product.id}`}>See more</Link>
         </Button>
       </CardFooter>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import ReviewForm from "@/components/ReviewForm";
 import {
   Card,
   CardContent,
@@ -6,8 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Star } from "lucide-react";
-import ReviewForm from "@/components/ReviewForm";
+import { Ghost, Star } from "lucide-react";
 
 const Review = ({ product }) => {
   return (
@@ -17,6 +16,12 @@ const Review = ({ product }) => {
         <ReviewForm product={product} />
       </div>
       <div className="mt-6 grid grid-cols-3 gap-6">
+        {product.reviews.length === 0 && (
+          <div className="w-[90vw] flex items-center justify-center text-2xl">
+            <Ghost className="mr-2 h-8 w-8" />
+            No product reviews yet
+          </div>
+        )}
         {product.reviews.map((review) => (
           <Card>
             <CardHeader>
