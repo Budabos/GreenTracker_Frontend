@@ -11,13 +11,13 @@ import QueryProvider from "./providers/QueryProvider.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryProvider>
-      <AuthProvider>
-        <Router>
+      <Router>
+        <AuthProvider>
           <Navbar />
           <App />
           <Toaster richColors position="top-right" />
-        </Router>
-      </AuthProvider>
+        </AuthProvider>
+      </Router>
     </QueryProvider>
   </React.StrictMode>
 );
