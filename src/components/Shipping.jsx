@@ -100,3 +100,6 @@ const CarbonEstimate = () => {
 };
 
 export default CarbonEstimate;
+
+
+// Handle input changes and fetch data based on input values in CarbonEstimate component

@@ -34,6 +34,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "sonner";
 
+// Define the schema for donation form validation
 const donationsSchema = z.object({
   purpose: z.string({
     required_error: "Purpose is required",
