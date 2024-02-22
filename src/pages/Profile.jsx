@@ -4,14 +4,13 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Profile() {
-  const { getUser } = useAuth();
+  const { getUser, userCred } = useAuth();
   const user = getUser();
   const navigate = useNavigate();
 
-  if (!user) {
+  if (!user || !userCred) {
     navigate("/login");
   }
-
 
   return (
     <div className="container mx-auto p-4">
@@ -22,7 +21,11 @@ function Profile() {
             <h2 className="text-xl font-bold mb-2">User Information</h2>
 
             <div className="flex flex-col items-center justify-center">
-              {user.image_url ? <img /> : <User className="w-24 h-24" />}
+              {user.image_url ? (
+                <img src={user.image_url} className="" />
+              ) : (
+                <User className="w-24 h-24" />
+              )}
 
               <ul className="flex flex-col mt-8 text-xl">
                 <li>
@@ -48,6 +51,6 @@ function Profile() {
       )}
     </div>
   );
-};
+}
 
 export default Profile;

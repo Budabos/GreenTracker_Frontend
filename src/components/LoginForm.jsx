@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL, cn } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -31,6 +31,7 @@ const loginSchema = z.object({
 const LoginForm = () => {
   const [hidden, setHidden] = useState(true);
   const { setUserCred, getUser } = useAuth();
+  const navigate = useNavigate();
 
   const {
     data: res,
@@ -45,6 +46,7 @@ const LoginForm = () => {
           setUserCred(JSON.stringify(res.data));
 
           toast.success(res.data.message);
+          navigate("/");
         })
         .catch((err) => toast.error(err.response.data.message));
 
