@@ -38,8 +38,10 @@ function App() {
           element={<EducationalResources />}
         />
         <Route path="/events" element={<Events />} />
+
         <Route path="/carbon" element={<Carbon />} />
         <Route path="/products/:id" element={<ProductById />} />
+
       </Routes>
       <Footer />
     </>
