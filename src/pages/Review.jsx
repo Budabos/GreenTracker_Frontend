@@ -8,12 +8,12 @@ import {
 } from "@/components/ui/card";
 import { Ghost, Star } from "lucide-react";
 
-const Review = ({ product }) => {
+const Review = ({ product, refetch }) => {
   return (
     <>
       <div className="mt-8 flex items-center justify-between">
         <h2 className="font-bold text-2xl">Reviews</h2>
-        <ReviewForm product={product} />
+        <ReviewForm product={product} refetch={refetch}/>
       </div>
       <div className="mt-6 grid grid-cols-3 gap-6">
         {product.reviews.length === 0 && (

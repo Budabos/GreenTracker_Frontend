@@ -2,10 +2,14 @@ import ResourceForm from "@/components/ResourceForm";
 import { BASE_URL } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { z } from "zod";
+import { Loader2 } from "lucide-react";
 
 const EducationalResources = () => {
-  const { data: resources, isLoading, refetch } = useQuery({
+  const {
+    data: resources,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["educational-resources"],
     queryFn: async () => {
       return await axios
@@ -34,6 +38,17 @@ const EducationalResources = () => {
     </div>
   );
 
+  if (isLoading || !resources) {
+    return (
+      <div className="flex items-center justify-center text-xl h-[60dvh]">
+        <Loader2 className="mr-4 h-8 w-8 animate-spin" />
+        Loading products...
+      </div>
+    );
+  }
+
+  console.log(resources == undefined);
+
   return (
     <div className="bg-white-100 p-8">
       <h1 className="text-4xl text-black mb-6 font-bold">
@@ -53,7 +68,7 @@ const EducationalResources = () => {
           <h2 className="text-2xl text-black mb-4 font-bold">
             Add New Resource
           </h2>
-          <ResourceForm refetch={refetch}/>
+          <ResourceForm refetch={refetch} />
         </div>
       </div>
       <div
@@ -75,16 +90,9 @@ const EducationalResources = () => {
           </h1>
         </div>
         <div className="flex flex-wrap">
-          {isLoading || !resources ? (
-            <div className="w-[90vw] h-32 flex items-center justify-center text-2xl">
-              <Loader2 className="mr-2 h-8 w-8 animate-spin" />
-              No product reviews yet
-            </div>
-          ) : (
-            resources.map((resource) => (
-              <ResourceCard key={resource.id} resource={resource} />
-            ))
-          )}
+          {resources.map((resource) => (
+            <ResourceCard key={resource.id} resource={resource} />
+          ))}
         </div>
       </div>
     </div>
