@@ -1,6 +1,6 @@
 import React from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../../greentrackrlogo.png";
 
 const Footer = () => {
@@ -41,13 +41,9 @@ const Footer = () => {
         <div className="text-center md:text-left mt-4 md:mt-0">
           <p className="mb-2">Stay Connected:</p>
           <div className="flex space-x-4">
-            <a
-              href="#"
-              className="text-white hover:text-gray-400"
-              title="Contact Us"
-            >
-              Contact
-            </a>
+            <NavLink to={"/contact-us"}>Contact us</NavLink>
+            <NavLink to={"/feedback"}>Feedback</NavLink>
+            <NavLink to={"/faqs"}>Faqs</NavLink>
             <a
               href="#"
               className="text-white hover:text-gray-400"

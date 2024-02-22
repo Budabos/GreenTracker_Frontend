@@ -31,18 +31,18 @@ const NavLinks = () => {
       text: "Events",
       route: "/events",
     },
-    {
-      text: "Contact us",
-      route: "/contact-us",
-    },
-    {
-      text: "Feedback",
-      route: "/feedback",
-    },
-    {
-      text: "FAQs",
-      route: "/faqs",
-    },
+    // {
+    //   text: "Contact us",
+    //   route: "/contact-us",
+    // },
+    // {
+    //   text: "Feedback",
+    //   route: "/feedback",
+    // },
+    // {
+    //   text: "FAQs",
+    //   route: "/faqs",
+    // },
   ];
 
   return (
