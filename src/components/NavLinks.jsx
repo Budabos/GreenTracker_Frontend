@@ -44,7 +44,11 @@ const NavLinks = () => {
   return (
     <div className="flex items-center gap-6">
       {links.map(({ route, text }) => {
-        if (route === "/dashboard" && user.role !== "admin") return;
+        if (
+          (!user && route === "/dashboard") ||
+          (route === "/dashboard" && user.role !== "admin")
+        )
+          return;
 
         return (
           <NavLink
