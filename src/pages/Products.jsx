@@ -9,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
   Pagination,
   PaginationContent,
@@ -21,11 +22,12 @@ import {
 import { BASE_URL } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Check, Filter, Loader2, X } from "lucide-react";
+import { Check, Filter, Loader2, Search, X } from "lucide-react";
 import { useState } from "react";
 
 const Products = () => {
   const [filterBy, setFilterBy] = useState([]);
+  const [search, setSearch] = useState("");
   const { data: products, isLoading } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
@@ -50,7 +52,12 @@ const Products = () => {
   }
 
   const endOffset = pageOffset + 9;
-  const renderedProducts = products
+
+  const searchedProducts = products.filter((product) =>
+    product.name.includes(search)
+  );
+
+  const renderedProducts = searchedProducts
     .slice(pageOffset, endOffset)
     .filter((product) => {
       if (filterBy.length === 0) {
@@ -70,7 +77,6 @@ const Products = () => {
 
   const removeFilter = (category) => {
     const updatedFilters = filterBy.filter((filter) => filter !== category);
-
     setFilterBy(updatedFilters);
   };
 
@@ -78,7 +84,16 @@ const Products = () => {
     <div className="py-10 px-6">
       <h1 className="text-3xl font-bold">Available Products</h1>
       <div>
-        <div className="flex items-center justify-end">
+        <div className="mt-5 flex items-center justify-between">
+          <div className="relative w-[28rem]">
+            <Input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className=""
+              placeholder="Search product..."
+            />
+            <Search className="h-4 w-4 absolute top-1/2 translate-y-[-50%] right-3" />
+          </div>
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Button variant="secondary">
