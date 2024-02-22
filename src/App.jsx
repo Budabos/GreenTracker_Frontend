@@ -13,6 +13,10 @@ import Faqs from "../src/pages/Faqs";
 import Feedback from "../src/pages/Feedback";
 import Products from "./pages/Products";
 import EducationalResources from "./pages/EducationalResources";
+import { SustainableHabits } from "./pages/SustainableHabits";
+import { Track } from "./pages/subpages/Track";
+import { Reduce } from "./pages/subpages/Reduce";
+import { Engage } from "./pages/subpages/Engage";
 
 function App() {
   return (
@@ -30,7 +34,16 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/donations" element={<Donation />} />
         <Route path="/educational-resources" element={<EducationalResources />} />
-      </Routes>
+
+
+        <Route path="/sustainable-habits" element={<SustainableHabits />} >
+          <Route path="/sustainable-habits" element={<Track/>} />
+          <Route path="/sustainable-habits/reduce" element={<Reduce/>} />
+          <Route path="/sustainable-habits/engage" element={<Engage/>} />
+        </Route>
+
+
+      </Routes >
       <Footer />
     </>
   );

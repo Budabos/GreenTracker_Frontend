@@ -39,6 +39,10 @@ const NavLinks = () => {
       text: "FAQs",
       route: "/faqs",
     },
+    {
+      text: "Sustainable Habits",
+      route: "/sustainable-habits",
+    },
   ];
 
   return (
