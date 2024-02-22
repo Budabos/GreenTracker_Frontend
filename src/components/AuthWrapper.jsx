@@ -8,11 +8,11 @@ const AuthWrapper = () => {
   const user = getUser();
   const navigate = useNavigate();
 
-  //   useEffect(() => {
-  //     if (user.role !== "admin") {
-  //       navigate("/");
-  //     }
-  //   }, [user, navigate]);
+  useEffect(() => {
+    if (user.role !== "admin") {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   return (
     <div className="flex">
