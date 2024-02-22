@@ -1,3 +1,4 @@
+import ChangePasswordForm from "@/components/ChangePasswordForm";
 import { useAuth } from "@/providers/AuthProvider";
 import { User } from "lucide-react";
 import React, { useState, useEffect } from "react";
@@ -20,7 +21,7 @@ function Profile() {
           <div className="bg-gray-100 p-4 rounded-lg">
             <h2 className="text-xl font-bold mb-2">User Information</h2>
 
-            <div className="flex flex-col items-center justify-center">
+            {/* <div className="flex flex-col items-center justify-center">
               {user.image_url ? (
                 <img src={user.image_url} className="" />
               ) : (
@@ -45,7 +46,10 @@ function Profile() {
                   <span className="text-2xl">Age:</span> {user.age}
                 </li>
               </ul>
-            </div>
+            </div> */}
+
+            <h2 className="text-xl font-bold mb-2">Change password</h2>
+            <ChangePasswordForm/>
           </div>
         </div>
       )}
