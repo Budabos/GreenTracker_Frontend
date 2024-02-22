@@ -23,17 +23,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { cn } from "@/lib/utils";
+import { BASE_URL, cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { Label } from "./ui/label";
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "@/providers/AuthProvider";
+import axios from "axios";
 
 const signupSchema = z
   .object({
@@ -74,6 +75,8 @@ const SignupForm = () => {
 
   const { setUserCred, getUser } = useAuth();
 
+  const navigate = useNavigate();
+
   const {
     data: res,
     isPending,
@@ -81,16 +84,16 @@ const SignupForm = () => {
   } = useMutation({
     mutationKey: ["signup"],
     mutationFn: async (values) => {
-      const res = await axios
+      console.log(values);
+      await axios
         .post(`${BASE_URL}/signup`, values)
         .then((res) => {
           setUserCred(JSON.stringify(res.data));
 
           toast.success(res.data.message);
+          navigate("/");
         })
         .catch((err) => toast.error(err.response.data.message));
-
-      return res;
     },
   });
 
@@ -103,7 +106,7 @@ const SignupForm = () => {
   });
 
   function onSubmit(values) {
-    mutate({ ...values, interests, role: "member" });
+    mutate({ ...values, interests: interests.join(","), role: "member" });
   }
 
   return (
@@ -323,7 +326,11 @@ const SignupForm = () => {
           >
             Already have an account?
           </Link>
-          <Button className="bg-black text-white" type="submit" disabled={isPending}>
+          <Button
+            className="bg-black text-white"
+            type="submit"
+            disabled={isPending}
+          >
             {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Submit
           </Button>

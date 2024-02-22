@@ -20,12 +20,24 @@ const NavLinks = () => {
       route: "/products",
     },
     {
+      text: "Educational Resources",
+      route: "/educational-resources",
+    },
+    {
       text: "Donation",
       route: "/donations",
     },
     {
       text: "Contact us",
       route: "/contact-us",
+    },
+    {
+      text: "Feedback",
+      route: "/feedback",
+    },
+    {
+      text: "FAQs",
+      route: "/faqs",
     },
   ];
 
