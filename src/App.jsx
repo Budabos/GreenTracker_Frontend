@@ -38,7 +38,7 @@ function App() {
         />
         <Route path="/events" element={<Events />} />
 
-        <Route path="/carbon" element={<Carbon />} /
+        <Route path="/carbon" element={<Carbon />} />
 
       </Routes>
       <Footer />
