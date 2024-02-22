@@ -18,7 +18,7 @@ const ProductById = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { data: product, isLoading } = useQuery({
+  const { data: product, isLoading, refetch } = useQuery({
     queryKey: ["product"],
     queryFn: async () => {
       return await axios
@@ -70,7 +70,7 @@ const ProductById = () => {
           </p>
         </div>
       </div>
-      <Review product={product} />
+      <Review product={product} refetch={refetch}/>
     </div>
   );
 };

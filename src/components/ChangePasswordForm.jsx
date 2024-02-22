@@ -13,6 +13,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { BASE_URL } from "@/lib/utils";
+import { useAuth } from "@/providers/AuthProvider";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 const passwordSchema = z
   .object({
@@ -35,8 +41,24 @@ const ChangePasswordForm = () => {
     },
   });
 
+  const { getUser } = useAuth();
+  const user = getUser();
+
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["password"],
+    mutationFn: async (values) => {
+      // await axios
+      //   .post(`${BASE_URL}/users/${user.id}`, values)
+      //   .then((res) => {
+      //     toast.success(res.data.message);
+      //     form.reset();
+      //   })
+      //   .catch((err) => console.log(err));
+    },
+  });
+
   function onSubmit(values) {
-    console.log(values);
+    mutate(values);
   }
 
   return (
@@ -84,7 +106,12 @@ const ChangePasswordForm = () => {
             </FormItem>
           )}
         />
-        <Button className="bg-black text-white" type="submit">
+        <Button
+          disabled={isPending}
+          className="bg-black text-white"
+          type="submit"
+        >
+          {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           Submit
         </Button>
       </form>
