@@ -75,7 +75,7 @@ const EducationalResources = () => {
         alt={resource.title}
         className="w-full h-auto mb-2"
       />
-      <p className="text-gray-700 mb-2">{resource.description}</p>
+      <p className="text-black-700 mb-2 ">{resource.description}</p>
       <p className="text-black mb-2">
         <strong>Author:</strong> {resource.author}
       </p>
