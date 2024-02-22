@@ -4,11 +4,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Profile() {
-  const { getUser } = useAuth();
+  const { getUser, userCred } = useAuth();
   const user = getUser();
   const navigate = useNavigate();
 
-  if (!user) {
+  if (!user || !userCred) {
     navigate("/login");
   }
 
@@ -51,6 +51,6 @@ function Profile() {
       )}
     </div>
   );
-};
+}
 
 export default Profile;
