@@ -52,21 +52,20 @@ const Products = () => {
   }
 
   const endOffset = pageOffset + 9;
-
   const searchedProducts = products.filter((product) =>
     product.name.includes(search)
   );
 
   const renderedProducts = searchedProducts
-    .slice(pageOffset, endOffset)
     .filter((product) => {
       if (filterBy.length === 0) {
         return product;
       }
 
       return filterBy.includes(product.category);
-    });
-  const pageCount = Math.ceil(products.length / 9);
+    })
+    .slice(pageOffset, endOffset);
+  const pageCount = Math.ceil(renderedProducts.length / 9);
 
   const handlePageClick = (pageNum) => {
     const newOffset = (pageNum * 9) % products.length;
@@ -89,7 +88,6 @@ const Products = () => {
             <Input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className=""
               placeholder="Search product..."
             />
             <Search className="h-4 w-4 absolute top-1/2 translate-y-[-50%] right-3" />
