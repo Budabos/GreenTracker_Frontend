@@ -11,7 +11,7 @@ const CarbonEstimate = () => {
 
     // Function to fetch carbon estimate data from the API
     const fetchCarbonEstimate = async () => {
-        const API_KEY = 'YOUR_API_KEY'; // Replace 'YOUR_API_KEY' with your actual API key
+        const API_KEY = 'tQwZxNs9meZ43GhGJvQ6UA'; 
         const url = 'https://www.carboninterface.com/api/v1/estimates';
 
         // Data to be sent in the POST request, including input values from state
@@ -28,7 +28,7 @@ const CarbonEstimate = () => {
         const options = {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${API_KEY}`,
+                'Authorization': `Bearer ${tQwZxNs9meZ43GhGJvQ6UA}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
@@ -102,4 +102,3 @@ const CarbonEstimate = () => {
 export default CarbonEstimate;
 
 
-// Handle input changes and fetch data based on input values in CarbonEstimate component
