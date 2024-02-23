@@ -1,3 +1,4 @@
+import AddProduct from "@/components/AddProduct";
 import ProductCardList from "@/components/ProductCardList";
 import ViewSelector from "@/components/ViewSelector";
 import { DataTable } from "@/components/ui/data-table";
@@ -10,7 +11,7 @@ import React, { useState } from "react";
 
 const DashboardProducts = () => {
   const [active, setActive] = useState("grid");
-  const { data: products, isLoading } = useQuery({
+  const { data: products, isLoading, refetch } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
       return await axios
@@ -43,12 +44,12 @@ const DashboardProducts = () => {
       <div>
         <div className="flex items-center justify-between">
           <h1 className="text-4xl font-bold">Products</h1>
-          <div>
+          <div className="flex items-center gap-10">
+            <AddProduct callback={refetch}/>
             <ViewSelector active={active} setActive={setActive} />
           </div>
         </div>
       </div>
-      {/*  Display message if there are no products in DB*/}
       {active === "grid" && <ProductCardList products={products} />}
       {active === "list" && <DataTable data={products} columns={columns} />}
     </div>
