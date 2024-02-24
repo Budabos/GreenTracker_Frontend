@@ -53,7 +53,7 @@ export const productSchema = z.object({
   }),
 });
 
-const AddProduct = ({ callback, setProducts }) => {
+const AddProduct = ({  setProducts }) => {
   const form = useForm({
     resolver: zodResolver(productSchema),
   });
