@@ -26,7 +26,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { BASE_URL, numberFormat } from "@/lib/utils";
-import { MoreHorizontal, PenLine, Search, Trash } from "lucide-react";
+import {
+  Check,
+  Filter,
+  MoreHorizontal,
+  PenLine,
+  Search,
+  Trash,
+} from "lucide-react";
 import { useState } from "react";
 import DeleteItem from "./DeleteItem";
 import { useMutation } from "@tanstack/react-query";
@@ -34,19 +41,29 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Dialog, DialogTrigger } from "./ui/dialog";
 import EditItem from "./EditItem";
+import e from "cors";
 
-const ProductCardList = ({ products, setProducts }) => {
+const ProductCardList = ({ products, setProducts, filterBy, setFilterBy }) => {
   const [search, setSearch] = useState("");
   const [dialog, setDialog] = useState("");
   const [pageOffset, setPageOffset] = useState(0);
+  const categories = new Set(products.map(({ category }) => category));
 
   const endOffset = pageOffset + 9;
   const searchedProducts = products.filter((product) =>
     product.name.toLowerCase().includes(search)
   );
 
-  const renderedProducts = searchedProducts.slice(pageOffset, endOffset);
-  const pageCount = Math.ceil(searchedProducts.length / 9);
+  const renderedProducts = searchedProducts
+    .filter((product) => {
+      if (filterBy.length < 1) return product;
+
+      if (filterBy.includes(product.category)) {
+        return product;
+      }
+    })
+    .slice(pageOffset, endOffset);
+  const pageCount = Math.ceil(renderedProducts.length / 9);
 
   const handlePageClick = (pageNum) => {
     const newOffset = (pageNum * 9) % products.length;
@@ -103,6 +120,38 @@ const ProductCardList = ({ products, setProducts }) => {
           />
           <Search className="h-4 w-4 absolute top-1/2 translate-y-[-50%] right-3" />
         </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <Button>
+              <Filter className="mr-2 h-4 w-4" />
+              Filter
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>Filter columns</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {[...categories].map((category) => (
+              <DropdownMenuItem
+                onClick={() => {
+                  if (filterBy.includes(category)) {
+                    const updatedFilters = filterBy.filter(
+                      (filter) => filter !== category
+                    );
+                    setFilterBy(updatedFilters);
+                  } else {
+                    setFilterBy((prev) => [...prev, category]);
+                  }
+                }}
+                className="cursor-pointer"
+              >
+                {filterBy.includes(category) && (
+                  <Check className="mr-2 h-4 w-4" />
+                )}
+                {category}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       <div className="mt-10 grid grid-cols-3 gap-6">
         {renderedProducts.map((product) => (
