@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Dialog,
   DialogContent,
@@ -10,60 +9,53 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "./ui/button";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
+import { BASE_URL } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Textarea } from "./ui/textarea";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { BASE_URL } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { z } from "zod";
+import { Button } from "./ui/button";
+import { Textarea } from "./ui/textarea";
 
-const productSchema = z.object({
-  name: z.string({
-    required_error: "Name is required",
+export const productSchema = z.object({
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters",
   }),
-  description: z.string({
-    required_error: "Description is required",
+  description: z.string().min(1, {
+    message: "Description is required",
   }),
-  category: z.string({
-    required_error: "Category is required",
+  category: z.string().min(1, {
+    message: "Category is required",
   }),
   price: z
-    .string({
-      required_error: "Price is required",
+    .string()
+    .min(1, {
+      message: "Price is required",
     })
     .transform((val) => parseInt(val)),
   eco_rating: z
-    .string({
-      required_error: "Eco rating is required",
+    .string()
+    .min(1, {
+      message: "Eco rating is required",
     })
     .transform((val) => parseInt(val)),
-  image_url: z.string({
-    required_error: "Image url is required",
+  image_url: z.string().min(1, {
+    message: "Image url is required",
   }),
 });
 
-const AddProduct = ({ callback }) => {
+const AddProduct = ({ callback, setProducts }) => {
   const form = useForm({
     resolver: zodResolver(productSchema),
-    defaultValues: {
-      name: "",
-      description: "",
-      category: "",
-      price: "",
-      eco_rating: "",
-      image_url: "",
-    },
   });
 
   const { mutate, isPending } = useMutation({
@@ -74,7 +66,7 @@ const AddProduct = ({ callback }) => {
         .then((res) => {
           toast.success(res.data.message);
           form.reset();
-          callback();
+          setProducts((prevProducts) => [...prevProducts, res.data.product]);
         })
         .catch((err) => console.log(err));
     },
