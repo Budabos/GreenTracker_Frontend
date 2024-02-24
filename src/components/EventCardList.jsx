@@ -1,3 +1,4 @@
+import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -41,72 +42,33 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Dialog, DialogTrigger } from "./ui/dialog";
 import EditItem from "./EditItem";
+import { format } from "date-fns";
 
-const ProductCardList = ({ products, setProducts, filterBy, setFilterBy }) => {
+const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
   const [search, setSearch] = useState("");
   const [dialog, setDialog] = useState("");
   const [pageOffset, setPageOffset] = useState(0);
-  const categories = new Set(products.map(({ category }) => category));
 
   const endOffset = pageOffset + 9;
-  const searchedProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(search)
+  const searchedEvents = events.filter((event) =>
+    event.title.toLowerCase().includes(search)
   );
 
-  const renderedProducts = searchedProducts
-    .filter((product) => {
-      if (filterBy.length < 1) return product;
+  const renderedEvents = searchedEvents
+    .filter((event) => {
+      if (filterBy.length < 1) return event;
 
-      if (filterBy.includes(product.category)) {
-        return product;
+      if (filterBy.includes(event.category)) {
+        return event;
       }
     })
     .slice(pageOffset, endOffset);
-  const pageCount = Math.ceil(renderedProducts.length / 9);
+  const pageCount = Math.ceil(renderedEvents.length / 9);
 
   const handlePageClick = (pageNum) => {
-    const newOffset = (pageNum * 9) % products.length;
+    const newOffset = (pageNum * 9) % events.length;
     setPageOffset(newOffset);
   };
-
-  const { mutate: deleteProduct, isPending: pendingDeletion } = useMutation({
-    mutationKey: ["products"],
-    mutationFn: async (id) => {
-      return await axios
-        .delete(`${BASE_URL}/products/${id}`)
-        .then((res) => {
-          toast.success("Product deleted successfully");
-
-          const updatedProducts = products.filter(
-            (product) => product.id !== id
-          );
-          setProducts(updatedProducts);
-        })
-        .catch((err) => toast.error(err.data.message));
-    },
-  });
-
-  const { mutate: editProduct, isPending: pendingEdit } = useMutation({
-    mutationKey: ["products"],
-    mutationFn: async ([id, values]) => {
-      return await axios
-        .patch(`${BASE_URL}/products/${id}`, values)
-        .then((res) => {
-          toast.success(res.data.message);
-
-          const updatedProducts = products.map((product) => {
-            if (product.id === id) {
-              return res.data.product;
-            }
-
-            return product;
-          });
-
-          setProducts(updatedProducts);
-        })
-        .catch((err) => toast.error(err.data.message));
-    },
-  });
 
   return (
     <>
@@ -115,7 +77,7 @@ const ProductCardList = ({ products, setProducts, filterBy, setFilterBy }) => {
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search product..."
+            placeholder="Search event..."
           />
           <Search className="h-4 w-4 absolute top-1/2 translate-y-[-50%] right-3" />
         </div>
@@ -129,7 +91,7 @@ const ProductCardList = ({ products, setProducts, filterBy, setFilterBy }) => {
           <DropdownMenuContent>
             <DropdownMenuLabel>Filter columns</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {[...categories].map((category) => (
+            {/* {[...categories].map((category) => (
               <DropdownMenuItem
                 onClick={() => {
                   if (filterBy.includes(category)) {
@@ -148,16 +110,16 @@ const ProductCardList = ({ products, setProducts, filterBy, setFilterBy }) => {
                 )}
                 {category}
               </DropdownMenuItem>
-            ))}
+            ))} */}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
       <div className="mt-10 grid grid-cols-3 gap-6">
-        {renderedProducts.map((product) => (
-          <Card key={product.id}>
+        {renderedEvents.map((event) => (
+          <Card key={event.id}>
             <CardHeader>
               <div className="flex items-center  justify-between gap-4">
-                <CardTitle>{product.name}</CardTitle>
+                <CardTitle>{event.title}</CardTitle>
                 <Dialog>
                   <DropdownMenu>
                     <DropdownMenuTrigger>
@@ -171,7 +133,7 @@ const ProductCardList = ({ products, setProducts, filterBy, setFilterBy }) => {
                       <DialogTrigger asChild onClick={() => setDialog("edit")}>
                         <DropdownMenuItem>
                           <PenLine className="mr-2 h-4 w-4" />
-                          Edit product
+                          Edit event
                         </DropdownMenuItem>
                       </DialogTrigger>
                       <DialogTrigger
@@ -180,37 +142,37 @@ const ProductCardList = ({ products, setProducts, filterBy, setFilterBy }) => {
                       >
                         <DropdownMenuItem className="text-red-600">
                           <Trash className="mr-2 h-4 w-4" />
-                          Delete product
+                          Delete event
                         </DropdownMenuItem>
                       </DialogTrigger>
                     </DropdownMenuContent>
                   </DropdownMenu>
-                  {dialog === "delete" && (
+                  {/* {dialog === "delete" && (
                     <DeleteItem
-                      itemType="product"
-                      id={product.id}
+                      itemType="event"
+                      id={event.id}
                       isPending={pendingDeletion}
-                      action={deleteProduct}
+                      action={deleteEvent}
                     />
                   )}
                   {dialog === "edit" && (
                     <EditItem
-                      item={product}
-                      action={editProduct}
+                      item={event}
+                      action={editEvent}
                       isPending={pendingEdit}
                     />
-                  )}
+                  )} */}
                 </Dialog>
               </div>
               <div>
-                <Badge variant="outline">{product.category}</Badge>
+                <Badge variant="outline">{event.location}</Badge>
               </div>
               <CardDescription className="pt-6">
-                {product.description}
+                {event.description}
               </CardDescription>
             </CardHeader>
             <CardContent className="opacity-80 text-sm">
-              <p>{numberFormat(product.price)}</p>
+              <p>{format(event.date_event, "PPP")}</p>
             </CardContent>
           </Card>
         ))}
@@ -250,4 +212,4 @@ const ProductCardList = ({ products, setProducts, filterBy, setFilterBy }) => {
   );
 };
 
-export default ProductCardList;
+export default EventCardList;
