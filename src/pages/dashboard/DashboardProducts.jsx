@@ -11,12 +11,19 @@ import React, { useState } from "react";
 
 const DashboardProducts = () => {
   const [active, setActive] = useState("grid");
-  const { data: products, isLoading, refetch } = useQuery({
+  const [products, setProducts] = useState([]);
+
+  const {
+    data,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
       return await axios
         .get(`${BASE_URL}/products`)
         .then((res) => {
+          setProducts(res.data)
           return res.data;
         })
         .catch((err) => console.error(err.message));
@@ -45,12 +52,14 @@ const DashboardProducts = () => {
         <div className="flex items-center justify-between">
           <h1 className="text-4xl font-bold">Products</h1>
           <div className="flex items-center gap-10">
-            <AddProduct callback={refetch}/>
+            <AddProduct callback={refetch} setProducts={setProducts} />
             <ViewSelector active={active} setActive={setActive} />
           </div>
         </div>
       </div>
-      {active === "grid" && <ProductCardList products={products} refetch={refetch} />}
+      {active === "grid" && (
+        <ProductCardList products={products} setProducts={setProducts} />
+      )}
       {active === "list" && <DataTable data={products} columns={columns} />}
     </div>
   );

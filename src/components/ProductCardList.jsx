@@ -33,9 +33,11 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "sonner";
 import { Dialog, DialogTrigger } from "./ui/dialog";
+import EditItem from "./EditItem";
 
-const ProductCardList = ({ products, refetch }) => {
+const ProductCardList = ({ products, setProducts }) => {
   const [search, setSearch] = useState("");
+  const [dialog, setDialog] = useState("");
   const [pageOffset, setPageOffset] = useState(0);
 
   const endOffset = pageOffset + 9;
@@ -51,14 +53,40 @@ const ProductCardList = ({ products, refetch }) => {
     setPageOffset(newOffset);
   };
 
-  const { mutate, isPending } = useMutation({
+  const { mutate: deleteProduct, isPending: pendingDeletion } = useMutation({
     mutationKey: ["products"],
     mutationFn: async (id) => {
       return await axios
         .delete(`${BASE_URL}/products/${id}`)
         .then((res) => {
           toast.success("Product deleted successfully");
-          refetch();
+
+          const updatedProducts = products.filter(
+            (product) => product.id !== id
+          );
+          setProducts(updatedProducts);
+        })
+        .catch((err) => toast.error(err.data.message));
+    },
+  });
+
+  const { mutate: editProduct, isPending: pendingEdit } = useMutation({
+    mutationKey: ["products"],
+    mutationFn: async ([id, values]) => {
+      return await axios
+        .patch(`${BASE_URL}/products/${id}`, values)
+        .then((res) => {
+          toast.success(res.data.message);
+
+          const updatedProducts = products.map((product) => {
+            if (product.id === id) {
+              return res.data.product;
+            }
+
+            return product;
+          });
+
+          setProducts(updatedProducts);
         })
         .catch((err) => toast.error(err.data.message));
     },
@@ -77,11 +105,11 @@ const ProductCardList = ({ products, refetch }) => {
         </div>
       </div>
       <div className="mt-10 grid grid-cols-3 gap-6">
-        {renderedProducts.map(({ id, name, category, description, price }) => (
-          <Card key={id}>
+        {renderedProducts.map((product) => (
+          <Card key={product.id}>
             <CardHeader>
               <div className="flex items-center  justify-between gap-4">
-                <CardTitle>{name}</CardTitle>
+                <CardTitle>{product.name}</CardTitle>
                 <Dialog>
                   <DropdownMenu>
                     <DropdownMenuTrigger>
@@ -90,13 +118,18 @@ const ProductCardList = ({ products, refetch }) => {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                      <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem>
-                        <PenLine className="mr-2 h-4 w-4" />
-                        Edit product
-                      </DropdownMenuItem>
-                      <DialogTrigger asChild>
+                      <DialogTrigger asChild onClick={() => setDialog("edit")}>
+                        <DropdownMenuItem>
+                          <PenLine className="mr-2 h-4 w-4" />
+                          Edit product
+                        </DropdownMenuItem>
+                      </DialogTrigger>
+                      <DialogTrigger
+                        onClick={() => setDialog("delete")}
+                        asChild
+                      >
                         <DropdownMenuItem className="text-red-600">
                           <Trash className="mr-2 h-4 w-4" />
                           Delete product
@@ -104,21 +137,32 @@ const ProductCardList = ({ products, refetch }) => {
                       </DialogTrigger>
                     </DropdownMenuContent>
                   </DropdownMenu>
-                  <DeleteItem
-                    itemType="product"
-                    id={id}
-                    isPending={isPending}
-                    action={mutate}
-                  />
+                  {dialog === "delete" && (
+                    <DeleteItem
+                      itemType="product"
+                      id={product.id}
+                      isPending={pendingDeletion}
+                      action={deleteProduct}
+                    />
+                  )}
+                  {dialog === "edit" && (
+                    <EditItem
+                      item={product}
+                      action={editProduct}
+                      isPending={pendingEdit}
+                    />
+                  )}
                 </Dialog>
               </div>
               <div>
-                <Badge variant="outline">{category}</Badge>
+                <Badge variant="outline">{product.category}</Badge>
               </div>
-              <CardDescription className="pt-6">{description}</CardDescription>
+              <CardDescription className="pt-6">
+                {product.description}
+              </CardDescription>
             </CardHeader>
             <CardContent className="opacity-80 text-sm">
-              <p>{numberFormat(price)}</p>
+              <p>{numberFormat(product.price)}</p>
             </CardContent>
           </Card>
         ))}
