@@ -48,17 +48,18 @@ const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
   const [search, setSearch] = useState("");
   const [dialog, setDialog] = useState("");
   const [pageOffset, setPageOffset] = useState(0);
+  const locations = new Set(events.map(({ location }) => location));
 
   const endOffset = pageOffset + 9;
   const searchedEvents = events.filter((event) =>
-    event.title.toLowerCase().includes(search)
+    event.title.toLowerCase().includes(search.toLowerCase())
   );
 
   const renderedEvents = searchedEvents
     .filter((event) => {
       if (filterBy.length < 1) return event;
 
-      if (filterBy.includes(event.category)) {
+      if (filterBy.includes(event.location)) {
         return event;
       }
     })
@@ -69,6 +70,22 @@ const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
     const newOffset = (pageNum * 9) % events.length;
     setPageOffset(newOffset);
   };
+
+  const { mutate: deleteEvent, isPending: pendingDeletion } = useMutation({
+    mutationKey: ["events"],
+    mutationFn: async (id) => {
+      return await axios
+        .delete(`${BASE_URL}/events/${id}`)
+        .then((res) => {
+          toast.success("Event deleted successfully");
+          const updatedEvents = events.filter(
+            (event) => event.id !== id
+          );
+          setEvents(updatedEvents);
+        })
+        .catch((err) => console.log(err.data.message));
+    },
+  });
 
   return (
     <>
@@ -91,26 +108,26 @@ const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
           <DropdownMenuContent>
             <DropdownMenuLabel>Filter columns</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {/* {[...categories].map((category) => (
+            {[...locations].map((location) => (
               <DropdownMenuItem
                 onClick={() => {
-                  if (filterBy.includes(category)) {
+                  if (filterBy.includes(location)) {
                     const updatedFilters = filterBy.filter(
-                      (filter) => filter !== category
+                      (filter) => filter !== location
                     );
                     setFilterBy(updatedFilters);
                   } else {
-                    setFilterBy((prev) => [...prev, category]);
+                    setFilterBy((prev) => [...prev, location]);
                   }
                 }}
                 className="cursor-pointer"
               >
-                {filterBy.includes(category) && (
+                {filterBy.includes(location) && (
                   <Check className="mr-2 h-4 w-4" />
                 )}
-                {category}
+                {location}
               </DropdownMenuItem>
-            ))} */}
+            ))}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -147,7 +164,7 @@ const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
                       </DialogTrigger>
                     </DropdownMenuContent>
                   </DropdownMenu>
-                  {/* {dialog === "delete" && (
+                  {dialog === "delete" && (
                     <DeleteItem
                       itemType="event"
                       id={event.id}
@@ -155,7 +172,7 @@ const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
                       action={deleteEvent}
                     />
                   )}
-                  {dialog === "edit" && (
+                  {/* {dialog === "edit" && (
                     <EditItem
                       item={event}
                       action={editEvent}

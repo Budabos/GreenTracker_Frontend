@@ -53,7 +53,7 @@ const Products = () => {
 
   const endOffset = pageOffset + 9;
   const searchedProducts = products.filter((product) =>
-    product.name.includes(search)
+    product.name.includes(search.toLowerCase())
   );
 
   const renderedProducts = searchedProducts

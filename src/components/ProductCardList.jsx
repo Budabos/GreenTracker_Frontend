@@ -50,7 +50,7 @@ const ProductCardList = ({ products, setProducts, filterBy, setFilterBy }) => {
 
   const endOffset = pageOffset + 9;
   const searchedProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(search)
+    product.name.toLowerCase().includes(search.toLowerCase())
   );
 
   const renderedProducts = searchedProducts
