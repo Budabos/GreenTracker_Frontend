@@ -2,17 +2,17 @@ import AddProduct from "@/components/AddProduct";
 import ProductCardList from "@/components/ProductCardList";
 import ViewSelector from "@/components/ViewSelector";
 import { DataTable } from "@/components/ui/data-table";
-import { BASE_URL, numberFormat } from "@/lib/utils";
+import { BASE_URL } from "@/lib/utils";
 import { columns } from "@/tables/products/columns";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Ghost, Loader2 } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 
 const DashboardProducts = () => {
   const [active, setActive] = useState("grid");
   const [products, setProducts] = useState([]);
-  const [filterBy, setFilterBy] = useState(["Pets"]);
+  const [filterBy, setFilterBy] = useState([]);
 
   const { data, isLoading } = useQuery({
     queryKey: ["products"],
@@ -55,7 +55,12 @@ const DashboardProducts = () => {
         </div>
       </div>
       {active === "grid" && (
-        <ProductCardList filterBy={filterBy} setFilterBy={setFilterBy} products={products} setProducts={setProducts} />
+        <ProductCardList
+          filterBy={filterBy}
+          setFilterBy={setFilterBy}
+          products={products}
+          setProducts={setProducts}
+        />
       )}
       {active === "list" && <DataTable data={products} columns={columns} />}
     </div>
