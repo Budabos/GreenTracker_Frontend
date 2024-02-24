@@ -50,7 +50,7 @@ const DashboardProducts = () => {
           </div>
         </div>
       </div>
-      {active === "grid" && <ProductCardList products={products} />}
+      {active === "grid" && <ProductCardList products={products} refetch={refetch} />}
       {active === "list" && <DataTable data={products} columns={columns} />}
     </div>
   );

@@ -17,11 +17,24 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { numberFormat } from "@/lib/utils";
-import { MoreHorizontal, Search } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { BASE_URL, numberFormat } from "@/lib/utils";
+import { MoreHorizontal, PenLine, Search, Trash } from "lucide-react";
 import { useState } from "react";
+import DeleteItem from "./DeleteItem";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { toast } from "sonner";
+import { Dialog, DialogTrigger } from "./ui/dialog";
 
-const ProductCardList = ({ products }) => {
+const ProductCardList = ({ products, refetch }) => {
   const [search, setSearch] = useState("");
   const [pageOffset, setPageOffset] = useState(0);
 
@@ -38,6 +51,18 @@ const ProductCardList = ({ products }) => {
     setPageOffset(newOffset);
   };
 
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["products"],
+    mutationFn: async (id) => {
+      return await axios
+        .delete(`${BASE_URL}/products/${id}`)
+        .then((res) => {
+          toast.success("Product deleted successfully");
+          refetch();
+        })
+        .catch((err) => toast.error(err.data.message));
+    },
+  });
 
   return (
     <>
@@ -57,9 +82,35 @@ const ProductCardList = ({ products }) => {
             <CardHeader>
               <div className="flex items-center  justify-between gap-4">
                 <CardTitle>{name}</CardTitle>
-                <Button size="icon" variant="ghost">
-                  <MoreHorizontal />
-                </Button>
+                <Dialog>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger>
+                      <Button size="icon" variant="ghost">
+                        <MoreHorizontal />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem>
+                        <PenLine className="mr-2 h-4 w-4" />
+                        Edit product
+                      </DropdownMenuItem>
+                      <DialogTrigger asChild>
+                        <DropdownMenuItem className="text-red-600">
+                          <Trash className="mr-2 h-4 w-4" />
+                          Delete product
+                        </DropdownMenuItem>
+                      </DialogTrigger>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                  <DeleteItem
+                    itemType="product"
+                    id={id}
+                    isPending={isPending}
+                    action={mutate}
+                  />
+                </Dialog>
               </div>
               <div>
                 <Badge variant="outline">{category}</Badge>
