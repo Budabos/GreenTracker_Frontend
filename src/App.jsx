@@ -23,11 +23,14 @@ import Footprint from "./pages/Footprint";
 
 import Events from "./pages/Events";
 import ProductById from "./pages/ProductById";
+
+import CarbonCalculator from "./pages/CarbonCalculator";
 import Dashboard from "./pages/dashboard/Dashboard";
 import AuthWrapper from "./components/AuthWrapper";
 import DashboardEvents from "./pages/dashboard/DashboardEvents";
 import DashboardProducts from "./pages/dashboard/DashboardProducts";
 import DashboardUsers from "./pages/dashboard/DashboardUsers";
+
 
 
 function App() {
@@ -64,6 +67,9 @@ function App() {
         <Route path="/events" element={<Events />} />
         <Route path="/carbon" element={<Carbon />} />
         <Route path="/products/:id" element={<ProductById />} />
+
+        <Route path="/carbon-calculation" element={<CarbonCalculator />} />
+
         <Route element={<AuthWrapper />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/events" element={<DashboardEvents />} />
