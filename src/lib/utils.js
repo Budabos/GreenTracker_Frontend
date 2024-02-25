@@ -12,3 +12,7 @@ export const numberFormat = (value) =>
     style: "currency",
     currency: "Ksh",
   }).format(value);
+
+export const capitalizeWord = (word) => {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}
