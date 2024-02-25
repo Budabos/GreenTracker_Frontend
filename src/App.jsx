@@ -57,9 +57,6 @@ function App() {
           <Route path="/sustainable-habits/engage" element={<Engage/>} />
         </Route>
 
-
-      </Routes >
-
         <Route
           path="/educational-resources"
           element={<EducationalResources />}
