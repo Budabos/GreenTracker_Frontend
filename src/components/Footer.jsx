@@ -1,9 +1,14 @@
 import React from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import logo from "../../greentrackrlogo.png";
 
 const Footer = () => {
+  const { pathname } = useLocation();
+  const excludes = ["/dashboard"];
+
+  if (excludes.includes(pathname)) return;
+
   return (
     <footer className="text-white py-8" style={{ backgroundColor: "#245501" }}>
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
