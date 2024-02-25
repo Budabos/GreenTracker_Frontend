@@ -43,6 +43,10 @@ const NavLinks = () => {
       text: "Sustainable Habits",
       route: "/sustainable-habits",
     },
+    {
+      text: "Calculate footprint",
+      route: "/footprint",
+    },
   ];
 
   return (

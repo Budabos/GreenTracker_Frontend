@@ -17,6 +17,7 @@ import { SustainableHabits } from "./pages/SustainableHabits";
 import { Track } from "./pages/subpages/Track";
 import { Reduce } from "./pages/subpages/Reduce";
 import { Engage } from "./pages/subpages/Engage";
+import Footprint from "./pages/Footprint";
 
 function App() {
   return (
@@ -34,6 +35,8 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/donations" element={<Donation />} />
         <Route path="/educational-resources" element={<EducationalResources />} />
+        <Route path="/footprint" element={<Footprint />} />
+
 
 
         <Route path="/sustainable-habits" element={<SustainableHabits />} >
