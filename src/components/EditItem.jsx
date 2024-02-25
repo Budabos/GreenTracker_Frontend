@@ -15,13 +15,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { productSchema } from "./AddProduct";
 import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
 
-const EditItem = ({ item, isPending, action }) => {
+const EditItem = ({ item, isPending, action, schema }) => {
   const form = useForm({
-    resolver: zodResolver(productSchema),
+    resolver: zodResolver(schema),
     defaultValues: convertValuesToString(item),
   });
 
@@ -33,9 +32,14 @@ const EditItem = ({ item, isPending, action }) => {
     const newObj = {};
     for (const key in obj) {
       if (Object.hasOwnProperty.call(obj, key)) {
-        newObj[key] = String(obj[key]);
+        if (["date_event", "registration_deadline"].includes(key)) {
+          newObj[key] = new Date(obj[key]);
+        } else {
+          newObj[key] = String(obj[key]);
+        }
       }
     }
+
     return newObj;
   }
 

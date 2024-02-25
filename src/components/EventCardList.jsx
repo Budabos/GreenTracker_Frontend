@@ -43,6 +43,7 @@ import { toast } from "sonner";
 import { Dialog, DialogTrigger } from "./ui/dialog";
 import EditItem from "./EditItem";
 import { format } from "date-fns";
+import { eventSchema } from "./AddEvent";
 
 const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
   const [search, setSearch] = useState("");
@@ -78,9 +79,26 @@ const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
         .delete(`${BASE_URL}/events/${id}`)
         .then((res) => {
           toast.success("Event deleted successfully");
-          const updatedEvents = events.filter(
-            (event) => event.id !== id
-          );
+          const updatedEvents = events.filter((event) => event.id !== id);
+          setEvents(updatedEvents);
+        })
+        .catch((err) => console.log(err.data.message));
+    },
+  });
+
+  const { mutate: editEvent, isPending: pendingEdit } = useMutation({
+    mutationKey: ["events"],
+    mutationFn: async ([id, values]) => {
+      return await axios
+        .patch(`${BASE_URL}/events/${id}`, values)
+        .then((res) => {
+          toast.success(res.data.message);
+          const updatedEvents = events.map((event) => {
+            if (event.id === id) {
+              return res.data.event;
+            }
+            return event;
+          });
           setEvents(updatedEvents);
         })
         .catch((err) => console.log(err.data.message));
@@ -106,10 +124,11 @@ const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuLabel>Filter columns</DropdownMenuLabel>
+            <DropdownMenuLabel>Filter locations</DropdownMenuLabel>
             <DropdownMenuSeparator />
             {[...locations].map((location) => (
               <DropdownMenuItem
+                key={location}
                 onClick={() => {
                   if (filterBy.includes(location)) {
                     const updatedFilters = filterBy.filter(
@@ -172,13 +191,14 @@ const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
                       action={deleteEvent}
                     />
                   )}
-                  {/* {dialog === "edit" && (
+                  {dialog === "edit" && (
                     <EditItem
                       item={event}
                       action={editEvent}
                       isPending={pendingEdit}
+                      schema={eventSchema}
                     />
-                  )} */}
+                  )}
                 </Dialog>
               </div>
               <div>

@@ -41,6 +41,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Dialog, DialogTrigger } from "./ui/dialog";
 import EditItem from "./EditItem";
+import { productSchema } from "./AddProduct";
 
 const ProductCardList = ({ products, setProducts, filterBy, setFilterBy }) => {
   const [search, setSearch] = useState("");
@@ -198,6 +199,7 @@ const ProductCardList = ({ products, setProducts, filterBy, setFilterBy }) => {
                       item={product}
                       action={editProduct}
                       isPending={pendingEdit}
+                      schema={productSchema}
                     />
                   )}
                 </Dialog>
