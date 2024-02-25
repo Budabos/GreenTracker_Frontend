@@ -16,6 +16,7 @@ import Carbon from "./pages/Carbon";
 import EducationalResources from "./pages/EducationalResources";
 import Events from "./pages/Events";
 import ProductById from "./pages/ProductById";
+import CarbonCalculator from "./pages/CarbonCalculator";
 
 function App() {
   return (
@@ -41,7 +42,7 @@ function App() {
 
         <Route path="/carbon" element={<Carbon />} />
         <Route path="/products/:id" element={<ProductById />} />
-
+        <Route path="/carbon-calculation" element={<CarbonCalculator />} />
       </Routes>
       <Footer />
     </>
