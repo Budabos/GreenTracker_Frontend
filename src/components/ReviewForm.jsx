@@ -37,7 +37,7 @@ const reviewSchema = z.object({
   }),
 });
 
-const ReviewForm = ({ product }) => {
+const ReviewForm = ({ product, refetch }) => {
   const { getUser } = useAuth();
   const user = getUser();
   const navigate = useNavigate();
@@ -58,7 +58,7 @@ const ReviewForm = ({ product }) => {
         .then((res) => {
           toast.success(res.data.message);
           form.reset();
-          navigate(0);
+          refetch();
         })
         .catch((err) => console.log(err));
     },
