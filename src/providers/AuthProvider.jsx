@@ -1,10 +1,12 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [userCred, setUserCred] = useState(localStorage.getItem("userCred"));
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (userCred) {
@@ -25,11 +27,18 @@ const AuthProvider = ({ children }) => {
     return null;
   };
 
+  const logout = () => {
+    setUserCred(null);
+
+    navigate("/");
+  };
+
   const contextValue = useMemo(
     () => ({
       userCred,
       setUserCred,
       getUser,
+      logout,
     }),
     [userCred]
   );
