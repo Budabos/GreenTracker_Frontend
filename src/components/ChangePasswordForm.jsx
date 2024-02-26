@@ -22,9 +22,15 @@ import { Loader2 } from "lucide-react";
 
 const passwordSchema = z
   .object({
-    current_password: z.string(),
-    new_password: z.string(),
-    confirm_password: z.string(),
+    current_password: z.string().min(1, {
+      message: "Current password is required",
+    }),
+    new_password: z.string().min(1, {
+      message: "New password is required",
+    }),
+    confirm_password: z.string().min(1, {
+      message: "Confirm password is required",
+    }),
   })
   .refine((data) => data.confirm_password === data.new_password, {
     message: "Confirm password and new password do not match",
@@ -47,13 +53,13 @@ const ChangePasswordForm = () => {
   const { mutate, isPending } = useMutation({
     mutationKey: ["password"],
     mutationFn: async (values) => {
-      // await axios
-      //   .post(`${BASE_URL}/users/${user.id}`, values)
-      //   .then((res) => {
-      //     toast.success(res.data.message);
-      //     form.reset();
-      //   })
-      //   .catch((err) => console.log(err));
+      await axios
+        .patch(`${BASE_URL}/change_password/${user.id}`, values)
+        .then((res) => {
+          toast.success(res.data.message);
+          form.reset();
+        })
+        .catch((err) => toast.error(err.response.data.message));
     },
   });
 

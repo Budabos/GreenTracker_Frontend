@@ -45,7 +45,9 @@ const signupSchema = z
       message: "Last name must be at least 2 characters",
     }),
     email: z.string().email(),
-    phone: z.string().transform((val) => parseInt(val)),
+    phone: z.string().min(10, {
+      message:"Phone number must be at least 10 characters"
+    }),
     gender: z.string(),
     age: z.string().transform((val) => parseInt(val)),
     password: z.string().min(6, {
@@ -73,7 +75,7 @@ const SignupForm = () => {
     },
   ];
 
-  const { setUserCred, getUser } = useAuth();
+  const { setUserCred } = useAuth();
 
   const navigate = useNavigate();
 
