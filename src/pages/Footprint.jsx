@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -24,6 +25,18 @@ import {
 
 import { Input } from "@/components/ui/input"
 
+import FootprintDisplay from "@/components/FootprintDisplay"
+
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { data } from "autoprefixer"
 
 
 
@@ -53,6 +66,7 @@ const airports = [
 ];
 
 
+
 const Footprint = () => {
   const form = useForm({
     resolver: zodResolver(FormSchema),
@@ -64,7 +78,7 @@ const Footprint = () => {
     },
   })
 
-
+  const [resData, setResData] = useState([]);
 
   const onSubmit = async (data) => {
     try {
@@ -95,8 +109,14 @@ const Footprint = () => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
   
-      const resData = await response.json();
-      console.log("Response data:", resData);
+      const Data = await response.json();
+      console.log("Response data:", Data.data.attributes.carbon_g);
+      console.log("Response data:", Data.data.attributes.distance_value)
+      console.log("Response data:", Data.data.attributes.estimated_at
+      )
+
+      const carbonData = Data.data.attributes
+      setResData(carbonData)
     } catch (error) {
       console.error("Error:", error);
  
@@ -110,7 +130,7 @@ const Footprint = () => {
   return (
     // <div>{data}</div>
     <>
-      <div className="min-h-screen flex">
+   
         <div className="relative flex-1 px-2">
           <div
             className="absolute inset-0 bg-cover bg-center"
@@ -220,7 +240,7 @@ const Footprint = () => {
 
 
 
-                  <Button type="submit">Submit</Button>
+                  <Button type="submit">Save and continue</Button>
                 </form>
               </Form>
 
@@ -234,7 +254,22 @@ const Footprint = () => {
 
         <div className="flex-1 p-12 flex items-center justify-center">
           <div className="max-w-md">
-            hey
+          
+            <Card>
+            <CardHeader>
+                <CardTitle>Flight Footprint</CardTitle>
+                <CardDescription>Estimated at :{resData.estimated_at}</CardDescription>
+                <CardDescription>Carbon :{resData.carbon_g} g</CardDescription>
+            </CardHeader>
+            <CardContent>
+                {/* <p>{attributes.}</p> */}
+                <p>Distance value : {resData.distance_value} kms</p>
+                {/* <p>{resData.attributes.legs.destination_airport}</p> */}
+            </CardContent>
+            <CardFooter>
+                {/* <p>{resData.attributes.estimated_at}</p> */}
+            </CardFooter>
+        </Card>
           </div>
 
         </div>
@@ -245,3 +280,37 @@ const Footprint = () => {
 }
 
 export default Footprint
+
+
+
+// {
+//   "data": {
+//     "id": "d60edacc-cf6c-4da7-b5de-c538de4ce5ee",
+//     "type": "estimate",
+//     "attributes": {
+//       "passengers": 2,
+//       "legs": [
+//         {
+//           "departure_airport": "SFO",
+//           "destination_airport": "YYZ"
+//         },
+//         {
+//           "departure_airport": "YYZ",
+//           "destination_airport": "SFO"
+//         }
+//       ],
+//       "estimated_at": "2020-07-24T02:25:50.837Z",
+//       "carbon_g": 1077098,
+//       "carbon_lb": 2374,
+//       "carbon_kg": 1077,
+//       "carbon_mt": 1,
+//       "distance_unit": "km",
+//       "distance_value": 7454.15
+//     }
+//   }
+// }
+
+// data.id
+// data.type
+// data.attributes.legs.destination_airport
+// data.attributes.estimated_a
