@@ -3,7 +3,7 @@ import { Fragment } from "react";
 const AboutUs = () => {
   return (
     <Fragment>
-      <section className="bg-green-100">
+      <section className="bg-white-100">
         <div className="text-center">
           <h3>About Us</h3>
         </div>

@@ -154,7 +154,7 @@ const EducationalResources = () => {
       </div>
       <div
         style={{
-          backgroundColor: "#ecfccb",
+          backgroundColor: "#dcfce7",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -162,7 +162,7 @@ const EducationalResources = () => {
           borderRadius: "10px",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           marginTop: "20px",
-          backdropFilter: "blur(90px)",
+          backdropFilter: "blur(1000px)",
         }}
       >
         <div style={{ textAlign: "center" }}>
