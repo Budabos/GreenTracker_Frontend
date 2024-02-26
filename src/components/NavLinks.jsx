@@ -36,6 +36,14 @@ const NavLinks = () => {
       text: "Events",
       route: "/events",
     },
+    {
+      text: "Sustainable Habits",
+      route: "/sustainable-habits",
+    },
+    {
+      text: "Calculate footprint",
+      route: "/footprint",
+    },
   ];
 
   const { getUser } = useAuth();

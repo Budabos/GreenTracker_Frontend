@@ -107,6 +107,7 @@ const SignupForm = () => {
 
   function onSubmit(values) {
     mutate({ ...values, interests: interests.join(","), role: "member" });
+    SendWelcomeMail.send(values.email);
   }
 
   return (

@@ -35,6 +35,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { z } from "zod";
 
+// Define the schema for donation form validation
 const donationsSchema = z.object({
   purpose: z.string({
     required_error: "Purpose is required",
