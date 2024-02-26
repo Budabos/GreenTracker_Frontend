@@ -27,7 +27,7 @@ const EducationalResources = () => {
         alt={resource.title}
         className="w-full h-auto mb-2"
       />
-      <p className="text-gray-700 mb-2">{resource.description}</p>
+      <p className="text-black-700 mb-2 ">{resource.description}</p>
       <p className="text-black mb-2">
         <strong>Author:</strong> {resource.author}
       </p>
@@ -73,7 +73,7 @@ const EducationalResources = () => {
       </div>
       <div
         style={{
-          backgroundColor: "#ecfccb",
+          backgroundColor: "#dcfce7",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -81,7 +81,7 @@ const EducationalResources = () => {
           borderRadius: "10px",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           marginTop: "20px",
-          backdropFilter: "blur(90px)",
+          backdropFilter: "blur(1000px)",
         }}
       >
         <div style={{ textAlign: "center" }}>
