@@ -15,10 +15,10 @@ import Products from "./pages/Products";
 import Carbon from "./pages/Carbon";
 import EducationalResources from "./pages/EducationalResources";
 
-import { SustainableHabits } from "./pages/SustainableHabits";
-import { Track } from "./pages/subpages/Track";
-import { Reduce } from "./pages/subpages/Reduce";
-import { Engage } from "./pages/subpages/Engage";
+import  SustainableHabits  from "./pages/SustainableHabits";
+// import { Track } from "./pages/subpages/Track";
+// import { Reduce } from "./pages/subpages/Reduce";
+// import { Engage } from "./pages/subpages/Engage";
 import Footprint from "./pages/Footprint";
 
 import Events from "./pages/Events";
@@ -60,7 +60,7 @@ function App() {
         {/* </Route> */}
 
 
-      </Routes >
+
 
         <Route
           path="/educational-resources"
