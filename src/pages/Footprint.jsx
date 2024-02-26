@@ -66,60 +66,43 @@ const Footprint = () => {
 
 
 
-  const  onSubmit = async (data) => {
-    console.log("Form  submitted:", data)
-   
-    const body = {
-      type: "flight",
-      passengers: data.passengers,
-      legs: []
-    };
-    body.legs.push({ "departure_airport": data.departureFrom, "destination_airport": data.destination });
-    if (data.return) {
-      body.legs.push({ "departure_airport": data.destination, "destination_airport": data.departureFrom });
+  const onSubmit = async (data) => {
+    try {
+      console.log("Form submitted:", data);
+      const body = {
+        type: "flight",
+        passengers: data.passengers,
+        legs: []
+      };
+      body.legs.push({ "departure_airport": data.departureFrom, "destination_airport": data.destination });
+      if (data.return) {
+        body.legs.push({ "departure_airport": data.destination, "destination_airport": data.departureFrom });
+      }
+  
+      console.log(body);
+  
+      const apiKey = "tQwZxNs9meZ43GhGJvQ6UA"; 
+      const response = await fetch(`https://www.carboninterface.com/api/v1/estimates`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${apiKey}`
+        },
+        body: JSON.stringify(body),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const resData = await response.json();
+      console.log("Response data:", resData);
+    } catch (error) {
+      console.error("Error:", error);
+ 
     }
+  };
 
-    console.log(body);
-        // try {
-        // const response = await fetch(`https://www.carboninterface.com/api/v1/estimates`, {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify(values),
-        // });
-  }
-  // const onSubmit = async (data) => {
-  //     try {
-  //       const response = await fetch(`https://www.carboninterface.com/api/v1/estimates`, {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(values),
-  //       });
-
-  //       const data = await response.json();
-        // Handle the response data accordingly
-      //   if (data.success) {
-      //     localStorage.setItem("token", data.token);
-      //     localStorage.setItem("user", data.user_email);
-
-      //     console.log(localStorage.getItem("token"));
-      //     // Redirect to dashboard
-      //     navigate('/dashboard')
-
-      //     toast.success("Login successful");
-      //   } else {
-      //     // Login failed, show error toast
-      //     toast.error(`Login failed: ${data.message}`);
-      //     console.error("Login failed:", data.message);
-      //   }
-      // } catch (error) {
-      //   console.log(error);
-      //   toast.error(error.response.data.message);
-      // }
-    // };
 
 
 
