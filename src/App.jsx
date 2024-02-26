@@ -51,11 +51,13 @@ function App() {
 
 
 
-        <Route path="/sustainable-habits" element={<SustainableHabits />} >
-          <Route path="/sustainable-habits" element={<Track/>} />
-          <Route path="/sustainable-habits/reduce" element={<Reduce/>} />
-          <Route path="/sustainable-habits/engage" element={<Engage/>} />
+        <Route path="/sustainable-habits" element={<SustainableHabits/>} >
+
         </Route>
+          {/* <Route path="/sustainable-habits" element={<Track/>} />
+          <Route path="/sustainable-habits/reduce" element={<Reduce/>} />
+          <Route path="/sustainable-habits/engage" element={<Engage/>} /> */}
+        {/* </Route> */}
 
 
       </Routes >
