@@ -30,6 +30,7 @@ import AuthWrapper from "./components/AuthWrapper";
 import DashboardEvents from "./pages/dashboard/DashboardEvents";
 import DashboardProducts from "./pages/dashboard/DashboardProducts";
 import DashboardUsers from "./pages/dashboard/DashboardUsers";
+import DashboardBookings from "./pages/dashboard/DashboardBookings";
 
 
 
@@ -75,6 +76,7 @@ function App() {
           <Route path="/dashboard/events" element={<DashboardEvents />} />
           <Route path="/dashboard/products" element={<DashboardProducts />} />
           <Route path="/dashboard/users" element={<DashboardUsers />} />
+          <Route path="/dashboard/bookings" element={<DashboardBookings />} />
         </Route>
       </Routes>
 
