@@ -12,10 +12,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Navbar = () => {
   const { pathname } = useLocation();
-  const { userCred, logout } = useAuth();
+  const { userCred, logout, getUser } = useAuth();
+  const user = getUser();
 
   const excludes = ["/login", "/signup"];
 
@@ -36,7 +38,13 @@ const Navbar = () => {
       {userCred ? (
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <UserCircle className="h-8 w-8" />
+            <Avatar>
+              <AvatarImage src={user.image_url} />
+              <AvatarFallback className="text-black">
+                {user.first_name.charAt(0)}
+                {user.last_name.charAt(0)}
+              </AvatarFallback>
+            </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuLabel>My Account</DropdownMenuLabel>

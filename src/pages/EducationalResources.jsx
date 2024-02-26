@@ -1,71 +1,23 @@
-import React, { useState, useEffect } from "react";
+import ResourceForm from "@/components/ResourceForm";
+import { BASE_URL } from "@/lib/utils";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { Loader2 } from "lucide-react";
 
 const EducationalResources = () => {
-  const [resources, setResources] = useState([]);
-  const [newResource, setNewResource] = useState({
-    title: "",
-    description: "",
-    category: "",
-    content: "",
-    author: "",
-    date_published: "",
+  const {
+    data: resources,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["educational-resources"],
+    queryFn: async () => {
+      return await axios
+        .get(`${BASE_URL}/education-resources`)
+        .then((res) => res.data)
+        .catch((err) => console.log(err));
+    },
   });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:5555/education-resources"
-        );
-        const data = await response.json();
-        setResources(data);
-      } catch (error) {
-        console.error("Error fetching educational resources:", error);
-      }
-    };
-
-    fetchData();
-  }, []); // Empty dependency array ensures useEffect runs only once on mount
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewResource((prevResource) => ({ ...prevResource, [name]: value }));
-  };
-
-  const handleAddResource = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5555/education-resources",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newResource),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const addedResource = await response.json();
-      setResources((prevResources) => [...prevResources, addedResource]);
-
-      // Reset the form
-      setNewResource({
-        title: "",
-        description: "",
-        image_url: "",
-        category: "",
-        content: "",
-        author: "",
-        date_published: "",
-      });
-    } catch (error) {
-      console.error("Error adding resource:", error.message);
-    }
-  };
 
   const ResourceCard = ({ resource }) => (
     <div className="bg-white p-4 rounded-lg shadow-md mb-4">
@@ -86,6 +38,17 @@ const EducationalResources = () => {
     </div>
   );
 
+  if (isLoading || !resources) {
+    return (
+      <div className="flex items-center justify-center text-xl h-[60dvh]">
+        <Loader2 className="mr-4 h-8 w-8 animate-spin" />
+        Loading products...
+      </div>
+    );
+  }
+
+  console.log(resources == undefined);
+
   return (
     <div className="bg-white-100 p-8">
       <h1 className="text-4xl text-black mb-6 font-bold">
@@ -97,7 +60,7 @@ const EducationalResources = () => {
           <img
             src="https://climate.nasa.gov/system/internal_resources/details/original/1209_shutterstock_88550854.jpg"
             alt="Climate Image"
-            className="max-w-full h-auto pr-4"
+            className="max-w-full h-auto pr-4 rounded"
             style={{ height: "100%" }}
           />
         </div>
@@ -105,51 +68,7 @@ const EducationalResources = () => {
           <h2 className="text-2xl text-black mb-4 font-bold">
             Add New Resource
           </h2>
-          <form>
-            {[
-              "title",
-              "description",
-              "image_url",
-              "category",
-              "content",
-              "author",
-              "date_published",
-            ].map((field) => (
-              <div key={field} className="pl-4">
-                <label className="block text-black text-sm font-semibold mb-2">
-                  {field.charAt(0).toUpperCase() +
-                    field.slice(1).replace("_", " ")}
-                  :
-                </label>
-                {field === "content" ? (
-                  <textarea
-                    name={field}
-                    value={newResource[field]}
-                    onChange={handleInputChange}
-                    placeholder={`Enter ${field.replace("_", " ")}`}
-                    className="border p-2 w-full"
-                  ></textarea>
-                ) : (
-                  <input
-                    type="text"
-                    name={field}
-                    value={newResource[field]}
-                    onChange={handleInputChange}
-                    placeholder={`Enter ${field.replace("_", " ")}`}
-                    className="border p-2 w-full"
-                  />
-                )}
-              </div>
-            ))}
-
-            <button
-              type="button"
-              onClick={handleAddResource}
-              className="bg-green-800 text-white py-2 px-2 rounded mt-4 ml-4"
-            >
-              Add Resource
-            </button>
-          </form>
+          <ResourceForm refetch={refetch} />
         </div>
       </div>
       <div

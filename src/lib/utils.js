@@ -1,6 +1,8 @@
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+export const API_KEY = "tQwZxNs9meZ43GhGJvQ6UA";
+
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
@@ -12,3 +14,7 @@ export const numberFormat = (value) =>
     style: "currency",
     currency: "Ksh",
   }).format(value);
+
+export const capitalizeWord = (word) => {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}
