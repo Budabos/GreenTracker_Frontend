@@ -30,6 +30,7 @@ import { format } from "date-fns";
 import { CalendarIcon, Loader2 } from "lucide-react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { usePaystackPayment } from "react-paystack";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -50,6 +51,8 @@ const donationsSchema = z.object({
 });
 
 const Donation = () => {
+  const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
+
   const { getUser } = useAuth();
   const user = getUser();
   const navigate = useNavigate();
@@ -69,6 +72,18 @@ const Donation = () => {
   });
 
   const purpose = form.watch("purpose");
+  const amount = form.watch("amount");
+  const date = form.watch("date");
+
+  const config = {
+    reference: new Date().getTime().toString(),
+    email: user?.email,
+    amount: amount * 100,
+    currency: "KES",
+    publicKey,
+  };
+
+  const initalizePayment = usePaystackPayment(config);
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["donations"],
@@ -88,9 +103,16 @@ const Donation = () => {
   });
 
   function onSubmit(values) {
-    mutate({
-      ...values,
-      user_id: user.id,
+    const { amount, purpose, date } = values;
+    initalizePayment({
+      onSuccess: () => {
+        mutate({
+          amount,
+          user_id: user.id,
+          purpose,
+          date,
+        });
+      },
     });
   }
 
