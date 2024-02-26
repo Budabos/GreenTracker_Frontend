@@ -37,7 +37,7 @@ const FormSchema = z.object({
     .string({
       required_error: "Please select an destination airport code.",
     }),
-  mobile: z.boolean().default(false).optional(),
+  return: z.boolean().default(false).optional(),
 
   passengers: z.number().default(1)
 });
@@ -57,17 +57,37 @@ const Footprint = () => {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      mobile: true,
+      return: false,
       passengers: 2,
-      Destination: "",
-      departureFrom: ""
+      destination: "",
+      departureFrom: "",
     },
   })
 
 
 
-  function onSubmit(data) {
-    console.log(data)
+  const  onSubmit = async (data) => {
+    console.log("Form  submitted:", data)
+   
+    const body = {
+      type: "flight",
+      passengers: data.passengers,
+      legs: []
+    };
+    body.legs.push({ "departure_airport": data.departureFrom, "destination_airport": data.destination });
+    if (data.return) {
+      body.legs.push({ "departure_airport": data.destination, "destination_airport": data.departureFrom });
+    }
+
+    console.log(body);
+        // try {
+        // const response = await fetch(`https://www.carboninterface.com/api/v1/estimates`, {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(values),
+        // });
   }
   // const onSubmit = async (data) => {
   //     try {
@@ -80,26 +100,26 @@ const Footprint = () => {
   //       });
 
   //       const data = await response.json();
-  //       // Handle the response data accordingly
-  //     //   if (data.success) {
-  //     //     localStorage.setItem("token", data.token);
-  //     //     localStorage.setItem("user", data.user_email);
+        // Handle the response data accordingly
+      //   if (data.success) {
+      //     localStorage.setItem("token", data.token);
+      //     localStorage.setItem("user", data.user_email);
 
-  //     //     console.log(localStorage.getItem("token"));
-  //     //     // Redirect to dashboard
-  //     //     navigate('/dashboard')
+      //     console.log(localStorage.getItem("token"));
+      //     // Redirect to dashboard
+      //     navigate('/dashboard')
 
-  //     //     toast.success("Login successful");
-  //     //   } else {
-  //     //     // Login failed, show error toast
-  //     //     toast.error(`Login failed: ${data.message}`);
-  //     //     console.error("Login failed:", data.message);
-  //     //   }
-  //     // } catch (error) {
-  //     //   console.log(error);
-  //     //   toast.error(error.response.data.message);
-  //     // }
-  //   };
+      //     toast.success("Login successful");
+      //   } else {
+      //     // Login failed, show error toast
+      //     toast.error(`Login failed: ${data.message}`);
+      //     console.error("Login failed:", data.message);
+      //   }
+      // } catch (error) {
+      //   console.log(error);
+      //   toast.error(error.response.data.message);
+      // }
+    // };
 
 
 
@@ -120,7 +140,7 @@ const Footprint = () => {
           </div>
           <div className="text-white flex justify-center items-center  h-full relative">
             <div className="flex flex-col justify-center items-center ">
-              <h2 className="text-3xl font-bold mb-4">GreenTrackr</h2>
+              <h2 className="text-3xl font-bold mb-4">GreenTrackr </h2>
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6 text-blue-600">
                   <FormField
@@ -173,12 +193,31 @@ const Footprint = () => {
                       </FormItem>
                     )}
                   />
+                  <FormField
+                    control={form.control}
+                    name="passengers"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Passengers</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            placeholder="2"
+                            value={field.value}
+                            onChange={(e) => field.onChange(parseInt(e.target.value, 10))}
+                          />
+                        </FormControl>
+
+                      </FormItem>
+                    )}
+                  />
 
                   <FormField
                     control={form.control}
-                    name="mobile"
+                    name="return"
                     render={({ field }) => (
                       <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+                        <FormLabel>Return ticket</FormLabel>
                         <FormControl>
                           <Checkbox
                             checked={field.value}
@@ -187,7 +226,7 @@ const Footprint = () => {
                         </FormControl>
                         <div className="space-y-1 leading-none">
                           <FormLabel>
-                            
+
                           </FormLabel>
 
                         </div>
@@ -195,7 +234,7 @@ const Footprint = () => {
                     )}
                   />
 
-           
+
 
 
                   <Button type="submit">Submit</Button>
