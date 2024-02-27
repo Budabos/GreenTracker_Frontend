@@ -109,7 +109,7 @@ const Shipping = () => {
       {carbonEstimate && (
         <div>
           <p className="text-green-700">Carbon: {carbonEstimate.carbon_g} g</p>
-          <p className="text-green-700">Distance: {carbonEstimate.distance_unit}</p>
+          <p className="text-green-700">Distance: {carbonEstimate.distance_unit} Km</p>
           <p className="text-green-700">Distance Value: {carbonEstimate.distance_value}</p>
         </div>
       )}
