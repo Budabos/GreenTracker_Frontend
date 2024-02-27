@@ -1,4 +1,3 @@
-import bottle from "@/assets/bottle.jpg";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -8,12 +7,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import dayjs from "dayjs";
-import { Button } from "./ui/button";
-import { Link } from "react-router-dom";
 import { numberFormat } from "@/lib/utils";
+import { useCart } from "@/providers/CartProvider";
+import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
 
 const ProductItem = ({ product }) => {
+  const { addCartItem } = useCart();
+
   return (
     <Card>
       <CardHeader>
@@ -28,7 +29,12 @@ const ProductItem = ({ product }) => {
         <p>{numberFormat(product.price)}</p>
       </CardContent>
       <CardFooter className="flex items-center justify-between">
-        <Button className="bg-black text-white">Add to cart</Button>
+        <Button
+          onClick={() => addCartItem(product)}
+          className="bg-black text-white"
+        >
+          Add to cart
+        </Button>
         <Button asChild variant="outline">
           <Link to={`/products/${product.id}`}>See more</Link>
         </Button>

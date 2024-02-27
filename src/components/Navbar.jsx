@@ -80,7 +80,7 @@ const Navbar = () => {
             <DialogContent>
               <DialogHeader>
                 <DialogTitle className="text-3xl">Cart</DialogTitle>
-                {cart.length > 1 ? (
+                {cart.length > 0 ? (
                   <DialogDescription className="pt-8 flex flex-col items-start gap-6">
                     {cart.map(({ id, quantity, name, image_url, price }) => (
                       <div

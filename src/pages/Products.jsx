@@ -125,7 +125,7 @@ const Products = () => {
         <div className="font-medium flex items-center">
           {filterBy.length !== 0 && "Applied filters:"}
           {filterBy.map((category) => (
-            <div className="py-2 mr-2">
+            <div key={category} className="py-2 mr-2">
               <Badge variant="outline">
                 {category}{" "}
                 <X
