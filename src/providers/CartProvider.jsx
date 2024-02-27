@@ -1,13 +1,24 @@
-import axios from "axios";
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { createContext, useContext, useMemo, useState } from "react";
+import { toast } from "sonner";
 
 const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
-  const addCartItem = (item) => {};
+  const addCartItem = (item) => {
+    const foundItem = cart.find(({ id }) => item.id === id);
+
+    if (foundItem) {
+      addCartItemQuantity(foundItem.id);
+      toast.success(`Updated ${foundItem.name} quantity`);
+    } else {
+      setCart((prevCart) => [...prevCart, { ...item, quantity: 1 }]);
+      toast.success(`${item.name} added to cart`);
+    }
+  };
+
+  console.log(cart);
 
   const addCartItemQuantity = (id) => {
     const updatedCartItems = cart.map((item) => {
@@ -62,6 +73,7 @@ const CartProvider = ({ children }) => {
       removeItem,
       totalPrice,
       totalQuantity,
+      addCartItem,
     }),
     [
       cart,
@@ -71,6 +83,7 @@ const CartProvider = ({ children }) => {
       removeItem,
       totalPrice,
       totalQuantity,
+      addCartItem,
     ]
   );
 
