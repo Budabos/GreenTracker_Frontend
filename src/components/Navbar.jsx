@@ -39,21 +39,27 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { BASE_URL } from "@/lib/utils";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
-  const { pathname } = useLocation();
   const { userCred, logout, getUser } = useAuth();
   const user = getUser();
   const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
   const initalizePayment = usePaystackPayment();
   const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
+  const [display, setDisplay] = useState(true);
 
-  const excludes = ["/login", "/signup"];
+  useEffect(() => {
+    const excludes = ["/login", "/signup"];
+    if (excludes.includes(pathname) || user?.role === "admin") {
+      setDisplay(false);
+    } else {
+      setDisplay(true);
+    }
+  }, [pathname, user]);
 
-  if (excludes.includes(pathname)) return;
-
-  if (user?.role === "admin") return;
+  console.log(display);
 
   const {
     cart,
@@ -85,7 +91,7 @@ const Navbar = () => {
   const product_ids = cart.map((item) => item.id).join(",");
   const quantities = cart.map((item) => item.quantity).join(",");
 
-  return (
+  return display ? (
     <div className="flex items-center justify-between py-4 px-6 bg-[#245501] text-white font-bold">
       <Link to="/">
         <img
@@ -246,7 +252,7 @@ const Navbar = () => {
         </div>
       )}
     </div>
-  );
+  ) : null;
 };
 
 export default Navbar;
