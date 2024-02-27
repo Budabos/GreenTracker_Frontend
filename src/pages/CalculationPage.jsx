@@ -18,16 +18,38 @@ import {
 
 const CalculationPage = () => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [responseFlightData, setResponseFlightData] = useState([]);
 
 
-  const handleFlightData = (Data) => {
-    setResponseFlightData(Data)
+
+
+  const [responseList, setResponseList] = useState([]);
+
+
+  const handleFlightData = (flightData) => {
+    // console.log(Data.data.id)
+    setResponseList([...responseList, flightData])
+  };
+  const handleVehicleData = (vehicleData) => {
+    // console.log(Data.data.id)
+    setResponseList([...responseList, vehicleData])
+  };
+  const handleShippingData = (shippingData) => {
+    // console.log(Data.data.id)
+    setResponseList([...responseList, shippingData])
+  };
+  const handleElectricityData = (electricityData) => {
+    // console.log(Data.data.id)
+    setResponseList([...responseList, electricityData])
   };
   const handleSubmit = (e) => {
     e.preventDefault();
 
   };
+
+
+
+
+
 
   const nextStep = () => {
     setCurrentStep(currentStep + 1);
@@ -44,7 +66,7 @@ const CalculationPage = () => {
 
           <div className="tab">
             <h1>Flights</h1>
-            <Flights flightData={handleFlightData} />
+            <Flights handleFlightData={handleFlightData} />
           </div>
 
         );
@@ -52,29 +74,23 @@ const CalculationPage = () => {
         return (
           <div className="tab">
             <h1>Electricity</h1>
-            <Electricity />
-            {/* <p><input placeholder="E-mail..." onChange={handleChange} name="email" value={formData.email} /></p>
-            <p><input placeholder="Phone..." onChange={handleChange} name="phone" value={formData.phone} /></p> */}
+            <Electricity handleElectricityData={handleElectricityData} />
           </div>
         );
       case 2:
         return (
           <div className="tab">
             <h1>Shipping</h1>
-            <Shipping />
-            {/* <div style={{ textAlign: 'center' }}>
-              <button type="button" onClick={prevStep}>Previous</button>
-              <button type="button" onClick={nextStep}>Next</button>
-            </div> */}
+            <Shipping handleShippingData={handleShippingData} />
+
           </div>
         );
       case 3:
         return (
           <div className="tab">
             <h1>Vehicle</h1>
-            <Vehicles />
-            {/* <p><input placeholder="Username..." onChange={handleChange} name="uname" value={formData.uname} /></p>
-            <p><input placeholder="Password..." onChange={handleChange} name="pword" type="password" value={formData.pword} /></p> */}
+            <Vehicles handleVehicleData={handleVehicleData} />
+
           </div>
         );
       default:
@@ -87,7 +103,7 @@ const CalculationPage = () => {
 
     <>
       <div className="min-h-screen flex">
-        <div className="relative flex-1 px-2">
+        <div className="relative flex-1 px-">
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
@@ -106,15 +122,10 @@ const CalculationPage = () => {
                 <div style={{ overflow: 'auto' }}>
                   <div style={{ float: 'right' }}>
                     {currentStep !== 0 && <button type="button" onClick={prevStep}>Previous</button>}
-                    {currentStep !== 3 && <button type="button" onClick={nextStep}>Next</button>}
-                    {currentStep === 3 && <button type="submit">Submit</button>}
+                    {currentStep !== 3 && <button className='my-7 px-7' type="button" onClick={nextStep}>Next</button>}
                   </div>
                 </div>
-                {/* <div style={{ textAlign: 'center' }}>
-                  {[0, 1, 2, 3].map((step, index) => (
-                    <span key={index} className={index === currentStep ? 'step active' : 'step'}></span>
-                  ))}
-                </div> */}
+
               </div>
 
 
@@ -130,24 +141,20 @@ const CalculationPage = () => {
 
         <div className="flex-1 p-12 flex  justify-center">
           <div className="max-w-md">
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Flight Footprint</CardTitle>
-                <CardDescription>Estimated at :{responseFlightData.data.attributes.estimated_at}</CardDescription>
-                <CardDescription>Carbon :{responseFlightData.data.attributes.carbon_g} g</CardDescription>
-              </CardHeader>
-              <CardContent>
-
-                <p>Distance value : {responseFlightData.data.attributes.distance_value} kms</p>
-                <p>Distance value : {responseFlightData.distance_value} kms</p>
-
-              </CardContent>
-              <CardFooter>
-
-              </CardFooter>
-            </Card>
+          {responseList.map((response, index) => (
+              <Card key={index}>
+                <CardHeader>
+                  <CardTitle>Response {index + 1}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>Carbon:  g</CardDescription>
+                  <CardDescription>Estimated at: </CardDescription>
+                  <CardDescription>Distance: kms</CardDescription>
+                </CardContent>
+              </Card>
+            ))}
           </div>
+          
 
         </div>
 
@@ -166,8 +173,7 @@ const CalculationPage = () => {
 export default CalculationPage
 
 
-
-// const id = data.data.id;
+// / const id = data.data.id;
 // const type = data.data.type;
 // const passengers = data.data.attributes.passengers;
 // const legs = data.data.attributes.legs;

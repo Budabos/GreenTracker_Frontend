@@ -22,7 +22,7 @@ const FormSchema = z.object({
     }),
 });
 
-const Vehicles = ({ setVehicleResponseData }) => {
+const Vehicles = ({ handleVehicleData }) => {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -56,9 +56,9 @@ const Vehicles = ({ setVehicleResponseData }) => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const Data = await response.json();
-      console.log("Response data:", Data);
-      setVehicleResponseData(Data);
+      const vehicleData = await response.json();
+      console.log("Response data:", vehicleData);
+      handleVehicleData(vehicleData);
 
     } catch (error) {
       console.error("Error:", error);
@@ -67,7 +67,7 @@ const Vehicles = ({ setVehicleResponseData }) => {
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center ">
+          <div className="flex flex-col justify-center items-center ">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6 text-blue-600">
             <FormField

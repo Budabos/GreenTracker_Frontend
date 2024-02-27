@@ -52,7 +52,7 @@ const airports = [
 
 
 
-const Flights = ({flightData}) => {
+const Flights = ({handleFlightData}) => {
     const form = useForm({
         resolver: zodResolver(FormSchema),
         defaultValues: {
@@ -80,7 +80,7 @@ const Flights = ({flightData}) => {
 
             // console.log(body);
 
-            const apiKey = "tQwZxNs9meZ43GhGJvQ6UA";
+            const apiKey = "yIntFgYVaWEOFdZmam5w";
             const response = await fetch(`https://www.carboninterface.com/api/v1/estimates`, {
                 method: "POST",
                 headers: {
@@ -94,13 +94,13 @@ const Flights = ({flightData}) => {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
-            const Data = await response.json();
-            console.log("Response data:", Data.data.attributes.carbon_g);
-            console.log("Response data:", Data.data.attributes.distance_value)
-            console.log("Response data:", Data.data.attributes.estimated_at
+            const flightData = await response.json();
+            console.log("Response data:", flightData.data.attributes.carbon_g);
+            console.log("Response data:", flightData.data.attributes.distance_value)
+            console.log("Response data:", flightData.data.attributes.estimated_at
             )
 
-            flightData(Data)
+            handleFlightData(flightData)
           
         } catch (error) {
             console.error("Error:", error);
@@ -213,7 +213,7 @@ const Flights = ({flightData}) => {
 
 
 
-                        <Button type="submit">Save and continue</Button>
+                        <Button type="submit">Save</Button>
                     </form>
                 </Form>
 

@@ -32,7 +32,7 @@ const FormSchema = z.object({
     }),
 });
 
-const Shipping = ({ setShippingResponseData }) => {
+const Shipping = ({ handleShippingData }) => {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -68,9 +68,9 @@ const Shipping = ({ setShippingResponseData }) => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const Data = await response.json();
-      console.log("Response data:", Data);
-      setShippingResponseData(Data);
+      const shippingData = await response.json();
+      console.log("Response data:", shippingData);
+      handleShippingData(shippingData);
 
     } catch (error) {
       console.error("Error:", error);
@@ -79,7 +79,7 @@ const Shipping = ({ setShippingResponseData }) => {
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center ">
+               <div className="flex flex-col justify-center items-center ">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6 text-blue-600">
             <FormField

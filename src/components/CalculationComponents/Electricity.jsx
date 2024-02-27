@@ -22,7 +22,7 @@ const FormSchema = z.object({
     }),
 });
 
-const Electricity = ({ setResponseData }) => {
+const Electricity = ({ handleElectricityData }) => {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -57,9 +57,8 @@ const Electricity = ({ setResponseData }) => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const Data = await response.json();
-      console.log("Response data:", Data);
-      setResponseData(Data);
+      const electricityData = await response.json();
+      handleElectricityData(electricityData);
 
     } catch (error) {
       console.error("Error:", error);
