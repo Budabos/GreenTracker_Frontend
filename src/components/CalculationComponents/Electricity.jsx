@@ -43,7 +43,7 @@ const Electricity = ({ handleElectricityData }) => {
 
       console.log(body);
 
-      const apiKey = "tQwZxNs9meZ43GhGJvQ6UA";
+      const apiKey = "yIntFgYVaWEOFdZmam5w";
       const response = await fetch(`https://www.carboninterface.com/api/v1/estimates`, {
         method: "POST",
         headers: {
@@ -57,8 +57,8 @@ const Electricity = ({ handleElectricityData }) => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const electricityData = await response.json();
-      handleElectricityData(electricityData);
+      const result = await response.json();
+      handleElectricityData(result);
 
     } catch (error) {
       console.error("Error:", error);

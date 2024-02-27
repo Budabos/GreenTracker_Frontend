@@ -29,6 +29,7 @@ import DashboardEvents from "./pages/dashboard/DashboardEvents";
 import DashboardProducts from "./pages/dashboard/DashboardProducts";
 import DashboardUsers from "./pages/dashboard/DashboardUsers";
 import CalculationPage from "./pages/CalculationPage";
+import Vehicles from "./components/CalculationComponents/Vehicles";
 
 
 function App() {
@@ -51,11 +52,11 @@ function App() {
         <Route path="/educational-resources" element={<EducationalResources />} />
         <Route path="/footprint" element={<Footprint />} />
 
+        <Route path="/vehicle" element={<Vehicles />}/ >
+{/* 
+        <Route path="/vehicle" element={<Vehicles/>} > */}
 
-
-        <Route path="/sustainable-habits" element={<SustainableHabits/>} >
-
-        </Route>
+        {/* </Route> */}
           {/* <Route path="/sustainable-habits" element={<Track/>} />
           <Route path="/sustainable-habits/reduce" element={<Reduce/>} />
           <Route path="/sustainable-habits/engage" element={<Engage/>} /> */}

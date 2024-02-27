@@ -380,7 +380,7 @@
 import React, { useState, useEffect } from "react";
 const apiKey = "yIntFgYVaWEOFdZmam5w";
 
-const Shipping = ({handleShippingData}) => {
+const Shipping = ({handleShippingData,handletype}) => {
   // State to store the carbon estimate data
   // const [carbonEstimate, setCarbonEstimate] = useState(null);
   // State to store input values
@@ -405,6 +405,7 @@ const Shipping = ({handleShippingData}) => {
       distance_unit: inputValues.distanceUnit,
       transport_method: inputValues.transportMethod,
     };
+   handletype( data.type)
 
     // Options for the POST request
     const options = {
@@ -421,7 +422,7 @@ const Shipping = ({handleShippingData}) => {
       const response = await fetch(url, options);
       const result = await response.json();
       console.log(result.data.attributes.carbon_g)
-      // console.log(result.data.attributes)
+      console.log(result.data.type)
       // console.log(result.data.attributes)
       // const shippingData=result.data.attributes
       handleShippingData(result); // Update state with the fetched data

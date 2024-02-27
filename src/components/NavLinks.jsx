@@ -37,8 +37,8 @@ const NavLinks = () => {
       route: "/events",
     },
     {
-      text: "Sustainable Habits",
-      route: "/sustainable-habits",
+      text: "Vehicle",
+      route: "/vehicle",
     },
     {
       text: "Calculate footprint",

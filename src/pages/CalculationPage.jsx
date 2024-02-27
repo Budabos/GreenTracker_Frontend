@@ -27,25 +27,25 @@ const CalculationPage = () => {
 
 
   const handleFlightData = (flightData) => {
-    // console.log(Data.data.id)
+   
     setResponseList([...responseList, flightData])
   };
   const handleVehicleData = (vehicleData) => {
-    // console.log(Data.data.id)
+ 
     setResponseList([...responseList, vehicleData])
   };
   const handleShippingData = (result) => {
     console.log(result.data.attributes.carbon_g)
     setCarbonEstimate(result.data.attributes.carbon_g)
-    // console.log(Data.data.id)
+ 
     setResponseList([...responseList, result])
   };
 
 
 
-  const handleElectricityData = (electricityData) => {
+  const handleElectricityData = (result) => {
     // console.log(Data.data.id)
-    setResponseList([...responseList, electricityData])
+    setResponseList([...responseList, result])
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -150,7 +150,7 @@ const CalculationPage = () => {
             {responseList.map((response) => (
               <Card key={response.data.id}>
                 <CardHeader>
-                  <CardTitle> {response.data.type}</CardTitle>
+                  <CardTitle> carbon</CardTitle>
 
                   <p><span className="font-semibold">Distance</span> {response.data.attributes.distance_value} kms</p>
                 </CardHeader>
@@ -173,32 +173,7 @@ const CalculationPage = () => {
 
 
             <div>
-              {/* <h2 className="text-lg font-medium" style={{ color: "#ffff" }}>
-            Estimate Data
-          </h2> */}
-              {/* <p style={{ color: "#ffff" }}>Carbon: {carbonEstimate} g</p> */}
-              {/* <p style={{ color: "#ffff" }}>
-            Carbon: {carbonEstimate.carbon_lb} lb
-          </p>
-          <p style={{ color: "#ffff" }}>
-            Carbon: {carbonEstimate.carbon_kg} kg
-          </p>
-          <p style={{ color: "#ffff" }}>
-            Carbon: {carbonEstimate.carbon_mt} metric tons
-          </p>
-          <p style={{ color: "#ffff" }}>
-            Distance: {carbonEstimate.distance_unit}
-          </p>
-          <p style={{ color: "#ffff" }}>
-            Distance Value: {carbonEstimate.distance_value}
-          </p>
-          <p style={{ color: "#ffff" }}>
-            Distance: {carbonEstimate.distance_unit}
-          </p>
-
-          <p style={{ color: "#ffff" }}>
-            Estimated At: {carbonEstimate.estimated_at}
-          </p> */}
+          
 
 
             </div>
@@ -223,14 +198,3 @@ const CalculationPage = () => {
 export default CalculationPage
 
 
-// / const id = data.data.id;
-// const type = data.data.type;
-// const passengers = data.data.attributes.passengers;
-// const legs = data.data.attributes.legs;
-// const estimatedAt = data.data.attributes.estimated_at;
-// const carbonGrams = data.data.attributes.carbon_g;
-// const carbonPounds = data.data.attributes.carbon_lb;
-// const carbonKilograms = data.data.attributes.carbon_kg;
-// const carbonMetricTons = data.data.attributes.carbon_mt;
-// const distanceUnit = data.data.attributes.distance_unit;
-// const distanceValue = data.data.attributes.distance_value;
