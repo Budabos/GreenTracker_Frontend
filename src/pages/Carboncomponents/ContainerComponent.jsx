@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Vehicle from "./Vehicle"; // Import your Vehicle component
-// Import other components for electricity consumption, flight information, shipping information
+import Shipping from "../Shipping";
 
 const ContainerComponent = () => {
   const [currentSection, setCurrentSection] = useState(1); // Track the current section
@@ -20,6 +20,8 @@ const ContainerComponent = () => {
     switch (currentSection) {
       case 1:
         return <Vehicle />;
+      case 2:
+        return <Shipping />;
       // Render other sections for electricity consumption, flight information, shipping information
       default:
         return null;
@@ -73,7 +75,7 @@ const ContainerComponent = () => {
           </button>
           <button
             onClick={handleNext}
-            className="bg-[#245501] px-4 py-2 text-white rounded hover:bg-blue-600"
+            className="bg-[#245501] px-4 py-2 text-white rounded hover:bg-green-600"
           >
             Next
           </button>

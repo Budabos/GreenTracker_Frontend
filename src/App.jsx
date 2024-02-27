@@ -36,8 +36,7 @@ import DashboardEvents from "./pages/dashboard/DashboardEvents";
 import DashboardProducts from "./pages/dashboard/DashboardProducts";
 import DashboardUsers from "./pages/dashboard/DashboardUsers";
 import DashboardBookings from "./pages/dashboard/DashboardBookings";
-
-
+import Shipping from "./pages/Shipping";
 
 function App() {
   return (
@@ -54,6 +53,7 @@ function App() {
         <Route path="/review" element={<Review />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/donations" element={<Donation />} />
+        <Route path="/carbon" element={<Shipping />} />
 
         <Route
           path="/educational-resources"
