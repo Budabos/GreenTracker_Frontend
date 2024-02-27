@@ -32,21 +32,25 @@ const VehicleModelSelect = ({ makeId, onSelect }) => {
   }, [makeId]);
 
   const handleModelChange = (e) => {
-    // store id in this variable
     const modelId = e.target.value;
     setSelectedModelId(modelId);
-
-    // pass the model id here when one selects the car make
     onSelect(modelId);
   };
 
   return (
     <div>
-      <label htmlFor="modelSelect">Select Vehicle Model:</label>
+      <label
+        htmlFor="modelSelect"
+        className="block font-medium text-gray-700 mb-2"
+        style={{ paddingTop: "10px", color: "#ffff" }}
+      >
+        Select Vehicle Model:
+      </label>
       <select
         id="modelSelect"
         value={selectedModelId}
         onChange={handleModelChange}
+        className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-opacity-50"
       >
         <option value="">Select Vehicle Model</option>
         {vehicleModels.map((model) => (
