@@ -1,18 +1,14 @@
+import PieChart from "@/components/charts/PieChart";
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card";
 import { BASE_URL } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
-import { DonutChart, Legend } from "@tremor/react";
-import { useState } from "react";
-import PieChart from "@/components/charts/PieChart";
 
 const Dashboard = () => {
   const { data: summary, isLoading } = useQuery({
@@ -33,29 +29,6 @@ const Dashboard = () => {
       </div>
     );
   }
-
-  const sales = [
-    {
-      name: "New York",
-      sales: 980,
-    },
-    {
-      name: "London",
-      sales: 456,
-    },
-    {
-      name: "Hong Kong",
-      sales: 390,
-    },
-    {
-      name: "San Francisco",
-      sales: 240,
-    },
-    {
-      name: "Singapore",
-      sales: 190,
-    },
-  ];
 
   const categories = summary.category_stats.map((stat) => stat.category);
 

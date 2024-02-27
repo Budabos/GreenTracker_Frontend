@@ -42,7 +42,7 @@ const EducationalResources = () => {
     return (
       <div className="flex items-center justify-center text-xl h-[60dvh]">
         <Loader2 className="mr-4 h-8 w-8 animate-spin" />
-        Loading products...
+        Loading resources...
       </div>
     );
   }
