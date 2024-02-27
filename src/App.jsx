@@ -15,7 +15,7 @@ import Products from "./pages/Products";
 import Carbon from "./pages/Carbon";
 import EducationalResources from "./pages/EducationalResources";
 
-import  SustainableHabits  from "./pages/SustainableHabits";
+import  SustainableHabits  from "./pages/CalculationPage";
 // import { Track } from "./pages/subpages/Track";
 // import { Reduce } from "./pages/subpages/Reduce";
 // import { Engage } from "./pages/subpages/Engage";
@@ -28,6 +28,7 @@ import AuthWrapper from "./components/AuthWrapper";
 import DashboardEvents from "./pages/dashboard/DashboardEvents";
 import DashboardProducts from "./pages/dashboard/DashboardProducts";
 import DashboardUsers from "./pages/dashboard/DashboardUsers";
+import CalculationPage from "./pages/CalculationPage";
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
         <Route path="/review" element={<Review />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/donations" element={<Donation />} />
+        <Route path="/carbon-calculation" element={< CalculationPage/>} />
 
         <Route path="/educational-resources" element={<EducationalResources />} />
         <Route path="/footprint" element={<Footprint />} />
