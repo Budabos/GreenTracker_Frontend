@@ -34,10 +34,15 @@ const CalculationPage = () => {
     // console.log(Data.data.id)
     setResponseList([...responseList, vehicleData])
   };
-  const handleShippingData = (shippingData) => {
+  const handleShippingData = (result) => {
+    console.log(result.data.attributes.carbon_g)
+    setCarbonEstimate(result.data.attributes.carbon_g)
     // console.log(Data.data.id)
-    setResponseList([...responseList, shippingData])
+    setResponseList([...responseList, result])
   };
+
+
+
   const handleElectricityData = (electricityData) => {
     // console.log(Data.data.id)
     setResponseList([...responseList, electricityData])
@@ -142,25 +147,37 @@ const CalculationPage = () => {
 
         <div className="flex-1 p-12 flex  justify-center">
           <div className="max-w-md">
-          {/* {responseList.map((response, index) => (
-              <Card key={index}>
+            {responseList.map((response) => (
+              <Card key={response.data.id}>
                 <CardHeader>
-                  <CardTitle>Response {index + 1}</CardTitle>
+                  <CardTitle> {response.data.type}</CardTitle>
+
+                  <p><span className="font-semibold">Distance</span> {response.data.attributes.distance_value} kms</p>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription>Carbon:{response.data.attributes.carbon_g}  g</CardDescription>
-                  <CardDescription>Estimated at: </CardDescription>
-                  <CardDescription>Distance: kms</CardDescription>
+                  <p className="font-semibold">Carbon Emissions:</p>
+                  <ul>
+                    <li>Grams: {response.data.attributes.carbon_g} g</li>
+                    <li>Kilograms: {response.data.attributes.carbon_kg} kg</li>
+                    <li>Pounds: {response.data.attributes.carbon_lb} lb</li>
+                    <li>Metric Tons: {response.data.attributes.carbon_mt} mt</li>
+                  </ul>
                 </CardContent>
+                <CardFooter>
+                  <p><span className="font-semibold">Estimated At:</span> {response.data.attributes.estimated_at}</p>
+
+                </CardFooter>
               </Card>
-            ))} */}
-         {carbonEstimate && (
-        <div>
-          <h2 className="text-lg font-medium" style={{ color: "#ffff" }}>
+            ))}
+
+
+
+            <div>
+              {/* <h2 className="text-lg font-medium" style={{ color: "#ffff" }}>
             Estimate Data
-          </h2>
-          <p style={{ color: "#ffff" }}>Carbon: {carbonEstimate.carbon_g} g</p>
-          <p style={{ color: "#ffff" }}>
+          </h2> */}
+              {/* <p style={{ color: "#ffff" }}>Carbon: {carbonEstimate} g</p> */}
+              {/* <p style={{ color: "#ffff" }}>
             Carbon: {carbonEstimate.carbon_lb} lb
           </p>
           <p style={{ color: "#ffff" }}>
@@ -181,11 +198,13 @@ const CalculationPage = () => {
 
           <p style={{ color: "#ffff" }}>
             Estimated At: {carbonEstimate.estimated_at}
-          </p>
-        </div>
-      )}
+          </p> */}
+
+
+            </div>
+
           </div>
-          
+
 
         </div>
 

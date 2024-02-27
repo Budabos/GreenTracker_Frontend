@@ -420,8 +420,11 @@ const Shipping = ({handleShippingData}) => {
       // Fetch data from the API
       const response = await fetch(url, options);
       const result = await response.json();
-      const shippingData=result.data.attributes
-      handleShippingData(shippingData); // Update state with the fetched data
+      console.log(result.data.attributes.carbon_g)
+      // console.log(result.data.attributes)
+      // console.log(result.data.attributes)
+      // const shippingData=result.data.attributes
+      handleShippingData(result); // Update state with the fetched data
     } catch (error) {
       console.error("Error:", error);
       // Handle errors
