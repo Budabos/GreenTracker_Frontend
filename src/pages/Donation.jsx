@@ -73,7 +73,6 @@ const Donation = () => {
 
   const purpose = form.watch("purpose");
   const amount = form.watch("amount");
-  const date = form.watch("date");
 
   const config = {
     reference: new Date().getTime().toString(),
