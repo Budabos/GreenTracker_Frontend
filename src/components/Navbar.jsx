@@ -23,6 +23,8 @@ const Navbar = () => {
 
   if (excludes.includes(pathname)) return;
 
+  if (user?.role === "admin") return;
+
   return (
     <div className="flex items-center justify-between py-4 px-6 bg-[#245501] text-white font-bold">
       <Link to="/">

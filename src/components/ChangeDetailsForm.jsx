@@ -36,32 +36,27 @@ import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "@/providers/AuthProvider";
 import axios from "axios";
 
-const signupSchema = z
-  .object({
-    first_name: z.string().min(2, {
-      message: "First name must be at least 2 characters",
-    }),
-    last_name: z.string().min(2, {
-      message: "Last name must be at least 2 characters",
-    }),
-    email: z.string().email(),
-    phone: z.string().min(10, {
-      message:"Phone number must be at least 10 characters"
-    }),
-    gender: z.string(),
-    age: z.string().transform((val) => parseInt(val)),
-    password: z.string().min(6, {
-      message: "Password must be at least 6 characters",
-    }),
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.confirmPassword === data.password, {
-    path: ["confirmPassword"],
-    message: "Password and confirm password do not match",
-  });
+const changeDetailsSchema = z.object({
+  first_name: z.string().min(2, {
+    message: "First name must be at least 2 characters",
+  }),
+  last_name: z.string().min(2, {
+    message: "Last name must be at least 2 characters",
+  }),
+  email: z.string().email(),
+  phone: z.string().min(10, {
+    message: "Phone number must be at least 10 characters",
+  }),
+  gender: z.string(),
+  age: z.string().transform((val) => parseInt(val)),
+  image_url: z.string().optional(),
+});
 
-const SignupForm = () => {
-  const [hidden, setHidden] = useState(true);
+const ChangeDetailsForm = () => {
+  const { getUser, setUserCred } = useAuth();
+  const { id, first_name, last_name, email, phone, gender, age, image_url } =
+    getUser();
+
   const [interests, setInterests] = useState(["climate"]);
 
   const interestOptions = [
@@ -75,41 +70,36 @@ const SignupForm = () => {
     },
   ];
 
-  const { setUserCred } = useAuth();
-
-  const navigate = useNavigate();
-
-  const {
-    data: res,
-    isPending,
-    mutate,
-  } = useMutation({
-    mutationKey: ["signup"],
-    mutationFn: async (values) => {
-      console.log(values);
-      await axios
-        .post(`${BASE_URL}/signup`, values)
-        .then((res) => {
-          setUserCred(JSON.stringify(res.data));
-
-          toast.success(res.data.message);
-          navigate("/");
-        })
-        .catch((err) => toast.error(err.response.data.message));
+  const form = useForm({
+    resolver: zodResolver(changeDetailsSchema),
+    defaultValues: {
+      first_name,
+      last_name,
+      email,
+      phone,
+      gender,
+      age: age.toString(),
+      image_url,
     },
   });
 
-  const form = useForm({
-    resolver: zodResolver(signupSchema),
-    defaultValues: {
-      email: "",
-      password: "",
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["details"],
+    mutationFn: async ([id, values]) => {
+      return await axios
+        .patch(`${BASE_URL}/users/${id}`, values)
+        .then((res) => {
+          toast.success(res.data.message);
+          setUserCred(JSON.stringify(res.data));
+        })
+        .catch((err) => {
+          toast.error(err.response.data.message);
+        });
     },
   });
 
   function onSubmit(values) {
-    mutate({ ...values, interests: interests.join(","), role: "member" });
-    SendWelcomeMail.send(values.email);
+    mutate([id, values]);
   }
 
   return (
@@ -161,7 +151,7 @@ const SignupForm = () => {
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem className="w-1/2">
+              <FormItem className="w-1/3">
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input placeholder="johndoe@gmail.com" {...field} />
@@ -174,10 +164,23 @@ const SignupForm = () => {
             control={form.control}
             name="phone"
             render={({ field }) => (
-              <FormItem className="w-1/2">
+              <FormItem className="w-1/3">
                 <FormLabel>Phone number</FormLabel>
                 <FormControl>
                   <Input placeholder="123456789" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="image_url"
+            render={({ field }) => (
+              <FormItem className="w-1/3">
+                <FormLabel>Image url</FormLabel>
+                <FormControl>
+                  <Input placeholder="https://sfre" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -253,94 +256,13 @@ const SignupForm = () => {
             </DropdownMenu>
           </div>
         </div>
-        <div className="flex items-center gap-5">
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem className="w-1/2">
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <Input
-                      type={hidden ? "password" : "text"}
-                      placeholder="secret-password"
-                      {...field}
-                    />
-                    <Button
-                      className="absolute top-1/2 right-0 translate-y-[-50%] border text-black"
-                      size="icon"
-                      onClick={() => setHidden((prev) => !prev)}
-                      type="button"
-                    >
-                      {hidden ? (
-                        <Eye className="h-4 w-4" />
-                      ) : (
-                        <EyeOff className="h-4 w-4" />
-                      )}
-                    </Button>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="confirmPassword"
-            render={({ field }) => (
-              <FormItem className="w-1/2">
-                <FormLabel>Confirm Password</FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <Input
-                      type={hidden ? "password" : "text"}
-                      placeholder="secret-password"
-                      {...field}
-                    />
-                    <Button
-                      className="absolute top-1/2 right-0 translate-y-[-50%] border text-black"
-                      size="icon"
-                      onClick={() => setHidden((prev) => !prev)}
-                      type="button"
-                    >
-                      {hidden ? (
-                        <Eye className="h-4 w-4" />
-                      ) : (
-                        <EyeOff className="h-4 w-4" />
-                      )}
-                    </Button>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="flex flex-col items-start">
-          <Link
-            to={"/login"}
-            className={cn(
-              buttonVariants({
-                variant: "link",
-              }),
-              "pl-0"
-            )}
-          >
-            Already have an account?
-          </Link>
-          <Button
-            className="bg-black text-white"
-            type="submit"
-            disabled={isPending}
-          >
-            {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Submit
-          </Button>
-        </div>
+        <Button disabled={isPending} type="submit">
+          {isPending && <Loader2 className="mr-2 h-4 2-4 animate-spin" />}
+          Submit
+        </Button>
       </form>
     </Form>
   );
 };
 
-export default SignupForm;
+export default ChangeDetailsForm;

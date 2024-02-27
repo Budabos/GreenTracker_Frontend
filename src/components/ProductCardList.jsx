@@ -54,15 +54,13 @@ const ProductCardList = ({ products, setProducts, filterBy, setFilterBy }) => {
     product.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  const renderedProducts = searchedProducts
-    .filter((product) => {
-      if (filterBy.length < 1) return product;
+  const renderedProducts = searchedProducts.filter((product) => {
+    if (filterBy.length < 1) return product;
 
-      if (filterBy.includes(product.category)) {
-        return product;
-      }
-    })
-    .slice(pageOffset, endOffset);
+    if (filterBy.includes(product.category)) {
+      return product;
+    }
+  });
   const pageCount = Math.ceil(renderedProducts.length / 9);
 
   const handlePageClick = (pageNum) => {
@@ -154,7 +152,7 @@ const ProductCardList = ({ products, setProducts, filterBy, setFilterBy }) => {
         </DropdownMenu>
       </div>
       <div className="mt-10 grid grid-cols-3 gap-6">
-        {renderedProducts.map((product) => (
+        {renderedProducts.slice(pageOffset, endOffset).map((product) => (
           <Card key={product.id}>
             <CardHeader>
               <div className="flex items-center  justify-between gap-4">
