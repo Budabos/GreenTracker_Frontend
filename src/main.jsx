@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <CartProvider>
             <Navbar />
             <App />
-            <Toaster richColors position="top-right" />
+            <Toaster richColors position="bottom-right" />
           </CartProvider>
         </AuthProvider>
       </Router>
