@@ -4,6 +4,7 @@ import {
   CalendarSearch,
   ChevronFirst,
   LayoutDashboard,
+  LogOut,
   PackageSearch,
   Users,
 } from "lucide-react";
@@ -16,6 +17,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useAuth } from "@/providers/AuthProvider";
 
 const Sidebar = () => {
   const [expanded, setExpanded] = useState(false);
@@ -47,6 +49,8 @@ const Sidebar = () => {
       icon: <CalendarCheck className="h-6 w-6" />,
     },
   ];
+
+  const { logout } = useAuth();
 
   return (
     <div className="h-screen bg-[#245501] pl-10 pr-16 pt-10">
@@ -94,6 +98,27 @@ const Sidebar = () => {
           </TooltipProvider>
         ))}
       </div>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger className="mt-28 flex flex-col font-bold text-lg *:p-2 *:rounded *:flex *:items-center *:transition-colors *:duration-300">
+            <Button onClick={logout} variant="ghost" className="text-primary-foreground">
+              <LogOut />
+              <span
+                className={`overflow-hidden transition-all ${
+                  expanded ? "pr-16 ml-2" : "w-0 p-0"
+                } `}
+              >
+                Logout
+              </span>
+            </Button>
+          </TooltipTrigger>
+          {!expanded && (
+            <TooltipContent>
+              <p>Logout</p>
+            </TooltipContent>
+          )}
+        </Tooltip>
+      </TooltipProvider>
     </div>
   );
 };
