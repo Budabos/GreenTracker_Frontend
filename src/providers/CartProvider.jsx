@@ -18,7 +18,6 @@ const CartProvider = ({ children }) => {
     }
   };
 
-  console.log(cart);
 
   const addCartItemQuantity = (id) => {
     const updatedCartItems = cart.map((item) => {

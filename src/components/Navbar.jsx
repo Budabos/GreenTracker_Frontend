@@ -33,11 +33,14 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useCart } from "@/providers/CartProvider";
 import { Item } from "@radix-ui/react-dropdown-menu";
+import { usePaystackPayment } from "react-paystack";
 
 const Navbar = () => {
   const { pathname } = useLocation();
   const { userCred, logout, getUser } = useAuth();
   const user = getUser();
+  const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
+  const initalizePayment = usePaystackPayment();
 
   const excludes = ["/login", "/signup"];
 
@@ -136,7 +139,21 @@ const Navbar = () => {
                       <p className="text-xl font-semibold text-primary">
                         Total price: Ksh. {totalPrice}
                       </p>
-                      <Button>Proceed to checkout</Button>
+                      <Button
+                        onClick={() => {
+                          initalizePayment({
+                            config: {
+                              reference: new Date().getTime().toString(),
+                              email: user?.email,
+                              amount: totalPrice * 100,
+                              currency: "KES",
+                              publicKey,
+                            },
+                          });
+                        }}
+                      >
+                        Proceed to checkout
+                      </Button>
                     </div>
                   </DialogDescription>
                 ) : (
