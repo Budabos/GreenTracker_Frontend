@@ -93,7 +93,7 @@ const CalculationPage = () => {
             style={{
               backgroundImage:
                 'url("https://images.unsplash.com/photo-1697597699447-804b85782fec?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
-              filter: "brightness(0.6)", // Adjust the value to make it darker (0.7 is just an example)
+              filter: "brightness(0.6)",
             }}
           >
           </div>
@@ -110,11 +110,11 @@ const CalculationPage = () => {
                     {currentStep === 3 && <button type="submit">Submit</button>}
                   </div>
                 </div>
-                <div style={{ textAlign: 'center' }}>
+                {/* <div style={{ textAlign: 'center' }}>
                   {[0, 1, 2, 3].map((step, index) => (
                     <span key={index} className={index === currentStep ? 'step active' : 'step'}></span>
                   ))}
-                </div>
+                </div> */}
               </div>
 
 
@@ -134,12 +134,13 @@ const CalculationPage = () => {
             <Card>
               <CardHeader>
                 <CardTitle>Flight Footprint</CardTitle>
-                <CardDescription>Estimated at :{responseFlightData.id}</CardDescription>
-                {/* <CardDescription>Carbon :{responseFlightData.carbon_g} g</CardDescription> */}
+                <CardDescription>Estimated at :{responseFlightData.data.attributes.estimated_at}</CardDescription>
+                <CardDescription>Carbon :{responseFlightData.data.attributes.carbon_g} g</CardDescription>
               </CardHeader>
               <CardContent>
 
-                {/* <p>Distance value : {responseFlightData.distance_value} kms</p> */}
+                <p>Distance value : {responseFlightData.data.attributes.distance_value} kms</p>
+                <p>Distance value : {responseFlightData.distance_value} kms</p>
 
               </CardContent>
               <CardFooter>
@@ -163,3 +164,17 @@ const CalculationPage = () => {
 }
 
 export default CalculationPage
+
+
+
+// const id = data.data.id;
+// const type = data.data.type;
+// const passengers = data.data.attributes.passengers;
+// const legs = data.data.attributes.legs;
+// const estimatedAt = data.data.attributes.estimated_at;
+// const carbonGrams = data.data.attributes.carbon_g;
+// const carbonPounds = data.data.attributes.carbon_lb;
+// const carbonKilograms = data.data.attributes.carbon_kg;
+// const carbonMetricTons = data.data.attributes.carbon_mt;
+// const distanceUnit = data.data.attributes.distance_unit;
+// const distanceValue = data.data.attributes.distance_value;
