@@ -1,6 +1,7 @@
 import { useAuth } from "@/providers/AuthProvider";
 import {
   Ghost,
+  Loader2,
   LogOut,
   Minus,
   MoveRight,
@@ -34,6 +35,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useCart } from "@/providers/CartProvider";
 import { Item } from "@radix-ui/react-dropdown-menu";
 import { usePaystackPayment } from "react-paystack";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { BASE_URL } from "@/lib/utils";
+import { toast } from "sonner";
+import { useState } from "react";
 
 const Navbar = () => {
   const { pathname } = useLocation();
@@ -41,6 +47,7 @@ const Navbar = () => {
   const user = getUser();
   const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
   const initalizePayment = usePaystackPayment();
+  const [open, setOpen] = useState(false);
 
   const excludes = ["/login", "/signup"];
 
@@ -55,7 +62,28 @@ const Navbar = () => {
     removeItem,
     totalPrice,
     totalQuantity,
+    setCart,
   } = useCart();
+
+  const { mutate: makeOrder, isPending } = useMutation({
+    mutationKey: ["orders"],
+    mutationFn: async (values) => {
+      return await axios
+        .post(`${BASE_URL}/orders`, values)
+        .then((res) => {
+          toast.success(res.data.message);
+        })
+        .catch((err) => {
+          toast.error(err.response.data.message);
+        });
+    },
+    onSuccess: () => {
+      setCart([]);
+    },
+  });
+
+  const product_ids = cart.map((item) => item.id).join(",");
+  const quantities = cart.map((item) => item.quantity).join(",");
 
   return (
     <div className="flex items-center justify-between py-4 px-6 bg-[#245501] text-white font-bold">
@@ -71,7 +99,7 @@ const Navbar = () => {
       <NavLinks />
       {userCred ? (
         <div className="flex items-center gap-6">
-          <Dialog>
+          <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger className="relative">
               <ShoppingCart />
               {totalQuantity > 0 && (
@@ -140,7 +168,9 @@ const Navbar = () => {
                         Total price: Ksh. {totalPrice}
                       </p>
                       <Button
+                        disabled={isPending}
                         onClick={() => {
+                          setOpen(false);
                           initalizePayment({
                             config: {
                               reference: new Date().getTime().toString(),
@@ -149,9 +179,20 @@ const Navbar = () => {
                               currency: "KES",
                               publicKey,
                             },
+                            onSuccess: () => {
+                              makeOrder({
+                                user_id: user.id,
+                                product_ids,
+                                quantities,
+                                total_price: totalPrice,
+                              });
+                            },
                           });
                         }}
                       >
+                        {isPending && (
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        )}
                         Proceed to checkout
                       </Button>
                     </div>
