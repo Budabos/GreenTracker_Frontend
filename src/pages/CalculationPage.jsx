@@ -19,6 +19,7 @@ import {
 const CalculationPage = () => {
   const [currentStep, setCurrentStep] = useState(0);
 
+  const [carbonEstimate, setCarbonEstimate] = useState(null);
 
 
 
@@ -141,18 +142,48 @@ const CalculationPage = () => {
 
         <div className="flex-1 p-12 flex  justify-center">
           <div className="max-w-md">
-          {responseList.map((response, index) => (
+          {/* {responseList.map((response, index) => (
               <Card key={index}>
                 <CardHeader>
                   <CardTitle>Response {index + 1}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription>Carbon:  g</CardDescription>
+                  <CardDescription>Carbon:{response.data.attributes.carbon_g}  g</CardDescription>
                   <CardDescription>Estimated at: </CardDescription>
                   <CardDescription>Distance: kms</CardDescription>
                 </CardContent>
               </Card>
-            ))}
+            ))} */}
+         {carbonEstimate && (
+        <div>
+          <h2 className="text-lg font-medium" style={{ color: "#ffff" }}>
+            Estimate Data
+          </h2>
+          <p style={{ color: "#ffff" }}>Carbon: {carbonEstimate.carbon_g} g</p>
+          <p style={{ color: "#ffff" }}>
+            Carbon: {carbonEstimate.carbon_lb} lb
+          </p>
+          <p style={{ color: "#ffff" }}>
+            Carbon: {carbonEstimate.carbon_kg} kg
+          </p>
+          <p style={{ color: "#ffff" }}>
+            Carbon: {carbonEstimate.carbon_mt} metric tons
+          </p>
+          <p style={{ color: "#ffff" }}>
+            Distance: {carbonEstimate.distance_unit}
+          </p>
+          <p style={{ color: "#ffff" }}>
+            Distance Value: {carbonEstimate.distance_value}
+          </p>
+          <p style={{ color: "#ffff" }}>
+            Distance: {carbonEstimate.distance_unit}
+          </p>
+
+          <p style={{ color: "#ffff" }}>
+            Estimated At: {carbonEstimate.estimated_at}
+          </p>
+        </div>
+      )}
           </div>
           
 
