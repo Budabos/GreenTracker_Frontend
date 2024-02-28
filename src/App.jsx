@@ -52,7 +52,7 @@ function App() {
         <Route path="/educational-resources" element={<EducationalResources />} />
         <Route path="/footprint" element={<Footprint />} />
 
-        <Route path="/vehicle" element={<Vehicles />}/ >
+     
 {/* 
         <Route path="/vehicle" element={<Vehicles/>} > */}
 

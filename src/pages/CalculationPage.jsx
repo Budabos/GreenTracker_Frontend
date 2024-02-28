@@ -18,35 +18,27 @@ import {
 
 const CalculationPage = () => {
   const [currentStep, setCurrentStep] = useState(0);
-
-  const [carbonEstimate, setCarbonEstimate] = useState(null);
-
-
-
   const [responseList, setResponseList] = useState([]);
 
 
-  const handleFlightData = (flightData) => {
-   
+  const handleFlightData = (flightData) => {   
     setResponseList([...responseList, flightData])
   };
-  const handleVehicleData = (vehicleData) => {
- 
+
+  const handleVehicleData = (vehicleData) => { 
     setResponseList([...responseList, vehicleData])
   };
+
   const handleShippingData = (result) => {
-    console.log(result.data.attributes.carbon_g)
-    setCarbonEstimate(result.data.attributes.carbon_g)
- 
     setResponseList([...responseList, result])
   };
-
-
 
   const handleElectricityData = (result) => {
-    // console.log(Data.data.id)
     setResponseList([...responseList, result])
   };
+
+
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 

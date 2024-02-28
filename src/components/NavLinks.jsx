@@ -36,10 +36,7 @@ const NavLinks = () => {
       text: "Events",
       route: "/events",
     },
-    {
-      text: "Vehicle",
-      route: "/vehicle",
-    },
+ 
     {
       text: "Calculate footprint",
       route: "/footprint",
