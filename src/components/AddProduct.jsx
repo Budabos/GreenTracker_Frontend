@@ -26,6 +26,7 @@ import { z } from "zod";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 
+// Define the schema for the product
 export const productSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters",
@@ -53,21 +54,30 @@ export const productSchema = z.object({
   }),
 });
 
+// Initialize React Hook Form with the Zod resolver
 const AddProduct = ({  setProducts }) => {
   const form = useForm({
     resolver: zodResolver(productSchema),
   });
 
+  // Use React Query's useMutation hook
   const { mutate, isPending } = useMutation({
     mutationKey: ["products"],
+
+    // Define the mutation function to handle adding a product
     mutationFn: async (values) => {
       return await axios
-        .post(`${BASE_URL}/products`, values)
+        .post(`${BASE_URL}/products`, values)   // Send a POST request to the server to add the product
         .then((res) => {
+          // Display a success toast message
           toast.success(res.data.message);
+          // Reset the form fields
           form.reset();
+          // Update the list of products
           setProducts((prevProducts) => [...prevProducts, res.data.product]);
         })
+
+        // Log any errors that occur
         .catch((err) => console.log(err));
     },
   });
