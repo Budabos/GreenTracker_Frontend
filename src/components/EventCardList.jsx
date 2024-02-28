@@ -43,7 +43,7 @@ import { toast } from "sonner";
 import { Dialog, DialogTrigger } from "./ui/dialog";
 import EditItem from "./EditItem";
 import { format } from "date-fns";
-import { eventSchema } from "./AddEvent";
+import AddEvent, { eventSchema } from "./AddEvent";
 
 const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
   const [search, setSearch] = useState("");
@@ -116,39 +116,42 @@ const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
           />
           <Search className="h-4 w-4 absolute top-1/2 translate-y-[-50%] right-3" />
         </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Button>
-              <Filter className="mr-2 h-4 w-4" />
-              Filter
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>Filter locations</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            {[...locations].map((location) => (
-              <DropdownMenuItem
-                key={location}
-                onClick={() => {
-                  if (filterBy.includes(location)) {
-                    const updatedFilters = filterBy.filter(
-                      (filter) => filter !== location
-                    );
-                    setFilterBy(updatedFilters);
-                  } else {
-                    setFilterBy((prev) => [...prev, location]);
-                  }
-                }}
-                className="cursor-pointer"
-              >
-                {filterBy.includes(location) && (
-                  <Check className="mr-2 h-4 w-4" />
-                )}
-                {location}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex items-center gap-6">
+          <AddEvent setEvents={setEvents} />
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Button variant="outline">
+                <Filter className="mr-2 h-4 w-4" />
+                Filter
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>Filter locations</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {[...locations].map((location) => (
+                <DropdownMenuItem
+                  key={location}
+                  onClick={() => {
+                    if (filterBy.includes(location)) {
+                      const updatedFilters = filterBy.filter(
+                        (filter) => filter !== location
+                      );
+                      setFilterBy(updatedFilters);
+                    } else {
+                      setFilterBy((prev) => [...prev, location]);
+                    }
+                  }}
+                  className="cursor-pointer"
+                >
+                  {filterBy.includes(location) && (
+                    <Check className="mr-2 h-4 w-4" />
+                  )}
+                  {location}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
       <div className="mt-10 grid grid-cols-3 gap-6">
         {renderedEvents.map((event) => (
