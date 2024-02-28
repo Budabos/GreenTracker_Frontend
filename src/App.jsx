@@ -15,11 +15,11 @@ import Products from "./pages/Products";
 import Carbon from "./pages/Carbon";
 import EducationalResources from "./pages/EducationalResources";
 
-import { SustainableHabits } from "./pages/SustainableHabits";
-import { Track } from "./pages/subpages/Track";
-import { Reduce } from "./pages/subpages/Reduce";
-import { Engage } from "./pages/subpages/Engage";
-import Footprint from "./pages/Footprint";
+// import { SustainableHabits } from "./pages/SustainableHabits";
+// import { Track } from "./pages/subpages/Track";
+// import { Reduce } from "./pages/subpages/Reduce";
+// import { Engage } from "./pages/subpages/Engage";
+// import Footprint from "./pages/Footprint";
 
 import Events from "./pages/Events";
 import ProductById from "./pages/ProductById";
@@ -50,7 +50,7 @@ function App() {
         <Route path="/donations" element={<Donation />} />
 
         <Route path="/educational-resources" element={<EducationalResources />} />
-        <Route path="/footprint" element={<Footprint />} />
+        {/* <Route path="/footprint" element={<Footprint />} />
 
 
 
@@ -58,7 +58,7 @@ function App() {
           <Route path="/sustainable-habits" element={<Track/>} />
           <Route path="/sustainable-habits/reduce" element={<Reduce/>} />
           <Route path="/sustainable-habits/engage" element={<Engage/>} />
-        </Route>
+        </Route> */}
 
         <Route
           path="/educational-resources"

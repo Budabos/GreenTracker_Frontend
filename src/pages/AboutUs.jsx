@@ -7,9 +7,9 @@ const AboutUs = () => {
       <section style={{ backgroundColor: "#f8f9fa" }}>
         <div className="text-center">
           <img
-            src="https://startupsmagazine.co.uk/sites/default/files/2021-06/AdobeStock_242700812.jpg"
+            src="https://youthincmag.com/wp-content/uploads/2019/11/Twitter-Climate-Action.jpg"
             alt="Your Image Alt Text"
-            style={{ width: "100%", height: "70%" }}
+            style={{ width: "100%", height: "20%" }}
           />
          <h1 style={{ color: "#28a745", fontSize: "2.5em", fontWeight: "bold", marginTop: "20px" }}>
             GreenTracker: Your Ultimate Destination for Sustainable Living!
@@ -30,11 +30,11 @@ const AboutUs = () => {
             <div className="col-lg-6 col-md-6 col-sm-12">
               <div className="about">
                 <div className="abouthead text-center">
-                  <h5 style={{ color: "#28a745", marginTop: "50px"  }}>Why We are Exceptional</h5>
+                  <h5 style={{ color: "#28a745", marginTop: "50px"  }}><b>Why We are Exceptional</b></h5>
                 </div>
                 <div className="aboutparagraph">
                   <p>
-                    <b>Welcome!</b> to GreenTracker where passion for
+                    <b>Welcome to GreenTracker!</b> where passion for
                     sustainability meets innovation. We are more than just a
                     platform; we are a{" "}
                     <b>community of environmental enthusiasts</b> dedicated to
@@ -65,10 +65,10 @@ const AboutUs = () => {
               ></div>
             </div>
             <div className="col-lg-6 col-md-6 col-sm-12" style={{ marginTop: "50px" }}>
-              <h2 style={{ color: "#28a745"  }}>Our Mission</h2>
+              <h2 style={{ color: "#28a745"  }}><b>Our Mission</b></h2>
               <p>
-                At GreenTracker, our mission is to empower individuals to make
-                informed choices that lead to a more sustainable future. We
+                At GreenTracker, <b>our mission is to empower individuals to make
+                informed choices that lead to a more sustainable future.</b> We
                 strive to provide accessible tools and resources that enable
                 users to calculate their carbon footprint, track sustainable
                 habits, and engage with eco-friendly initiatives. By fostering a
@@ -88,11 +88,11 @@ const AboutUs = () => {
               ></div>
             </div>
             <div className="col-lg-6 col-md-6 col-sm-12" style={{ marginTop: "70px" }}>
-              <h2 style={{ color: "#28a745" }}>Our Vision</h2>
+              <h2 style={{ color: "#28a745" }}><b>Our Vision</b></h2>
               <p>
-                Our <b>Vision at GreenTracker </b>is to create a world where
+                Our Vision at GreenTracker is <b>to create a world where
                 every individual plays an active role in preserving our planet
-                for future generations. We envision a global community of
+                for future generations.</b> We envision a global community of
                 environmentally-conscious citizens who are committed to reducing
                 their carbon footprint and making sustainable choices in their
                 daily lives. Through our app, we seek to empower individuals to
@@ -101,7 +101,7 @@ const AboutUs = () => {
               </p>
             </div>
             <div className="col-lg-6 col-md-6 col-sm-12" >
-              <h2 style={{ textAlign: "center", color: "#28a745" }}>Our Goals</h2>
+              <h2 style={{ textAlign: "center", color: "#28a745" }}><b>Our Goals</b></h2>
               <ul>
                 <ol style={{ textAlign: "center" }}>Empower individuals to make sustainable choices</ol>
                 <ol style={{ textAlign: "center" }}>Provide accessible tools for tracking carbon footprint</ol>
@@ -111,7 +111,7 @@ const AboutUs = () => {
               </ul>
             </div>
             <div className="col-lg-6 col-md-6 col-sm-12">
-              <h2 style={{ textAlign: "center", color: "#28a745" }}>Our Core Values</h2>
+              <h2 style={{ textAlign: "center", color: "#28a745" }}><b>Our Core Values</b></h2>
               <ul>
                 <ol style={{ textAlign: "center" }}>Environmental stewardship</ol>
                 <ol style={{ textAlign: "center" }}>Community engagement</ol>
