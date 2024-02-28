@@ -1,21 +1,36 @@
+import React from "react";
 import { Fragment } from "react";
 
 const AboutUs = () => {
   return (
     <Fragment>
-      <section className="bg-white-100">
+      <section style={{ backgroundColor: "#f8f9fa" }}>
         <div className="text-center">
-          <h3>About Us</h3>
+          <img
+            src="https://startupsmagazine.co.uk/sites/default/files/2021-06/AdobeStock_242700812.jpg"
+            alt="Your Image Alt Text"
+            style={{ width: "100%", height: "70%" }}
+          />
+         <h1 style={{ color: "#28a745", fontSize: "2.5em", fontWeight: "bold", marginTop: "20px" }}>
+            GreenTracker: Your Ultimate Destination for Sustainable Living!
+          </h1>
         </div>
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="col-lg-6 col-md-6 col-sm-12">
-              <div className="card img-fluid rounded-start about-img"></div>
+            <div className="col-lg-6 col-md-6 col-sm-12" style={{ marginTop: "20px" }}>
+              <div
+                className="card img-fluid rounded-start about-img"
+                style={{
+                  background: `url('https://stratheia.com/wp-content/uploads/2023/07/climate-change-backgrounder.jpg')`,
+                  backgroundSize: "cover",
+                  height: "300px",
+                }}
+              ></div>
             </div>
             <div className="col-lg-6 col-md-6 col-sm-12">
               <div className="about">
                 <div className="abouthead text-center">
-                  <h5>Why We are Exceptional</h5>
+                  <h5 style={{ color: "#28a745", marginTop: "50px"  }}>Why We are Exceptional</h5>
                 </div>
                 <div className="aboutparagraph">
                   <p>
@@ -39,10 +54,18 @@ const AboutUs = () => {
                 </div>
               </div>
             </div>
-            <div>
-              <h5 className="text-center text-success">Our Mission</h5>
-            </div>
             <div className="col-lg-6 col-md-6 col-sm-12">
+              <div
+                className="card img-fluid rounded-start mission-img"
+                style={{
+                  background: `url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7AEavl-gdX6MbgkuXKOocz_7A3JmkBKWUwgQsneunRCnYYROQSmwNRi1h3x1mYtoQqO0&usqp=CAU')`,
+                  backgroundSize: "cover",
+                  height: "300px",
+                }}
+              ></div>
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-12" style={{ marginTop: "50px" }}>
+              <h2 style={{ color: "#28a745"  }}>Our Mission</h2>
               <p>
                 At GreenTracker, our mission is to empower individuals to make
                 informed choices that lead to a more sustainable future. We
@@ -55,17 +78,19 @@ const AboutUs = () => {
               </p>
             </div>
             <div className="col-lg-6 col-md-6 col-sm-12">
-              <div className="card img-fluid rounded-start mission-img"></div>
+              <div
+                className="card img-fluid rounded-start vision-img"
+                style={{
+                  background: `url('https://imageio.forbes.com/specials-images/imageserve/628f9b452004fa9b704d8a2f/Sustainable-lifestyle-and-Environmental/960x0.jpg?height=473&width=711&fit=bounds')`,
+                  backgroundSize: "cover",
+                  height: "400px",
+                }}
+              ></div>
             </div>
-            <div>
-              <h5 className="text-success text-center">Our Vision</h5>
-            </div>
-            <div className="col-lg-6 col-md-6 col-sm-12">
-              <div className="card img-fluid rounded-start vision-img"></div>
-            </div>
-            <div className="col-lg-6 col-md-6 col-sm-12">
+            <div className="col-lg-6 col-md-6 col-sm-12" style={{ marginTop: "70px" }}>
+              <h2 style={{ color: "#28a745" }}>Our Vision</h2>
               <p>
-                Our <b>Vision at GreenTraker </b>is to create a world where
+                Our <b>Vision at GreenTracker </b>is to create a world where
                 every individual plays an active role in preserving our planet
                 for future generations. We envision a global community of
                 environmentally-conscious citizens who are committed to reducing
@@ -75,37 +100,33 @@ const AboutUs = () => {
                 collective effort of combating climate change.
               </p>
             </div>
-            <div>
-              <h5 className="text-center text-success">Our Goals</h5>
-            </div>
-            <div className="col-lg-6 col-md-6 col-sm-12">
+            <div className="col-lg-6 col-md-6 col-sm-12" >
+              <h2 style={{ textAlign: "center", color: "#28a745" }}>Our Goals</h2>
               <ul>
-                <li>Empower individuals to make sustainable choices</li>
-                <li>Provide accessible tools for tracking carbon footprint</li>
-                <li>Foster a sense of community around sustainability</li>
-                <li>Offer educational resources on eco-friendly practices</li>
-                <li>Promote positive environmental impact</li>
+                <ol style={{ textAlign: "center" }}>Empower individuals to make sustainable choices</ol>
+                <ol style={{ textAlign: "center" }}>Provide accessible tools for tracking carbon footprint</ol>
+                <ol style={{ textAlign: "center" }}>Foster a sense of community around sustainability</ol>
+                <ol style={{ textAlign: "center" }}>Offer educational resources on eco-friendly practices</ol>
+                <ol style={{ textAlign: "center" }}>Promote positive environmental impact</ol>
               </ul>
             </div>
-            <div>
-              <h5 className="text-center text-success">Our Core Values</h5>
-            </div>
             <div className="col-lg-6 col-md-6 col-sm-12">
+              <h2 style={{ textAlign: "center", color: "#28a745" }}>Our Core Values</h2>
               <ul>
-                <li>Environmental stewardship</li>
-                <li>Community engagement</li>
-                <li>Transparency and accountability</li>
-                <li>Innovation and creativity</li>
-                <li>Continuous improvement</li>
+                <ol style={{ textAlign: "center" }}>Environmental stewardship</ol>
+                <ol style={{ textAlign: "center" }}>Community engagement</ol>
+                <ol style={{ textAlign: "center" }}>Transparency and accountability</ol>
+                <ol style={{ textAlign: "center" }}>Innovation and creativity</ol>
+                <ol style={{ textAlign: "center" }}>Continuous improvement</ol>
               </ul>
-            </div>
-            <div className="text-center text-success font-italic">
-              <h5>
-                GreenTracker: Your Ultimate Destination for Sustainable Living!
-              </h5>
             </div>
           </div>
         </div>
+        <div style={{ textAlign: "center", color: "#28a745" }}>
+              <h1 style={{ fontWeight: "bold" }}>
+                GreenTracker: Your Ultimate Destination for Sustainable Living!
+              </h1>
+            </div>
       </section>
     </Fragment>
   );
