@@ -38,17 +38,19 @@ const Electricity = ({ handleElectricityData }) => {
       const body = {
         type: "electricity",
         electricity_unit: "mwh",
-        ...data,
+        "electricity_value": data.electricity_value,
+        "country": data.country,
+        "state": data.state
       };
 
       console.log(body);
 
-      const apiKey = "yIntFgYVaWEOFdZmam5w";
-      const response = await fetch(`https://www.carboninterface.com/api/v1/estimates`, {
+      const apiKey = "KYhhJrQclnJmPFzA4BEgZA		";
+      const response = await fetch("https://www.carboninterface.com/api/v1/estimates", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${apiKey}`,
+          "Authorization": `Bearer ${apiKey}`
         },
         body: JSON.stringify(body),
       });
@@ -56,9 +58,9 @@ const Electricity = ({ handleElectricityData }) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
       const result = await response.json();
-      handleElectricityData(result);
+      console.log(result)
+      handleElectricityData(result,"Electricity");
 
     } catch (error) {
       console.error("Error:", error);
