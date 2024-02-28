@@ -47,10 +47,6 @@ const NavLinks = () => {
       route: "/events",
     },
  
-    {
-      text: "Calculate footprint",
-      route: "/footprint",
-    },
   ];
 
   const { getUser } = useAuth();
