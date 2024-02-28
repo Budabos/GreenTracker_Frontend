@@ -21,49 +21,30 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useAuth } from "@/providers/AuthProvider";
 
-const loginSchema = z.object({
+const forgotPasswordSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(6, {
-    message: "Password must be at least 6 characters",
-  }),
 });
 
-const LoginForm = () => {
-  const [hidden, setHidden] = useState(true);
-  const { setUserCred, getUser } = useAuth();
-  const navigate = useNavigate();
-
-  const {
-    data: res,
-    isPending,
-    mutate,
-  } = useMutation({
-    mutationKey: ["login"],
-    mutationFn: async (values) => {
-      const res = await axios
-        .post(`${BASE_URL}/login`, values)
-        .then((res) => {
-          setUserCred(JSON.stringify(res.data));
-
-          toast.success(res.data.message);
-
-          if (res.data.user.role === "admin") {
-            navigate("/dashboard");
-          } else {
-            navigate("/");
-          }
-        })
-        .catch((err) => toast.error(err.response.data.message));
-
-      return res;
+const ForgotPassForm = () => {
+  const form = useForm({
+    resolver: zodResolver(forgotPasswordSchema),
+    defaultValues: {
+      email: "",
     },
   });
 
-  const form = useForm({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["forgot-password"],
+    mutationFn: async (values) => {
+      return await axios
+        .post(`${BASE_URL}/forgot-password`, values)
+        .then((res) => {
+          toast.success(res.data.message);
+          form.reset();
+        })
+        .catch((err) => {
+          toast.error(err.response.data.message);
+        });
     },
   });
 
@@ -90,40 +71,9 @@ const LoginForm = () => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <div className="relative">
-                  <Input
-                    type={hidden ? "password" : "text"}
-                    placeholder="secret-password"
-                    {...field}
-                  />
-                  <Button
-                    className="absolute top-1/2 right-0 translate-y-[-50%] border text-black"
-                    size="icon"
-                    type="button"
-                    onClick={() => setHidden((prev) => !prev)}
-                  >
-                    {hidden ? (
-                      <Eye className="h-4 w-4" />
-                    ) : (
-                      <EyeOff className="h-4 w-4" />
-                    )}
-                  </Button>
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <div className="flex flex-col items-start">
           <Link
-            to={"/forgot-password"}
+            to={"/login"}
             className={cn(
               buttonVariants({
                 variant: "link",
@@ -131,7 +81,7 @@ const LoginForm = () => {
               "pl-0"
             )}
           >
-            Forgot password?
+            Already have an account?
           </Link>
           <Link
             to={"/signup"}
@@ -158,4 +108,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default ForgotPassForm;

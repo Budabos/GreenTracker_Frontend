@@ -51,8 +51,11 @@ const Navbar = () => {
   const [display, setDisplay] = useState(true);
 
   useEffect(() => {
-    const excludes = ["/login", "/signup"];
-    if (excludes.includes(pathname) || user?.role === "admin") {
+    const excludes = ["/login", "/signup", "/forgot-password", "/reset"];
+    if (
+      excludes.some((excludePath) => pathname.startsWith(excludePath)) ||
+      user?.role === "admin"
+    ) {
       setDisplay(false);
     } else {
       setDisplay(true);
