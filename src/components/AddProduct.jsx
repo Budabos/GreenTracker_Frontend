@@ -81,7 +81,7 @@ const AddProduct = ({  setProducts }) => {
         .catch((err) => console.log(err));
     },
   });
-
+  // Handle form submission
   function onSubmit(values) {
     mutate(values);
   }
@@ -97,11 +97,13 @@ const AddProduct = ({  setProducts }) => {
             Create a product
           </DialogTitle>
           <DialogDescription>
+            {/* Form for creating a product */}
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-8"
               >
+                {/* Description field */}
                 <FormField
                   control={form.control}
                   name="name"
@@ -132,6 +134,7 @@ const AddProduct = ({  setProducts }) => {
                     </FormItem>
                   )}
                 />
+                {/* Category and Image URL fields */}
                 <div className="flex items-center gap-6 *:w-1/2">
                   <FormField
                     control={form.control}
@@ -163,6 +166,7 @@ const AddProduct = ({  setProducts }) => {
                     )}
                   />
                 </div>
+                {/* Price and Eco Rating fields */}
                 <div className="flex items-center gap-6 *:w-1/2">
                   <FormField
                     control={form.control}
@@ -191,7 +195,7 @@ const AddProduct = ({  setProducts }) => {
                     )}
                   />
                 </div>
-
+                {/* Submit button */}
                 <Button disabled={isPending} type="submit">
                   {isPending && (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
