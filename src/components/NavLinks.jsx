@@ -1,6 +1,16 @@
 import { useAuth } from "@/providers/AuthProvider";
 import React from "react";
 import { NavLink } from "react-router-dom";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from "@/components/ui/navigation-menu";
 
 const NavLinks = () => {
   const links = [
@@ -47,29 +57,33 @@ const NavLinks = () => {
   const user = getUser();
 
   return (
-    <div className="flex items-center gap-6">
-      {links.map(({ route, text }) => {
-        if (
-          (!user && route === "/dashboard") ||
-          (route === "/dashboard" && user.role !== "admin")
-        )
-          return;
+    <NavigationMenu>
+      <NavigationMenuList className="flex items-center gap-3">
+        {links.map(({ route, text }) => {
+          if (
+            (!user && route === "/dashboard") ||
+            (route === "/dashboard" && user.role !== "admin")
+          )
+            return;
 
-        return (
-          <NavLink
-            key={route}
-            className={({ isActive }) =>
-              isActive
-                ? "relative after:absolute after:content-[''] after:-bottom-1 after:left-0 after:bg-white after:w-full after:h-[2px]"
-                : "hover:opacity-60"
-            }
-            to={route}
-          >
-            {text}
-          </NavLink>
-        );
-      })}
-    </div>
+          return (
+            <NavigationMenuItem key={route}>
+              <NavLink
+                key={route}
+                className={({ isActive }) =>
+                  isActive
+                    ? "relative after:absolute after:content-[''] after:-bottom-1 after:left-0 after:bg-white after:w-full after:h-[2px]"
+                    : "hover:opacity-60"
+                }
+                to={route}
+              >
+                {text}
+              </NavLink>
+            </NavigationMenuItem>
+          );
+        })}
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 };
 

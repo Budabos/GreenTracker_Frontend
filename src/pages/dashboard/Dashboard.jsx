@@ -1,10 +1,9 @@
+import PieChart from "@/components/charts/PieChart";
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card";
 import { BASE_URL } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
@@ -31,25 +30,37 @@ const Dashboard = () => {
     );
   }
 
+  const categories = summary.category_stats.map((stat) => stat.category);
+
   return (
     <div className="my-8 px-8 flex-1">
       <div className="flex items-center justify-between">
         <h1 className="text-4xl font-bold">Summary</h1>
       </div>
       <div className="mt-8 grid grid-cols-4 gap-10">
-        {Object.keys(summary).map((key) => (
-          <Card>
-            <CardHeader>
-              <CardTitle>
-                {key.charAt(0).toUpperCase() + key.slice(1)}
-              </CardTitle>
-              <CardDescription>
-                Number of {key}: {summary[key]}
-              </CardDescription>
-            </CardHeader>
-          </Card>
-        ))}
+        {Object.keys(summary).map((key) => {
+          if (key === "category_stats") return;
+          return (
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  {key.charAt(0).toUpperCase() + key.slice(1)}
+                </CardTitle>
+                <CardDescription>
+                  Number of {key}: {summary[key]}
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          );
+        })}
       </div>
+      <PieChart
+        legend={categories}
+        data={summary.category_stats}
+        index={"category"}
+        category={"count"}
+        title={'Products by category'}
+      />
     </div>
   );
 };

@@ -46,7 +46,12 @@ const LoginForm = () => {
           setUserCred(JSON.stringify(res.data));
 
           toast.success(res.data.message);
-          navigate("/");
+
+          if (res.data.user.role === "admin") {
+            navigate("/dashboard");
+          } else {
+            navigate("/");
+          }
         })
         .catch((err) => toast.error(err.response.data.message));
 
