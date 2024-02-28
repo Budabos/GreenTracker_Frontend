@@ -1,7 +1,7 @@
+import ChangeDetailsForm from "@/components/ChangeDetailsForm";
 import ChangePasswordForm from "@/components/ChangePasswordForm";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/providers/AuthProvider";
-import { User } from "lucide-react";
-import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Profile() {
@@ -19,37 +19,32 @@ function Profile() {
       {user && (
         <div className="cursor-pointer">
           <div className="bg-gray-100 p-4 rounded-lg">
-            <h2 className="text-xl font-bold mb-2">User Information</h2>
-
-            {/* <div className="flex flex-col items-center justify-center">
-              {user.image_url ? (
-                <img src={user.image_url} className="" />
-              ) : (
-                <User className="w-24 h-24" />
-              )}
-
-              <ul className="flex flex-col mt-8 text-xl">
-                <li>
-                  <span className="text-2xl">Name</span> : {user.first_name}{" "}
-                  {user.last_name}
-                </li>
-                <li>
-                  <span className="text-2xl">Email:</span> {user.email}
-                </li>
-                <li>
-                  <span className="text-2xl">Phone:</span> {user.phone}
-                </li>
-                <li>
-                  <span className="text-2xl">Interests:</span> {user.interests}
-                </li>
-                <li>
-                  <span className="text-2xl">Age:</span> {user.age}
-                </li>
-              </ul>
-            </div> */}
-
-            <h2 className="text-xl font-bold mb-2">Change password</h2>
-            <ChangePasswordForm/>
+            <Tabs defaultValue="user information">
+              <TabsList>
+                <TabsTrigger
+                  value="user information"
+                  className="text-xl font-bold mb-2"
+                >
+                  User information
+                </TabsTrigger>
+                <TabsTrigger
+                  value="password"
+                  className="text-xl font-bold mb-2"
+                >
+                  Password
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="user information">
+                <p className="font-medium my-3">
+                  Make changes to your account here.
+                </p>
+                <ChangeDetailsForm />
+              </TabsContent>
+              <TabsContent value="password">
+                <p className="font-medium my-3">Change your password here.</p>
+                <ChangePasswordForm />
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
       )}

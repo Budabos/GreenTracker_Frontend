@@ -10,15 +10,28 @@ import {
 import { BASE_URL } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Loader2, MoveLeft, Star } from "lucide-react";
+import { Loader2, MoveLeft, ShoppingCart, Star } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import Review from "./Review";
+import { useCart } from "@/providers/CartProvider";
+import { usePaystackPayment } from "react-paystack";
+import { useAuth } from "@/providers/AuthProvider";
 
 const ProductById = () => {
+  const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
   const { id } = useParams();
   const navigate = useNavigate();
+  const { getUser } = useAuth();
+  const user = getUser();
 
-  const { data: product, isLoading, refetch } = useQuery({
+  const { addCartItem } = useCart();
+  const initalizePayment = usePaystackPayment();
+
+  const {
+    data: product,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["product"],
     queryFn: async () => {
       return await axios
@@ -47,16 +60,16 @@ const ProductById = () => {
       >
         <MoveLeft className="h-8 w-8" />
       </Button>
-      <div className="mt-6 flex items-start gap-24">
+      <div className="mt-6 flex items-start gap-24 ">
         <img className="w-[24rem] h-[24rem] rounded" src={product.image_url} />
         <div>
           <p className="text-4xl font-bold">{product.name}</p>
           <div className="py-4">
             <Badge variant="outline">{product.category}</Badge>
           </div>
-          <p className="mt-4 opacity-70 max-w-lg">{product.description}</p>
+          <p className="mt-4 opacity-90 max-w-lg">{product.description}</p>
           <p className="mt-2 max-w-lg flex items-center font-light">
-            <span className="opacity-65">Eco rating:</span>
+            <span className="">Eco rating:</span>
             {[
               ...Array(product.eco_rating)
                 .fill(0)
@@ -68,9 +81,31 @@ const ProductById = () => {
                 )),
             ]}
           </p>
+          <p className="mt-2">Price: Ksh. {product.price}</p>
+          <div className="flex items-center mt-10 gap-4">
+            <Button
+              onClick={() => {
+                initalizePayment({
+                  config: {
+                    reference: new Date().getTime().toString(),
+                    email: user?.email,
+                    amount: product.price * 100,
+                    currency: "KES",
+                    publicKey,
+                  },
+                });
+              }}
+            >
+              Buy now
+            </Button>
+            <Button onClick={() => addCartItem(product)} variant="outline">
+              <ShoppingCart className="mr-2 h-4 w-4" />
+              Add to cart
+            </Button>
+          </div>
         </div>
       </div>
-      <Review product={product} refetch={refetch}/>
+      <Review product={product} refetch={refetch} />
     </div>
   );
 };

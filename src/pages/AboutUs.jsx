@@ -37,7 +37,7 @@ const AboutUs = () => {
                     <b>Welcome to GreenTracker!</b> where passion for
                     sustainability meets innovation. We are more than just a
                     platform; we are a{" "}
-                    <b>community of environmental enthusiasts</b> dedicated to
+                    <b>community of environmental enthusiasts🌍</b> dedicated to
                     exploring sustainable living and eco-friendly practices. Our
                     journey began with a simple idea - to bring the joy of
                     sustainable living experiences to your fingertips. At
@@ -48,7 +48,7 @@ const AboutUs = () => {
                     journey towards a greener future.
                     <p className="text-center font-weight-bold text-success">
                       <br />
-                      <b>Our Aim is Your Satisfaction!!!</b>
+                      <b>Our Aim is Your Satisfaction!!! 🌍</b>
                     </p>
                   </p>
                 </div>
@@ -71,10 +71,10 @@ const AboutUs = () => {
                 informed choices that lead to a more sustainable future.</b> We
                 strive to provide accessible tools and resources that enable
                 users to calculate their carbon footprint, track sustainable
-                habits, and engage with eco-friendly initiatives. By fostering a
+                habits, and engage with eco-friendly initiatives🌿. By fostering a
                 sense of community and providing educational materials, we aim
                 to inspire and support users on their journey towards living a
-                greener lifestyle.
+                greener lifestyle🌱.
               </p>
             </div>
             <div className="col-lg-6 col-md-6 col-sm-12">
@@ -95,9 +95,9 @@ const AboutUs = () => {
                 for future generations.</b> We envision a global community of
                 environmentally-conscious citizens who are committed to reducing
                 their carbon footprint and making sustainable choices in their
-                daily lives. Through our app, we seek to empower individuals to
+                daily lives🌱. Through our app, we seek to empower individuals to
                 become agents of positive change and contribute to the
-                collective effort of combating climate change.
+                collective effort of combating climate change🌿.
               </p>
             </div>
             <div className="col-lg-6 col-md-6 col-sm-12" >
