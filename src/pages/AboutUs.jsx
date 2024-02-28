@@ -29,7 +29,7 @@ const AboutUs = () => {
             </div>
             <div className="col-lg-6 col-md-6 col-sm-12">
               <div className="about">
-                <div className="abouthead text-center">
+                <div className="abouthead text-left">
                   <h5 style={{ color: "#28a745", marginTop: "50px"  }}><b>Why We are Exceptional</b></h5>
                 </div>
                 <div className="aboutparagraph">
@@ -122,7 +122,7 @@ const AboutUs = () => {
             </div>
           </div>
         </div>
-        <div style={{ textAlign: "center", color: "#28a745" }}>
+        <div style={{ textAlign: "center", color: "#28a745", marginTop: "30px"}}>
               <h1 style={{ fontWeight: "bold" }}>
                 GreenTracker: Your Ultimate Destination for Sustainable Living!
               </h1>
