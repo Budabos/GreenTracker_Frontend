@@ -12,7 +12,6 @@ import { Ghost, Loader2 } from "lucide-react";
 import { useState } from "react";
 
 const DashboardEvents = () => {
-  const [active, setActive] = useState("grid");
   const [filterBy, setFilterBy] = useState([]);
   const [events, setEvents] = useState([]);
 
@@ -50,21 +49,14 @@ const DashboardEvents = () => {
       <div>
         <div className="flex items-center justify-between">
           <h1 className="text-4xl font-bold">Events</h1>
-          <div className="flex items-center gap-10">
-            <AddEvent setEvents={setEvents} />
-            <ViewSelector active={active} setActive={setActive} />
-          </div>
         </div>
       </div>
-      {active === "grid" && (
-        <EventCardList
-          filterBy={filterBy}
-          setFilterBy={setFilterBy}
-          events={events}
-          setEvents={setEvents}
-        />
-      )}
-      {/* {active === "list" && <DataTable data={products} columns={columns} />} */}
+      <EventCardList
+        filterBy={filterBy}
+        setFilterBy={setFilterBy}
+        events={events}
+        setEvents={setEvents}
+      />
     </div>
   );
 };

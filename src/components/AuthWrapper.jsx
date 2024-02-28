@@ -17,7 +17,9 @@ const AuthWrapper = () => {
   return (
     <div className="flex">
       <Sidebar />
-      <Outlet />
+      <div className="flex-1 ml-32">
+        <Outlet />
+      </div>
     </div>
   );
 };

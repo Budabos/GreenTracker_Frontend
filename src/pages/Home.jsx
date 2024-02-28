@@ -126,7 +126,10 @@ const Home = () => {
       <div className="hero-section" style={{ position: "relative" }}>
         <Slider {...settings} ref={sliderRef}>
           {slides.map((slide, index) => (
-            <div key={index} onClick={handleImageClick}>
+            <div
+              key={index}
+              onClick={handleImageClick}
+            >
               {" "}
               {/* Attach click handler */}
               <img
@@ -169,7 +172,6 @@ const Home = () => {
       <div className="objectives-section bg-gray-100 py-12">
         <div className="container mx-auto">
           <button className="text-3xl font-bold mb-8">Our objectives</button>
-
           <div className="flex flex-wrap">
             {objectives.map((objective, index) => (
               <div
