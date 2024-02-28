@@ -1,6 +1,18 @@
+import { Button, buttonVariants } from "@/components/ui/button";
+import { BASE_URL, cn } from "@/lib/utils";
+import { useAuth } from "@/providers/AuthProvider";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { Loader2 } from "lucide-react";
 import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const Events = () => {
+  const { getUser } = useAuth();
+  const user = getUser();
+  const navigate = useNavigate();
+
   // Dummy data as a fallback
   const dummyEvents = [
     {
@@ -48,115 +60,131 @@ const Events = () => {
       registration_deadline: "2024-09-15", // Date format: YYYY-MM-DD
     },
   ];
-
   const [events, setEvents] = useState([]);
 
-  useEffect(() => {
-    // Fetch data from backend server
-    fetch("http://localhost:5555/events")
-      .then((response) => response.json())
-      .then((data) => {
-        setEvents(data); // Set events to the fetched data directly
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        // Set events to dummy data if fetch fails
-        setEvents(dummyEvents);
-      });
-  }, []); // Empty dependency array to run the effect only once on component mount
+  const { data, isLoading } = useQuery({
+    queryKey: ["events"],
+    queryFn: async () => {
+      return await axios
+        .get(`${BASE_URL}/events`)
+        .then((res) => {
+          setEvents(res.data);
+        })
+        .catch((err) => console.log(err));
+    },
+  });
 
-  // Display a loading indicator or error message if events are not available
-  if (events.length === 0) {
-    // Use dummy data as a fallback if events are not available
-    return (
-      <div className="container mx-auto mt-8">
-        {/* Large Card */}
-        {dummyEvents.length > 0 && (
-          <div className="bg-white rounded-lg shadow-md overflow-hidden lg:flex mb-8">
-            <div
-              className="lg:w-1/2 lg:rounded-lg lg:rounded-r-none"
-              style={{
-                backgroundImage:
-                  "url('https://images.pexels.com/photos/8042458/pexels-photo-8042458.jpeg?auto=compress&cs=tinysrgb&w=600')",
-                backgroundSize: "cover",
-                height: "400px", // Adjust the height as needed
-              }}
-            ></div>
-            <div className="p-6 lg:w-1/2">
-              <h2 className="text-2xl font-semibold mb-2">
-                {dummyEvents[0].title}
-              </h2>
-              <p className="text-gray-700 mb-2">
-                Date: {dummyEvents[0].date_event}
-              </p>
-              <p className="text-gray-700 mb-2">
-                Location: {dummyEvents[0].location}
-              </p>
-              <p className="text-gray-700 mb-2">
-                Organizer: {dummyEvents[0].organizer}
-              </p>
-              <p className="text-gray-700 mb-2">
-                Contact Info: {dummyEvents[0].contact_info}
-              </p>
-              <p className="text-gray-700 mb-2">
-                Registration Deadline: {dummyEvents[0].registration_deadline}
-              </p>
-              <p className="text-gray-700 mb-2">
-                Description: {dummyEvents[0].description}
-              </p>
-            </div>
-          </div>
-        )}
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["user_events"],
+    mutationFn: async (event_id) => {
+      return await axios
+        .post(`${BASE_URL}/event_user`, {
+          user_id: user.id,
+          event_id,
+        })
+        .then((res) => {
+          toast.success(res.data.message);
+        });
+    },
+  });
 
-        {/* Smaller Cards */}
-        <div
-          className="container mx-auto mt-8"
-          style={{ paddingBottom: "80px" }}
-        >
-          <div className="flex flex-wrap">
-            {dummyEvents.slice(1).map((event) => (
-              <div
-                key={event.id}
-                className="max-w-sm rounded overflow-hidden shadow-md m-4"
-              >
-                <img
-                  className="w-full"
-                  src="https://images.pexels.com/photos/9037229/pexels-photo-9037229.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-                  alt={event.title}
-                />
-                <div className="px-6 py-4">
-                  <div className="font-bold text-xl mb-2">{event.title}</div>
-                  <p className="text-gray-700 text-base mb-2">
-                    Date: {event.date_event}
-                  </p>
-                  <p className="text-gray-700 text-base mb-2">
-                    Location: {event.location}
-                  </p>
-                  <p className="text-gray-700 text-base mb-2">
-                    Organizer: {event.organizer}
-                  </p>
-                  <p className="text-gray-700 text-base mb-2">
-                    Contact Info: {event.contact_info}
-                  </p>
-                  <p className="text-gray-700 text-base mb-2">
-                    Registration Deadline: {event.registration_deadline}
-                  </p>
-                  <p className="text-gray-700 text-base">
-                    Description: {event.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // // Display a loading indicator or error message if events are not available
+  // if (events.length === 0) {
+  //   // Use dummy data as a fallback if events are not available
+  //   return (
+  //     <div className="container mx-auto mt-8">
+  //       {/* Large Card */}
+  //       {dummyEvents.length > 0 && (
+  //         <div className="bg-white rounded-lg shadow-md overflow-hidden lg:flex mb-8">
+  //           <div
+  //             className="lg:w-1/2 lg:rounded-lg lg:rounded-r-none"
+  //             style={{
+  //               backgroundImage:
+  //                 "url('https://images.pexels.com/photos/8042458/pexels-photo-8042458.jpeg?auto=compress&cs=tinysrgb&w=600')",
+  //               backgroundSize: "cover",
+  //               height: "400px", // Adjust the height as needed
+  //             }}
+  //           ></div>
+  //           <div className="p-6 lg:w-1/2">
+  //             <h2 className="text-2xl font-semibold mb-2">
+  //               {dummyEvents[0].title}
+  //             </h2>
+  //             <p className="text-gray-700 mb-2">
+  //               Date: {dummyEvents[0].date_event}
+  //             </p>
+  //             <p className="text-gray-700 mb-2">
+  //               Location: {dummyEvents[0].location}
+  //             </p>
+  //             <p className="text-gray-700 mb-2">
+  //               Organizer: {dummyEvents[0].organizer}
+  //             </p>
+  //             <p className="text-gray-700 mb-2">
+  //               Contact Info: {dummyEvents[0].contact_info}
+  //             </p>
+  //             <p className="text-gray-700 mb-2">
+  //               Registration Deadline: {dummyEvents[0].registration_deadline}
+  //             </p>
+  //             <p className="text-gray-700 mb-2">
+  //               Description: {dummyEvents[0].description}
+  //             </p>
+  //           </div>
+  //         </div>
+  //       )}
+
+  //       {/* Smaller Cards */}
+  //       <div
+  //         className="container mx-auto mt-8"
+  //         style={{ paddingBottom: "80px" }}
+  //       >
+  //         <div className="flex flex-wrap">
+  //           {dummyEvents.slice(1).map((event) => (
+  //             <div
+  //               key={event.id}
+  //               className="max-w-sm rounded overflow-hidden shadow-md m-4"
+  //             >
+  //               <img
+  //                 className="w-full"
+  //                 src="https://images.pexels.com/photos/9037229/pexels-photo-9037229.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+  //                 alt={event.title}
+  //               />
+  //               <div className="px-6 py-4">
+  //                 <div className="font-bold text-xl mb-2">{event.title}</div>
+  //                 <p className="text-gray-700 text-base mb-2">
+  //                   Date: {event.date_event}
+  //                 </p>
+  //                 <p className="text-gray-700 text-base mb-2">
+  //                   Location: {event.location}
+  //                 </p>
+  //                 <p className="text-gray-700 text-base mb-2">
+  //                   Organizer: {event.organizer}
+  //                 </p>
+  //                 <p className="text-gray-700 text-base mb-2">
+  //                   Contact Info: {event.contact_info}
+  //                 </p>
+  //                 <p className="text-gray-700 text-base mb-2">
+  //                   Registration Deadline: {event.registration_deadline}
+  //                 </p>
+  //                 <p className="text-gray-700 text-base">
+  //                   Description: {event.description}
+  //                 </p>
+  //               </div>
+  //             </div>
+  //           ))}
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="container mx-auto mt-8">
       {/* Large Card */}
-      {events.length > 0 && (
+      {isLoading ? (
+        <div className="flex w-full items-center justify-center text-xl h-[60dvh]">
+          <Loader2 className="mr-4 h-8 w-8 animate-spin" />
+          Loading events...
+        </div>
+      ) : (
         <div className="bg-white rounded-lg shadow-md overflow-hidden lg:flex mb-8">
           <div
             className="lg:w-1/2 lg:rounded-lg lg:rounded-r-none"
@@ -183,6 +211,30 @@ const Events = () => {
             <p className="text-gray-700 mb-2">
               Description: {events[0].description}
             </p>
+            <div className="mt-4">
+              {!user ? (
+                <Link
+                  to={"/login"}
+                  className={cn(
+                    buttonVariants({
+                      variant: "ghost",
+                    })
+                  )}
+                >
+                  Login to book event
+                </Link>
+              ) : (
+                <Button
+                  disabled={isPending}
+                  onClick={() => mutate(events[0].id)}
+                >
+                  {isPending && (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  )}
+                  Book event
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       )}
@@ -219,6 +271,30 @@ const Events = () => {
                 <p className="text-gray-700 text-base">
                   Description: {event.description}
                 </p>
+                <div className="mt-6">
+                  {!user ? (
+                    <Link
+                      to={"/login"}
+                      className={cn(
+                        buttonVariants({
+                          variant: "ghost",
+                        })
+                      )}
+                    >
+                      Login to book event
+                    </Link>
+                  ) : (
+                    <Button
+                      disabled={isPending}
+                      onClick={() => mutate(event.id)}
+                    >
+                      {isPending && (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      )}
+                      Book event
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
           ))}

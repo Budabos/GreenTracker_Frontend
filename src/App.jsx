@@ -15,16 +15,11 @@ import Products from "./pages/Products";
 import Carbon from "./pages/Carbon";
 import EducationalResources from "./pages/EducationalResources";
 
-// import { SustainableHabits } from "./pages/SustainableHabits";
+import SustainableHabits from "./pages/CalculationPage";
 // import { Track } from "./pages/subpages/Track";
 // import { Reduce } from "./pages/subpages/Reduce";
 // import { Engage } from "./pages/subpages/Engage";
-// import Footprint from "./pages/Footprint";
-// import { SustainableHabits } from "./pages/SustainableHabits";
-// import { Track } from "./pages/subpages/Track";
-// import { Reduce } from "./pages/subpages/Reduce";
-// import { Engage } from "./pages/subpages/Engage";
-// import Footprint from "./pages/Footprint";
+import Footprint from "./pages/Footprint";
 
 import Events from "./pages/Events";
 import ProductById from "./pages/ProductById";
@@ -35,7 +30,12 @@ import AuthWrapper from "./components/AuthWrapper";
 import DashboardEvents from "./pages/dashboard/DashboardEvents";
 import DashboardProducts from "./pages/dashboard/DashboardProducts";
 import DashboardUsers from "./pages/dashboard/DashboardUsers";
+
+import CalculationPage from "./pages/CalculationPage";
+
 import DashboardBookings from "./pages/dashboard/DashboardBookings";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import Shipping from "./pages/Shipping";
 
 function App() {
@@ -53,6 +53,9 @@ function App() {
         <Route path="/review" element={<Review />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/donations" element={<Donation />} />
+        <Route path="/carbon-calculation" element={<CalculationPage />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset/:token" element={<ResetPassword />} />
         <Route path="/carbon" element={<Shipping />} />
 
         <Route
@@ -61,11 +64,19 @@ function App() {
         />
         {/* {/* <Route path="/footprint" element={<Footprint />} />
 
+     
+{/* 
+        <Route path="/vehicle" element={<Vehicles/>} > */}
 
-
-        <Route path="/sustainable-habits" element={<SustainableHabits />} >
-          <Route path="/sustainable-habits" element={<Track/>} />
+        {/* </Route> */}
+        {/* <Route path="/sustainable-habits" element={<Track/>} />
           <Route path="/sustainable-habits/reduce" element={<Reduce/>} />
+
+ 
+
+
+
+
           <Route path="/sustainable-habits/engage" element={<Engage/>} />
         </Route> */}
 

@@ -5,9 +5,9 @@ import logo from "../../greentrackrlogo.png";
 
 const Footer = () => {
   const { pathname } = useLocation();
-  const excludes = ["/dashboard"];
+  const excludes = ["/login", "/signup", "/forgot-password", "/reset", '/dashboard'];
 
-  if (excludes.includes(pathname)) return;
+  if (excludes.some((excludePath) => pathname.startsWith(excludePath))) return;
 
   return (
     <footer className="text-white py-8" style={{ backgroundColor: "#245501" }}>
