@@ -45,17 +45,20 @@ import EditItem from "./EditItem";
 import { format } from "date-fns";
 import AddEvent, { eventSchema } from "./AddEvent";
 
+//Component to display a list of events with filtering, pagination, and actions.
 const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
   const [search, setSearch] = useState("");
   const [dialog, setDialog] = useState("");
   const [pageOffset, setPageOffset] = useState(0);
   const locations = new Set(events.map(({ location }) => location));
 
+  // Calculate pagination offsets
   const endOffset = pageOffset + 9;
   const searchedEvents = events.filter((event) =>
     event.title.toLowerCase().includes(search.toLowerCase())
   );
 
+  // Apply filters and slice events for pagination
   const renderedEvents = searchedEvents
     .filter((event) => {
       if (filterBy.length < 1) return event;
@@ -67,11 +70,13 @@ const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
     .slice(pageOffset, endOffset);
   const pageCount = Math.ceil(renderedEvents.length / 9);
 
+  // Handle page click for pagination
   const handlePageClick = (pageNum) => {
     const newOffset = (pageNum * 9) % events.length;
     setPageOffset(newOffset);
   };
 
+  // Mutation hook for deleting an event
   const { mutate: deleteEvent, isPending: pendingDeletion } = useMutation({
     mutationKey: ["events"],
     mutationFn: async (id) => {
@@ -107,6 +112,8 @@ const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
 
   return (
     <>
+      {/* Search and filter */}
+
       <div className="mt-5 flex items-center justify-between">
         <div className="relative w-[28rem]">
           <Input
@@ -125,6 +132,7 @@ const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
                 Filter
               </Button>
             </DropdownMenuTrigger>
+ {/* Dropdown menu for filter options */}
             <DropdownMenuContent>
               <DropdownMenuLabel>Filter locations</DropdownMenuLabel>
               <DropdownMenuSeparator />
@@ -158,6 +166,7 @@ const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
           <Card key={event.id}>
             <CardHeader>
               <div className="flex items-center  justify-between gap-4">
+                {/* Dropdown menu for event actions */}
                 <CardTitle>{event.title}</CardTitle>
                 <Dialog>
                   <DropdownMenu>
@@ -169,12 +178,14 @@ const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
                     <DropdownMenuContent>
                       <DropdownMenuLabel>Actions</DropdownMenuLabel>
                       <DropdownMenuSeparator />
+                      {/* Trigger for editing event */}
                       <DialogTrigger asChild onClick={() => setDialog("edit")}>
                         <DropdownMenuItem>
                           <PenLine className="mr-2 h-4 w-4" />
                           Edit event
                         </DropdownMenuItem>
                       </DialogTrigger>
+                      {/* Trigger for deleting event */}
                       <DialogTrigger
                         onClick={() => setDialog("delete")}
                         asChild
@@ -185,7 +196,9 @@ const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
                         </DropdownMenuItem>
                       </DialogTrigger>
                     </DropdownMenuContent>
+                    {/* Dialog for confirming delete operation */}
                   </DropdownMenu>
+                  {/* Dialog for editing event */}
                   {dialog === "delete" && (
                     <DeleteItem
                       itemType="event"
@@ -204,12 +217,15 @@ const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
                   )}
                 </Dialog>
               </div>
+              {/* Badge for event location */}
               <div>
                 <Badge variant="outline">{event.location}</Badge>
               </div>
+              {/* Description of the event */}
               <CardDescription className="pt-6">
                 {event.description}
               </CardDescription>
+              {/* Content of the card with event date */}
             </CardHeader>
             <CardContent className="opacity-80 text-sm">
               <p>{format(event.date_event, "PPP")}</p>
@@ -217,14 +233,17 @@ const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
           </Card>
         ))}
       </div>
+      {/* Pagination for navigating through event pages */}
       <Pagination className="mt-10">
         <PaginationContent>
+          {/* Previous page button */}
           <PaginationItem>
             <PaginationPrevious
               className={pageOffset === 0 && "cursor-not-allowed"}
               onClick={() => setPageOffset(pageOffset - 9)}
             />
           </PaginationItem>
+          {/* Page links */}
           {new Array(pageCount).fill(0).map((_, index) => (
             <PaginationItem key={index}>
               <PaginationLink
@@ -235,9 +254,11 @@ const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
               </PaginationLink>
             </PaginationItem>
           ))}
+          {/* Next page button */}
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
+          {/* Next page button */}
           <PaginationItem>
             <PaginationNext
               className={
