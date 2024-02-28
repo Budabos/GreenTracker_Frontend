@@ -26,8 +26,10 @@ const AuthWrapper = () => {
     <div className="flex">
       {/* Render Sidebar component */}
       <Sidebar />
-      {/* Render child routes */}
-      <Outlet />
+      <div className="flex-1 ml-32">
+        {/* Render child routes */}
+        <Outlet />
+      </div>
     </div>
   );
 };
