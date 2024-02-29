@@ -100,7 +100,7 @@ const Flights = ({handleFlightData}) => {
             console.log("Response data:", flightData.data.attributes.estimated_at
             )
 
-            handleFlightData(flightData,"flight")
+            handleFlightData(flightData,"Flight")
           
         } catch (error) {
             console.error("Error:", error);

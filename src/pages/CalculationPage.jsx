@@ -44,6 +44,109 @@ const CalculationPage = () => {
 
 
 
+  const calculateElecSum = (type, unit) => {
+    return responseList.reduce((total, response) => {
+      console.log(response.carbonType)
+      if (response.carbonType === "Electricity") {
+        
+        switch (unit) {
+          case 'g':
+            return total + response.data.data.attributes.carbon_g;
+          case 'lb':
+            return total + response.data.data.attributes.carbon_lb;
+          case 'kg':
+            return total + response.data.data.attributes.carbon_kg;
+          case 'mt':
+            return total + response.data.data.attributes.carbon_mt;
+          default:
+            return total;
+        }
+      }
+      return total;
+      
+    }, 0);
+  };
+  const calculateFlightSum = (type, unit) => {
+    return responseList.reduce((total, response) => {
+      console.log(response.carbonType)
+      if (response.carbonType === "Flight") {
+        
+        switch (unit) {
+          case 'g':
+            return total + response.data.data.attributes.carbon_g;
+          case 'lb':
+            return total + response.data.data.attributes.carbon_lb;
+          case 'kg':
+            return total + response.data.data.attributes.carbon_kg;
+          case 'mt':
+            return total + response.data.data.attributes.carbon_mt;
+          default:
+            return total;
+        }
+      }
+      return total;
+      
+    }, 0);
+  };
+  const calculateShippingSum = (type, unit) => {
+    return responseList.reduce((total, response) => {
+      console.log(response.carbonType)
+      if (response.carbonType === "Shipping") {
+        
+        switch (unit) {
+          case 'g':
+            return total + response.data.data.attributes.carbon_g;
+          case 'lb':
+            return total + response.data.data.attributes.carbon_lb;
+          case 'kg':
+            return total + response.data.data.attributes.carbon_kg;
+          case 'mt':
+            return total + response.data.data.attributes.carbon_mt;
+          default:
+            return total;
+        }
+      }
+      return total;
+      
+    }, 0);
+  };
+  const calculateVehicleSum = (type, unit) => {
+    return responseList.reduce((total, response) => {
+      console.log(response.carbonType)
+      if (response.carbonType === "Vehicle") {
+        
+        switch (unit) {
+          case 'g':
+            return total + response.data.data.attributes.carbon_g;
+          case 'lb':
+            return total + response.data.data.attributes.carbon_lb;
+          case 'kg':
+            return total + response.data.data.attributes.carbon_kg;
+          case 'mt':
+            return total + response.data.data.attributes.carbon_mt;
+          default:
+            return total;
+        }
+      }
+      return total;
+      
+    }, 0);
+  };
+
+  const calculateTotalEmissions = () => {
+    const emissions = {
+      flight: calculateFlightSum('Flight', 'kg'),
+      vehicle: calculateVehicleSum('Vehicle', 'kg'),
+      shipping: calculateShippingSum('Shipping', 'kg'),
+      electricity: calculateElecSum('Electricity', 'kg'),
+    };
+
+    return Object.values(emissions).reduce((total, emission) => total + emission, 0);
+  };
+
+
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -145,6 +248,12 @@ const CalculationPage = () => {
         <div className="flex-1 p-2 flex  justify-center">
           <div className=" p-4 ">
             <h2>Your calculated  carbon footprint</h2>
+            <p>Total Emmissions from flights {calculateFlightSum('flight', 'kg')} kg</p>
+            <p>Total Emmissions from Energy use {calculateElecSum('electricity', 'kg')} kg</p>
+            <p>Total Emmissions from Shipping items{calculateShippingSum('shipping', 'kg')} kg</p>
+            <p>Total Emmissions from Vehiclerides{calculateVehicleSum('vehicle', 'kg')} kg</p>
+
+
             {responseList.map((response) => (
               <Card key={response.data.data.id} className="border w-400 h-40 border-gray-200 rounded-md flex flex-col mb-2">
                 <CardHeader className="mb-1">
@@ -169,6 +278,7 @@ const CalculationPage = () => {
             ))}
             <div>
             </div>
+            <p>{calculateTotalEmissions()} kg</p>
           </div>
         </div>
       </div >
