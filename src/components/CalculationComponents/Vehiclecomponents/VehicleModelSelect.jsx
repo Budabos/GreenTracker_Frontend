@@ -43,8 +43,8 @@ const VehicleModelSelect = ({ makeId, onSelect }) => {
     <div>
       <label
         htmlFor="modelSelect"
-        className="block font-medium text-gray-700 mb-2"
-        style={{ paddingTop: "10px", color: "#ffff" }}
+        className="block font-medium text-slate-950 mb-2"
+        style={{ paddingTop: "10px", color: "#000000" }}
       >
         Select Vehicle Model:
       </label>
@@ -52,7 +52,7 @@ const VehicleModelSelect = ({ makeId, onSelect }) => {
         id="modelSelect"
         value={selectedModelId}
         onChange={handleModelChange}
-        className="block w-full px-4 py-2   text-blue-600 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-opacity-50"
+        className="block w-full px-4 py-2 text-slate-950  border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-opacity-50"
       >
         <option value="">Select Vehicle Model</option>
         {vehicleModels.map((model) => (

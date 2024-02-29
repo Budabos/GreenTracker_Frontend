@@ -80,7 +80,7 @@ const Flights = ({handleFlightData}) => {
 
             // console.log(body);
 
-            const apiKey = "KYhhJrQclnJmPFzA4BEgZA	";
+            const apiKey = "SMWB0P4sDjqKPPghPANKg";
             const response = await fetch(`https://www.carboninterface.com/api/v1/estimates`, {
                 method: "POST",
                 headers: {
@@ -118,7 +118,7 @@ const Flights = ({handleFlightData}) => {
 
             <div className="flex flex-col justify-center items-center ">
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6 text-blue-600">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6 text-slate-950">
                         <FormField
                             control={form.control}
                             name="departureFrom"
