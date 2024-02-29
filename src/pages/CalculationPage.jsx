@@ -7,10 +7,6 @@ import Shipping from '@/components/CalculationComponents/Shipping';
 
 
 
-
-
-
-
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -25,34 +21,26 @@ import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 
-
-
 const CalculationPage = () => {
   // const [currentStep, setCurrentStep] = useState(0);
   const [responseList, setResponseList] = useState([]);
 
 
-
-
   const handleFlightData = (flightData, type) => {
-
 
     console.log(type)
     setResponseList([...responseList, { data: flightData, carbonType: type }]);
   };
-
 
   const handleVehicleData = (vehicleData, type) => {
     console.log(type)
     setResponseList([...responseList, { data: vehicleData, carbonType: type }]);
   };
 
-
   const handleShippingData = (result, type) => {
     console.log(type)
     setResponseList([...responseList, { data: result, carbonType: type }]);
   };
-
 
   const handleElectricityData = (result, type) => {
     console.log(type)
@@ -61,14 +49,10 @@ const CalculationPage = () => {
 
 
 
-
-
-
   const calculateSum = (type, unit) => {
     return responseList.reduce((total, response) => {
       console.log(response.carbonType)
       if (response.carbonType === type) {
-
 
         switch (unit) {
           case 'g':
@@ -85,11 +69,8 @@ const CalculationPage = () => {
       }
       return total;
 
-
     }, 0);
   };
-
-
 
 
   const calculateTotalEmissions = () => {
@@ -100,15 +81,10 @@ const CalculationPage = () => {
       electricity: calculateSum('Electricity', 'kg'),
     };
 
-
     return Object.values(emissions).reduce((total, emission) => total + emission, 0);
   };
 
-
   return (
-
-
-
 
 
 
@@ -147,15 +123,11 @@ const CalculationPage = () => {
                   <Vehicles handleVehicleData={handleVehicleData} />
                 </TabsContent>
               </Tabs>
-         
-
 
 
 
             </div>
           </div>
-
-
 
 
         </div>
@@ -164,59 +136,74 @@ const CalculationPage = () => {
 
 
 
-
-
-
-
-
-        <div className="flex-1 p-2 flex  justify-center">
+        <div className="flex flex-1  justify-center">
           <div className=" p-4 ">
-            <h2>Your calculated  carbon footprint</h2>
-            <p>Total Emmissions from flights {calculateSum('Flight', 'kg')} kg</p>
-            <p>Total Emmissions from Energy use {calculateSum('Electricity', 'kg')} kg</p>
-            <p>Total Emmissions from Shipping items{calculateSum('Shipping', 'kg')} kg</p>
-            <p>Total Emmissions from Vehicle rides{calculateSum('Vehicle', 'kg')} kg</p>
+            <div className="w-400 mb-3 text-center bg-white border border-green-200 rounded-lg shadow sm:p-8">
+              <h2 className="mb-2 text-3xl  text-gray-900 dark:text-white">Your calculated  carbon footprint</h2>
 
+              <div className='items-center justify-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4 rtl:space-x-reverse  '>
+                <a href="#" className="w-full sm:w-auto bg-green-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-green-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
+                  <div className=" rtl:text-right">
+                    <div className="mb-1 text-xs">Total flights Emissions </div>
+                    <div className="-mt-1 font-sans text-sm font-semibold">{calculateSum('Flight', 'kg')} kg</div>
+                  </div>
+                </a>
+                <a href="#" className="w-full sm:w-auto bg-green-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-green-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
+                  <div className="text-left rtl:text-right">
+                    <div className="mb-1 text-xs">Total Emissions from Energy use</div>
+                    <div className="-mt-1 font-sans text-sm font-semibold">{calculateSum('Flight', 'kg')} kg</div>
+                  </div>
+                </a>
+                <a href="#" className="w-full sm:w-auto bg-green-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-green-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
+                  <div className="text-left rtl:text-right">
+                    <div className="mb-1 text-xs">Total Emissions from Shipping items</div>
+                    <div className="-mt-1 font-sans text-sm font-semibold"> {calculateSum('Electricity', 'kg')}kg</div>
+                  </div>
+                </a>
+                <a href="#" className="w-full sm:w-auto bg-green-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-green-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
+                  <div className="text-left rtl:text-right">
+                    <div className="mb-1 text-xs">Total Emissions from Vehicle rides</div>
+                    <div className="-mt-1 font-sans text-sm font-semibold">{calculateSum('Vehicle', 'kg')} kg</div>
+                  </div>
+                </a>
+              </div>
+            </div>
 
+            <div className="" >
 
+              {responseList.map((response) => (
+                <Card key={response.data.data.id} className="flex flex-col   rounded-md w-300 h-40 border-green-200  mb-3 shadow md:flex-col md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                  <CardHeader className="flex flex-col justify-between p-3 leading-normal">
+                    <CardTitle>{response.carbonType}</CardTitle>
 
-            {responseList.map((response) => (
-              <Card key={response.data.data.id} className="border w-400 h-40 border-gray-200 rounded-md flex flex-col mb-2">
-                <CardHeader className="mb-1">
-                  <CardTitle>{response.carbonType}</CardTitle>
+                    <p><span className="font-semibold">Distance</span> {response.data.data.attributes.distance_value} kms</p>
+                  </CardHeader>
+                  <CardContent className="flex-1 overflow-y-auto scrollbar-hidden flex flex-col justify-between  leading-normal">
+                    <p className=" text-1xl  tracking-tight dark:text-white"><span className="font-semibold  ">Carbon Emissions:</span><span> {response.data.data.attributes.carbon_g} g</span></p>
+                    <ul>
+                      <li>Grams: {response.data.data.attributes.carbon_g} g</li>
+                      <li>Kilograms: {response.data.data.attributes.carbon_kg} kg</li>
+                      <li>Pounds: {response.data.data.attributes.carbon_lb} lb</li>
+                      <li>Metric Tons: {response.data.data.attributes.carbon_mt} mt</li>
+                    </ul>
+                  </CardContent>
+                  <CardFooter className="mt-1">
+                    <p><span className="font-semibold">Estimated At:</span> {response.data.data.attributes.estimated_at}</p>
 
-
-                  <p><span className="font-semibold">Distance</span> {response.data.data.attributes.distance_value} kms</p>
-                </CardHeader>
-                <CardContent className="flex-1 overflow-y-auto scrollbar-hidden">
-                  <p className="font-semibold">Carbon Emissions:</p>
-                  <ul>
-                    <li>Grams: {response.data.data.attributes.carbon_g} g</li>
-                    <li>Kilograms: {response.data.data.attributes.carbon_kg} kg</li>
-                    <li>Pounds: {response.data.data.attributes.carbon_lb} lb</li>
-                    <li>Metric Tons: {response.data.data.attributes.carbon_mt} mt</li>
-                  </ul>
-                </CardContent>
-                <CardFooter className="mt-1">
-                  <p><span className="font-semibold">Estimated At:</span> {response.data.data.attributes.estimated_at}</p>
-
-
-                </CardFooter>
-              </Card>
-            ))}
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
             <div>
             </div>
-            <p>{calculateTotalEmissions()} kg</p>
+            <p className='text-3xl  text-gray-900'>{calculateTotalEmissions()} kg</p>
           </div>
         </div>
       </div >
     </>
 
-
   );
 
-
 }
-
 
 export default CalculationPage
