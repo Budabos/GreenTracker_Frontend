@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
+  console.log(import.meta.env.VITE_BACKEND_URL);
 
   return (
     <div className="relative h-[100dvh] flex items-center justify-center">
