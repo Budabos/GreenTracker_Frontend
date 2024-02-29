@@ -12,7 +12,7 @@ const AboutUs = () => {
             style={{ width: "100%", height: "20%" }}
           />
          <h1 style={{ color: "#28a745", fontSize: "2.5em", fontWeight: "bold", marginTop: "20px" }}>
-            GreenTracker: Your Ultimate Destination for Sustainable Living!
+            GreenTrackr: Your Ultimate Destination for Sustainable Living!
           </h1>
         </div>
         <div className="container">
@@ -34,14 +34,14 @@ const AboutUs = () => {
                 </div>
                 <div className="aboutparagraph">
                   <p>
-                    <b>Welcome to GreenTracker!</b> where passion for
+                    <b>Welcome to GreenTrackr!</b> where passion for
                     sustainability meets innovation. We are more than just a
                     platform; we are a{" "}
                     <b>community of environmental enthusiasts🌍</b> dedicated to
                     exploring sustainable living and eco-friendly practices. Our
                     journey began with a simple idea - to bring the joy of
                     sustainable living experiences to your fingertips. At
-                    GreenTracker, we offer a range of tools and resources to
+                    GreenTrackr, we offer a range of tools and resources to
                     help individuals make eco-conscious choices in their daily
                     lives. From calculating your carbon footprint to discovering
                     eco-friendly products, we're here to support you on your
@@ -67,7 +67,7 @@ const AboutUs = () => {
             <div className="col-lg-6 col-md-6 col-sm-12" style={{ marginTop: "50px" }}>
               <h2 style={{ color: "#28a745"  }}><b>Our Mission</b></h2>
               <p>
-                At GreenTracker, <b>our mission is to empower individuals to make
+                At GreenTrackr, <b>our mission is to empower individuals to make
                 informed choices that lead to a more sustainable future.</b> We
                 strive to provide accessible tools and resources that enable
                 users to calculate their carbon footprint, track sustainable
@@ -90,7 +90,7 @@ const AboutUs = () => {
             <div className="col-lg-6 col-md-6 col-sm-12" style={{ marginTop: "70px" }}>
               <h2 style={{ color: "#28a745" }}><b>Our Vision</b></h2>
               <p>
-                Our Vision at GreenTracker is <b>to create a world where
+                Our Vision at GreenTrackr is <b>to create a world where
                 every individual plays an active role in preserving our planet
                 for future generations.</b> We envision a global community of
                 environmentally-conscious citizens who are committed to reducing
@@ -124,7 +124,7 @@ const AboutUs = () => {
         </div>
         <div style={{ textAlign: "center", color: "#28a745", marginTop: "30px"}}>
               <h1 style={{ fontWeight: "bold" }}>
-                GreenTracker: Your Ultimate Destination for Sustainable Living!
+                GreenTrackr: Your Ultimate Destination for Sustainable Living!
               </h1>
             </div>
       </section>

@@ -100,7 +100,6 @@ function App() {
           <Route path="/dashboard/users" element={<DashboardUsers />} />
         </Route>
       </Routes>
-
       <Footer />
     </>
   );

@@ -75,9 +75,17 @@
   }
 }
 
+.overflow-y-auto.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
 .slick-initialized {
   overflow: hidden;
+
 }
 .overflow-y-auto.scrollbar-hidden::-webkit-scrollbar {
   display: none;
 }
+
+
+}
+
