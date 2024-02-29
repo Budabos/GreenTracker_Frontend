@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Button, buttonVariants } from "@/components/ui/button";
-import axios from "axios";
+import { Button, buttonVariants } from "@/components/ui/button"; // Import Button component
+import axios from "axios"; // Import axios for HTTP requests
 import {
   Form,
   FormControl,
@@ -23,9 +23,9 @@ import { useAuth } from "@/providers/AuthProvider";
 
 // Define Zod schema for form validation
 const loginSchema = z.object({
-  email: z.string().email(),
+  email: z.string().email(), // Email field should be a valid email
   password: z.string().min(6, {
-    message: "Password must be at least 6 characters",
+    message: "Password must be at least 6 characters", // Password field should have at least 6 characters
   }),
 });
 
@@ -46,11 +46,12 @@ const LoginForm = () => {
       // Send POST request to login endpoint
       const res = await axios
         .post(`${BASE_URL}/login`, values)
-        // Set user credentials and show success message
         .then((res) => {
+          // Set user credentials and show success message
           setUserCred(JSON.stringify(res.data));
 
           toast.success(res.data.message);
+
           // Redirect user based on role
           if (res.data.user.role === "admin") {
             navigate("/dashboard");
@@ -58,7 +59,7 @@ const LoginForm = () => {
             navigate("/");
           }
         })
-        .catch((err) => toast.error(err.response.data.message)); // Show error message if login fails
+        .catch((err) => toast.error(err.response.data.message));
 
       return res;
     },
@@ -71,9 +72,9 @@ const LoginForm = () => {
       password: "",
     },
   });
-  // Function to handle form submission
-  function onSubmit(values) { 
-    mutate(values); // Call mutation function with form values
+// Function to handle form submission
+  function onSubmit(values) {
+    mutate(values);
   }
 
   return (
@@ -95,7 +96,6 @@ const LoginForm = () => {
             </FormItem>
           )}
         />
-        {/* Password field */}
         <FormField
           control={form.control}
           name="password"
@@ -103,14 +103,12 @@ const LoginForm = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                {/* Input field for password with visibility toggle */}
                 <div className="relative">
                   <Input
                     type={hidden ? "password" : "text"}
                     placeholder="secret-password"
                     {...field}
                   />
-                  {/* Button for toggling password visibility */}
                   <Button
                     className="absolute top-1/2 right-0 translate-y-[-50%] border"
                     size="icon"
@@ -131,7 +129,6 @@ const LoginForm = () => {
         />
         <div className="flex flex-col items-start">
           <Link
-            {/* Links for password recovery and sign up */}
             to={"/forgot-password"}
             className={cn(
               buttonVariants({
@@ -153,7 +150,6 @@ const LoginForm = () => {
           >
             Don&apos;t have an account?
           </Link>
-          {/* Submit button */}
           <Button type="submit" disabled={isPending}>
             {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Submit

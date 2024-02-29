@@ -80,7 +80,6 @@ const ForgotPassForm = () => {
         />
         <div className="flex flex-col items-start">
           <Link
-            {/* Links for existing and new users */}
             to={"/login"}
             className={cn(
               buttonVariants({
@@ -102,7 +101,6 @@ const ForgotPassForm = () => {
           >
             Don&apos;t have an account?
           </Link>
-          {/* Submit button */}
           <Button
             className="bg-black text-white"
             type="submit"
