@@ -21,6 +21,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useAuth } from "@/providers/AuthProvider";
 
+// Define Zod schema for form validation
 const loginSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6, {
@@ -28,11 +29,13 @@ const loginSchema = z.object({
   }),
 });
 
+// Component for Login Form
 const LoginForm = () => {
   const [hidden, setHidden] = useState(true);
   const { setUserCred, getUser } = useAuth();
   const navigate = useNavigate();
 
+  // useMutation hook for handling form submission
   const {
     data: res,
     isPending,
@@ -40,25 +43,27 @@ const LoginForm = () => {
   } = useMutation({
     mutationKey: ["login"],
     mutationFn: async (values) => {
+      // Send POST request to login endpoint
       const res = await axios
         .post(`${BASE_URL}/login`, values)
+        // Set user credentials and show success message
         .then((res) => {
           setUserCred(JSON.stringify(res.data));
 
           toast.success(res.data.message);
-
+          // Redirect user based on role
           if (res.data.user.role === "admin") {
             navigate("/dashboard");
           } else {
             navigate("/");
           }
         })
-        .catch((err) => toast.error(err.response.data.message));
+        .catch((err) => toast.error(err.response.data.message)); // Show error message if login fails
 
       return res;
     },
   });
-
+  // Initialize useForm hook with Zod resolver and default values
   const form = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -66,9 +71,9 @@ const LoginForm = () => {
       password: "",
     },
   });
-
-  function onSubmit(values) {
-    mutate(values);
+  // Function to handle form submission
+  function onSubmit(values) { 
+    mutate(values); // Call mutation function with form values
   }
 
   return (
@@ -90,6 +95,7 @@ const LoginForm = () => {
             </FormItem>
           )}
         />
+        {/* Password field */}
         <FormField
           control={form.control}
           name="password"
@@ -97,12 +103,14 @@ const LoginForm = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
+                {/* Input field for password with visibility toggle */}
                 <div className="relative">
                   <Input
                     type={hidden ? "password" : "text"}
                     placeholder="secret-password"
                     {...field}
                   />
+                  {/* Button for toggling password visibility */}
                   <Button
                     className="absolute top-1/2 right-0 translate-y-[-50%] border"
                     size="icon"
@@ -123,6 +131,7 @@ const LoginForm = () => {
         />
         <div className="flex flex-col items-start">
           <Link
+            {/* Links for password recovery and sign up */}
             to={"/forgot-password"}
             className={cn(
               buttonVariants({
@@ -144,6 +153,7 @@ const LoginForm = () => {
           >
             Don&apos;t have an account?
           </Link>
+          {/* Submit button */}
           <Button type="submit" disabled={isPending}>
             {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Submit
