@@ -151,13 +151,13 @@ const CalculationPage = () => {
                 <a href="#" className="w-full sm:w-auto bg-green-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-green-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
                   <div className="text-left rtl:text-right">
                     <div className="mb-1 text-xs">Total Emissions from Energy use</div>
-                    <div className="-mt-1 font-sans text-sm font-semibold">{calculateSum('Flight', 'kg')} kg</div>
+                    <div className="-mt-1 font-sans text-sm font-semibold">{calculateSum('Electricity', 'kg')} kg</div>
                   </div>
                 </a>
                 <a href="#" className="w-full sm:w-auto bg-green-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-green-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
                   <div className="text-left rtl:text-right">
                     <div className="mb-1 text-xs">Total Emissions from Shipping items</div>
-                    <div className="-mt-1 font-sans text-sm font-semibold"> {calculateSum('Electricity', 'kg')}kg</div>
+                    <div className="-mt-1 font-sans text-sm font-semibold"> {calculateSum('Shipping', 'kg')}kg</div>
                   </div>
                 </a>
                 <a href="#" className="w-full sm:w-auto bg-green-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-green-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">

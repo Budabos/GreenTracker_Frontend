@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-const apiKey = "KYhhJrQclnJmPFzA4BEgZA	";
+const apiKey = "SMWB0P4sDjqKPPghPANKg	";
 
 const EstimateForm = ({ model,handleVehicleData }) => {
   const [distanceUnit, setDistanceUnit] = useState("mi");
@@ -52,7 +52,7 @@ const EstimateForm = ({ model,handleVehicleData }) => {
           <label
             htmlFor="distanceUnit"
             className="block font-medium text-gray-700"
-            style={{ color: "#ffff" }}
+            style={{ color: "#000000" }}
           >
             Distance Unit:
           </label>
@@ -60,7 +60,7 @@ const EstimateForm = ({ model,handleVehicleData }) => {
             id="distanceUnit"
             value={distanceUnit}
             onChange={(e) => setDistanceUnit(e.target.value)}
-            className="block w-full  text-blue-600 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-opacity-50"
+            className="block w-full text-slate-950 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-opacity-50"
           >
             <option value="km">km</option>
             <option value="mi">mi</option>
@@ -70,7 +70,7 @@ const EstimateForm = ({ model,handleVehicleData }) => {
           <label
             htmlFor="distanceValue"
             className="block font-medium text-gray-700"
-            style={{ color: "#ffff" }}
+            style={{ color: "#000000" }}
           >
             Distance Value:
           </label>
@@ -79,14 +79,14 @@ const EstimateForm = ({ model,handleVehicleData }) => {
             id="distanceValue"
             value={distanceValue}
             onChange={(e) => setDistanceValue(e.target.value)}
-            className="block w-full  text-blue-600 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-opacity-50"
+            className="block w-full text-slate-950 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-opacity-50"
           />
         </div>
         <button
           type="submit"
-          className=" bg-[#245501]  text-white py-2 px-4 rounded-md hover:bg-gray-800  focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+          className=" bg-[#070707]  text-white py-2 px-4 rounded-md hover:bg-gray-800  focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
         >
-          Get Estimate
+          Save
         </button>
       </form>
 

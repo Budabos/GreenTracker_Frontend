@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-const apiKey = "KYhhJrQclnJmPFzA4BEgZA	";
+const apiKey = "SMWB0P4sDjqKPPghPANKg	";
 
 const Shipping = ({handleShippingData}) => {
   // State to store the carbon estimate data
@@ -74,7 +74,7 @@ const Shipping = ({handleShippingData}) => {
   };
 
   return (
-    <div className="p-4 rounded-md">
+    <div className="p-4 rounded-md ">
       <form onSubmit={handleSubmit}>
 
         <div className="mb-4">
@@ -82,7 +82,7 @@ const Shipping = ({handleShippingData}) => {
           <label
             htmlFor="weightValue"
             className="block text-white-800 font-semibold mb-2"
-            style={{ color: "#ffff" }}
+            style={{ color: "#000000" }}
           >
             Weight
           </label>
@@ -92,14 +92,14 @@ const Shipping = ({handleShippingData}) => {
             name="weightValue"
             value={inputValues.weightValue}
             onChange={handleInputChange}
-            className="px-3 py-2 border  text-blue-600 border-green-500 rounded-md focus:outline-none focus:border-green-700 w-full"
+            className="px-3 py-2 border text-slate-950  rounded-md focus:outline-none focus:border-green-700 w-full"
           />
         </div>
         <div className="mb-4">
           <label
             htmlFor="weightUnit"
             className="block text-white-800 font-semibold mb-2"
-            style={{ color: "#ffff" }}
+            style={{ color: "#000000" }}
           >
             Weight Unit
           </label>
@@ -108,7 +108,7 @@ const Shipping = ({handleShippingData}) => {
             name="weightUnit"
             value={inputValues.weightUnit}
             onChange={handleInputChange}
-            className="px-3 py-2 border  text-blue-600 border-green-500 rounded-md focus:outline-none focus:border-green-700 w-full"
+            className="px-3 py-2 border text-slate-950  rounded-md focus:outline-none focus:border-green-700 w-full"
           >
             <option value="kg">kg</option>
             <option value="g">g</option>
@@ -119,8 +119,8 @@ const Shipping = ({handleShippingData}) => {
         <div className="mb-4">
           <label
             htmlFor="distanceValue"
-            className="block text-white-800 font-semibold mb-2"
-            style={{ color: "#ffff" }}
+            className="block text-slate-950 font-semibold mb-2"
+            style={{ color: "#000000" }}
           >
             Distance
           </label>
@@ -130,14 +130,14 @@ const Shipping = ({handleShippingData}) => {
             name="distanceValue"
             value={inputValues.distanceValue}
             onChange={handleInputChange}
-            className="px-3 py-2  text-blue-600 border border-green-500 rounded-md focus:outline-none focus:border-green-700 w-full"
+            className="px-3 py-2  text-slate-950 border  rounded-md focus:outline-none focus:border-green-700 w-full"
           />
         </div>
         <div className="mb-4">
           <label
             htmlFor="distanceUnit"
             className="block text-white-800 font-semibold mb-2"
-            style={{ color: "#ffff" }}
+            style={{ color: "#000000" }}
           >
             Distance Unit
           </label>
@@ -146,7 +146,7 @@ const Shipping = ({handleShippingData}) => {
             name="distanceUnit"
             value={inputValues.distanceUnit}
             onChange={handleInputChange}
-            className="px-3 py-2 border  text-blue-600 border-green-500 rounded-md focus:outline-none focus:border-green-700 w-full"
+            className="px-3 py-2 border  text-slate-950  rounded-md focus:outline-none focus:border-green-700 w-full"
           >
             <option value="km">km</option>
             <option value="mi">mi</option>
@@ -157,8 +157,8 @@ const Shipping = ({handleShippingData}) => {
         <div className="mb-4">
           <label
             htmlFor="transportMethod"
-            className="block text-white-800 font-semibold mb-2"
-            style={{ color: "#ffff" }}
+            className="block text-slate-950 font-semibold mb-2"
+            style={{ color: "#000000" }}
           >
             Means of Transport
           </label>
@@ -168,17 +168,18 @@ const Shipping = ({handleShippingData}) => {
             name="transportMethod"
             value={inputValues.transportMethod}
             onChange={handleInputChange}
-            className="px-3 py-2 border  text-blue-600 border-green-500 rounded-md focus:outline-none focus:border-green-700 w-full"
+            className="px-3 py-2 border  text-slate-950  rounded-md focus:outline-none focus:border-green-700 w-full"
           />
         </div>
 
         {/* Submit button */}
         <button
           type="submit"
-          className="bg-[#245501] text-white px-4 py-2 rounded-md"
+          className="bg-[#070707] text-white px-4 py-2 rounded-md"
         >
-          Calculate Carbon Estimate
+          Save
         </button>
+       
       </form>
 
    
