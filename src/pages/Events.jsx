@@ -5,7 +5,7 @@ import { useInteractions } from "@/providers/InteractionsProvider";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { format } from "date-fns";
-import { Loader2 } from "lucide-react";
+import { Ghost, Loader2 } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -19,6 +19,12 @@ const Events = () => {
 
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
+
+  useEffect(() => {
+    if(!user){
+      toast.info("Login to see events");
+    }
+  },[])
 
   const { data, isLoading } = useQuery({
     queryKey: ["events"],
@@ -54,10 +60,19 @@ const Events = () => {
   return (
     <div className="container mx-auto mt-8">
       {/* Large Card */}
-      {isLoading ? (
+      {!user ? (
+        <div className="flex w-full items-center justify-center text-xl h-[60dvh]">
+          Log in to see events...
+        </div>
+      ) : isLoading ? (
         <div className="flex w-full items-center justify-center text-xl h-[60dvh]">
           <Loader2 className="mr-4 h-8 w-8 animate-spin" />
           Loading events...
+        </div>
+      ) : events.length === 0 ? (
+        <div className="flex w-full items-center justify-center text-xl h-[60dvh]">
+          <Ghost className="mr-4 h-8 w-8" />
+          No events yet...
         </div>
       ) : (
         <div>
