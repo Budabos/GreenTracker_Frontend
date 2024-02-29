@@ -60,11 +60,7 @@ const Events = () => {
   return (
     <div className="container mx-auto mt-8">
       {/* Large Card */}
-      {!user ? (
-        <div className="flex w-full items-center justify-center text-xl h-[60dvh]">
-          Log in to see events...
-        </div>
-      ) : isLoading ? (
+      { isLoading ? (
         <div className="flex w-full items-center justify-center text-xl h-[60dvh]">
           <Loader2 className="mr-4 h-8 w-8 animate-spin" />
           Loading events...
