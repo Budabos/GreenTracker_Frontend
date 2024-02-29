@@ -14,6 +14,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { BASE_URL, cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -128,7 +135,26 @@ const ResourceForm = ({ refetch }) => {
               <FormItem className="w-1/2">
                 <FormLabel>Category</FormLabel>
                 <FormControl>
-                  <Input placeholder="Global warming" {...field} />
+                  <Select>
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Choose Category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="globalWarming">
+                        Global Warming
+                      </SelectItem>
+                      <SelectItem value="climateChange">
+                        Climate Change
+                      </SelectItem>
+                      <SelectItem value="renewableStrategy">
+                        Renewable Strategy
+                      </SelectItem>
+                      <SelectItem value="sustainability">
+                        Sustainability
+                      </SelectItem>
+                      <SelectItem value="recycling">Recycling</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -211,16 +237,18 @@ const ResourceForm = ({ refetch }) => {
                       onSelect={field.onChange}
                       initialFocus
                       disabled={(date) => date > new Date()}
+                      formatDate={(date) => format(date, "yyyy-MM-dd")}
                     />
                   </PopoverContent>
                 </Popover>
+
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
         <Button disabled={isPending} type="submit">
-          {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
+          {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           Submit
         </Button>
       </form>
