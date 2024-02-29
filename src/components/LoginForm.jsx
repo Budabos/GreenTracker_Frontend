@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Button, buttonVariants } from "@/components/ui/button";
-import axios from "axios";
+import { Button, buttonVariants } from "@/components/ui/button"; // Import Button component
+import axios from "axios"; // Import axios for HTTP requests
 import {
   Form,
   FormControl,
@@ -21,18 +21,21 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useAuth } from "@/providers/AuthProvider";
 
+// Define Zod schema for form validation
 const loginSchema = z.object({
-  email: z.string().email(),
+  email: z.string().email(), // Email field should be a valid email
   password: z.string().min(6, {
-    message: "Password must be at least 6 characters",
+    message: "Password must be at least 6 characters", // Password field should have at least 6 characters
   }),
 });
 
+// Component for Login Form
 const LoginForm = () => {
   const [hidden, setHidden] = useState(true);
   const { setUserCred, getUser } = useAuth();
   const navigate = useNavigate();
 
+  // useMutation hook for handling form submission
   const {
     data: res,
     isPending,
@@ -40,13 +43,16 @@ const LoginForm = () => {
   } = useMutation({
     mutationKey: ["login"],
     mutationFn: async (values) => {
+      // Send POST request to login endpoint
       const res = await axios
         .post(`${BASE_URL}/login`, values)
         .then((res) => {
+          // Set user credentials and show success message
           setUserCred(JSON.stringify(res.data));
 
           toast.success(res.data.message);
 
+          // Redirect user based on role
           if (res.data.user.role === "admin") {
             navigate("/dashboard");
           } else {
@@ -58,7 +64,7 @@ const LoginForm = () => {
       return res;
     },
   });
-
+  // Initialize useForm hook with Zod resolver and default values
   const form = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -66,7 +72,7 @@ const LoginForm = () => {
       password: "",
     },
   });
-
+// Function to handle form submission
   function onSubmit(values) {
     mutate(values);
   }

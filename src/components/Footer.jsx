@@ -1,12 +1,13 @@
 import React from "react";
-import "@fortawesome/fontawesome-free/css/all.css";
-import { Link, NavLink, useLocation } from "react-router-dom";
-import logo from "../../greentrackrlogo.png";
+import "@fortawesome/fontawesome-free/css/all.css"; // Import FontAwesome CSS
+import { Link, NavLink, useLocation } from "react-router-dom";  // Import necessary components from react-router-dom
+import logo from "../../greentrackrlogo.png"; // Import logo image
 
 const Footer = () => {
-  const { pathname } = useLocation();
-  const excludes = ["/login", "/signup", "/forgot-password", "/reset", '/dashboard'];
+  const { pathname } = useLocation(); // Get current pathname using useLocation hook
+  const excludes = ["/login", "/signup", "/forgot-password", "/reset", '/dashboard']; // Paths to exclude from rendering the footer
 
+  // Check if the current pathname starts with any of the excluded paths, if yes, return null (don't render footer)
   if (excludes.some((excludePath) => pathname.startsWith(excludePath))) return;
 
   return (
@@ -23,6 +24,7 @@ const Footer = () => {
         </div>
         {/* Social Icons */}
         <div className="flex space-x-4">
+          {/* Links to social media profiles */}
           <Link to="#" className="text-white hover:text-gray-400">
             <i className="fab fa-instagram fa-lg"></i>
           </Link>
@@ -49,6 +51,8 @@ const Footer = () => {
             <NavLink to={"/contact-us"}>Contact us</NavLink>
             <NavLink to={"/feedback"}>Feedback</NavLink>
             <NavLink to={"/faqs"}>Faqs</NavLink>
+            
+            {/* Links to privacy policy and terms and conditions */}
             <a
               href="#"
               className="text-white hover:text-gray-400"
