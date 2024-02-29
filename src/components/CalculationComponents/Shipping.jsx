@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-const apiKey = "yIntFgYVaWEOFdZmam5w";
+const apiKey = "KYhhJrQclnJmPFzA4BEgZA	";
 
-const Shipping = ({handleShippingData,handletype}) => {
+const Shipping = ({handleShippingData}) => {
   // State to store the carbon estimate data
   // const [carbonEstimate, setCarbonEstimate] = useState(null);
   // State to store input values
@@ -20,7 +20,7 @@ const Shipping = ({handleShippingData,handletype}) => {
 
     // Data to be sent in the POST request, including input values from state
     const data = {
-      type: inputValues.type,
+      type: "shipping",
       weight_value: inputValues.weightValue,
       weight_unit: inputValues.weightUnit,
       distance_value: inputValues.distanceValue,
@@ -46,7 +46,7 @@ const Shipping = ({handleShippingData,handletype}) => {
       console.log(result.data.attributes.carbon_g)
       console.log(result.data.type)
 
-      handleShippingData(result); 
+      handleShippingData(result,"Shipping"); 
     } catch (error) {
       console.error("Error:", error);
      
@@ -75,34 +75,10 @@ const Shipping = ({handleShippingData,handletype}) => {
 
   return (
     <div className="p-4 rounded-md">
-      {/* Title */}
-      <h1
-        className="text-green-800 text-2xl font-bold mb-4"
-        style={{ color: "#ffff" }}
-      >
-        Carbon Estimate
-      </h1>
-
-      {/* Input fields */}
       <form onSubmit={handleSubmit}>
 
         <div className="mb-4">
-        <label
-            htmlFor="weightValue"
-            className="block text-white-800 font-semibold mb-2"
-            style={{ color: "#ffff" }}
-          >
-            type
-          </label>
-
-          <select
-            id="type"
-            name="type"
-            value={inputValues.type}
-            onChange={handleInputChange}
-            className="px-3   text-blue-600 py-2 border border-green-500 rounded-md focus:outline-none focus:border-green-700 w-full"
-          >  <option value="shipping">shipping</option></select>
-          
+       
           <label
             htmlFor="weightValue"
             className="block text-white-800 font-semibold mb-2"
