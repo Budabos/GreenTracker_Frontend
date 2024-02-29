@@ -186,7 +186,12 @@ const Events = () => {
             </div>
           </div>
         </div>
+
+        <button>View my events</button>
+      </div>
+
       )}
+
     </div>
   );
 };

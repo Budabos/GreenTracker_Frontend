@@ -1,27 +1,30 @@
 import React, { useState, useEffect } from "react";
+import { API_KEY } from "@/lib/utils";
 
 const Shipping = () => {
   // State to store the carbon estimate data
   const [carbonEstimate, setCarbonEstimate] = useState(null);
   // State to store input values
   const [inputValues, setInputValues] = useState({
-    weightValue: 200,
-    distanceValue: 2000,
+    weightValue: "",
+    weightUnit: "g",
+    distanceValue: "",
+    distanceUnit: "km",
+    transportMethod: "truck", // Default transport method
   });
 
   // Function to fetch carbon estimate data from the API
   const fetchCarbonEstimate = async () => {
-    const API_KEY = "tQwZxNs9meZ43GhGJvQ6UA";
     const url = "https://www.carboninterface.com/api/v1/estimates";
 
     // Data to be sent in the POST request, including input values from state
     const data = {
       type: "shipping",
       weight_value: inputValues.weightValue,
-      weight_unit: "g",
+      weight_unit: inputValues.weightUnit,
       distance_value: inputValues.distanceValue,
-      distance_unit: "km",
-      transport_method: "truck",
+      distance_unit: inputValues.distanceUnit,
+      transport_method: inputValues.transportMethod,
     };
 
     // Options for the POST request
@@ -66,15 +69,24 @@ const Shipping = () => {
   };
 
   return (
-    <div className="bg-green-100 p-4 rounded-md">
+    <div className="p-4 rounded-md">
       {/* Title */}
-      <h1 className="text-green-800 text-2xl font-bold mb-4">Carbon Estimate</h1>
+      <h1
+        className="text-green-800 text-2xl font-bold mb-4"
+        style={{ color: "#ffff" }}
+      >
+        Carbon Estimate
+      </h1>
 
       {/* Input fields */}
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="weightValue" className="block text-green-800 font-semibold mb-2">
-            Weight (g)
+          <label
+            htmlFor="weightValue"
+            className="block text-white-800 font-semibold mb-2"
+            style={{ color: "#ffff" }}
+          >
+            Weight
           </label>
           <input
             type="number"
@@ -86,8 +98,33 @@ const Shipping = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="distanceValue" className="block text-green-800 font-semibold mb-2">
-            Distance (km)
+          <label
+            htmlFor="weightUnit"
+            className="block text-white-800 font-semibold mb-2"
+            style={{ color: "#ffff" }}
+          >
+            Weight Unit
+          </label>
+          <select
+            id="weightUnit"
+            name="weightUnit"
+            value={inputValues.weightUnit}
+            onChange={handleInputChange}
+            className="px-3 py-2 border border-green-500 rounded-md focus:outline-none focus:border-green-700 w-full"
+          >
+            <option value="kg">kg</option>
+            <option value="g">g</option>
+            <option value="lb">lb</option>
+            <option value="mt">mt</option>
+          </select>
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="distanceValue"
+            className="block text-white-800 font-semibold mb-2"
+            style={{ color: "#ffff" }}
+          >
+            Distance
           </label>
           <input
             type="number"
@@ -98,9 +135,50 @@ const Shipping = () => {
             className="px-3 py-2 border border-green-500 rounded-md focus:outline-none focus:border-green-700 w-full"
           />
         </div>
+        <div className="mb-4">
+          <label
+            htmlFor="distanceUnit"
+            className="block text-white-800 font-semibold mb-2"
+            style={{ color: "#ffff" }}
+          >
+            Distance Unit
+          </label>
+          <select
+            id="distanceUnit"
+            name="distanceUnit"
+            value={inputValues.distanceUnit}
+            onChange={handleInputChange}
+            className="px-3 py-2 border border-green-500 rounded-md focus:outline-none focus:border-green-700 w-full"
+          >
+            <option value="km">km</option>
+            <option value="mi">mi</option>
+          </select>
+        </div>
+
+        {/* Transport Method selection */}
+        <div className="mb-4">
+          <label
+            htmlFor="transportMethod"
+            className="block text-white-800 font-semibold mb-2"
+            style={{ color: "#ffff" }}
+          >
+            Means of Transport
+          </label>
+          <input
+            type="text"
+            id="transportMethod"
+            name="transportMethod"
+            value={inputValues.transportMethod}
+            onChange={handleInputChange}
+            className="px-3 py-2 border border-green-500 rounded-md focus:outline-none focus:border-green-700 w-full"
+          />
+        </div>
 
         {/* Submit button */}
-        <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-md">
+        <button
+          type="submit"
+          className="bg-[#245501] text-white px-4 py-2 rounded-md"
+        >
           Calculate Carbon Estimate
         </button>
       </form>
@@ -108,9 +186,32 @@ const Shipping = () => {
       {/* Carbon estimate result */}
       {carbonEstimate && (
         <div>
-          <p className="text-green-700">Carbon: {carbonEstimate.carbon_g} g</p>
-          <p className="text-green-700">Distance: {carbonEstimate.distance_unit} Km</p>
-          <p className="text-green-700">Distance Value: {carbonEstimate.distance_value}</p>
+          <h2 className="text-lg font-medium" style={{ color: "#ffff" }}>
+            Estimate Data
+          </h2>
+          <p style={{ color: "#ffff" }}>Carbon: {carbonEstimate.carbon_g} g</p>
+          <p style={{ color: "#ffff" }}>
+            Carbon: {carbonEstimate.carbon_lb} lb
+          </p>
+          <p style={{ color: "#ffff" }}>
+            Carbon: {carbonEstimate.carbon_kg} kg
+          </p>
+          <p style={{ color: "#ffff" }}>
+            Carbon: {carbonEstimate.carbon_mt} metric tons
+          </p>
+          <p style={{ color: "#ffff" }}>
+            Distance: {carbonEstimate.distance_unit}
+          </p>
+          <p style={{ color: "#ffff" }}>
+            Distance Value: {carbonEstimate.distance_value}
+          </p>
+          <p style={{ color: "#ffff" }}>
+            Distance: {carbonEstimate.distance_unit}
+          </p>
+
+          <p style={{ color: "#ffff" }}>
+            Estimated At: {carbonEstimate.estimated_at}
+          </p>
         </div>
       )}
     </div>
