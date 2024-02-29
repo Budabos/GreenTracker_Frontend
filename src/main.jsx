@@ -8,17 +8,20 @@ import AuthProvider from "./providers/AuthProvider.jsx";
 import { Toaster } from "@/components/ui/sonner";
 import QueryProvider from "./providers/QueryProvider.jsx";
 import CartProvider from "./providers/CartProvider.jsx";
+import InteractionsProvider from "./providers/InteractionsProvider.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryProvider>
       <Router>
         <AuthProvider>
-          <CartProvider>
-            <Navbar />
-            <App />
-            <Toaster richColors position="bottom-right" />
-          </CartProvider>
+          <InteractionsProvider>
+            <CartProvider>
+              <Navbar />
+              <App />
+              <Toaster richColors position="bottom-right" />
+            </CartProvider>
+          </InteractionsProvider>
         </AuthProvider>
       </Router>
     </QueryProvider>

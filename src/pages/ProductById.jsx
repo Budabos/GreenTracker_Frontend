@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { BASE_URL } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Loader2, MoveLeft, ShoppingCart, Star } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -16,6 +16,8 @@ import Review from "./Review";
 import { useCart } from "@/providers/CartProvider";
 import { usePaystackPayment } from "react-paystack";
 import { useAuth } from "@/providers/AuthProvider";
+import { useInteractions } from "@/providers/InteractionsProvider";
+import { toast } from "sonner";
 
 const ProductById = () => {
   const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
@@ -26,6 +28,7 @@ const ProductById = () => {
 
   const { addCartItem } = useCart();
   const initalizePayment = usePaystackPayment();
+  const { setUserOrders } = useInteractions();
 
   const {
     data: product,
@@ -38,6 +41,20 @@ const ProductById = () => {
         .get(`${BASE_URL}/products/${id}`)
         .then((res) => res.data)
         .catch((err) => console.log(err));
+    },
+  });
+
+  const { mutate: makeOrder, isPending } = useMutation({
+    mutationKey: ["orders"],
+    mutationFn: async (values) => {
+      return await axios
+        .post(`${BASE_URL}/orders`, values)
+        .then((res) => {
+          toast.success(res.data.message);
+          console.log(res.data.updated_user);
+          setUserOrders(res.data.updated_user.orders);
+        })
+        .catch((err) => {});
     },
   });
 
@@ -84,6 +101,7 @@ const ProductById = () => {
           <p className="mt-2">Price: Ksh. {product.price}</p>
           <div className="flex items-center mt-10 gap-4">
             <Button
+              disabled={isPending}
               onClick={() => {
                 initalizePayment({
                   config: {
@@ -93,9 +111,18 @@ const ProductById = () => {
                     currency: "KES",
                     publicKey,
                   },
+                  onSuccess: () => {
+                    makeOrder({
+                      user_id: user.id,
+                      product_ids: `${product.id}`,
+                      quantities: "1",
+                      total_price: product.price,
+                    });
+                  },
                 });
               }}
             >
+              {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Buy now
             </Button>
             <Button onClick={() => addCartItem(product)} variant="outline">

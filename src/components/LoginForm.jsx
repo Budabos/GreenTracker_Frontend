@@ -104,7 +104,7 @@ const LoginForm = () => {
                     {...field}
                   />
                   <Button
-                    className="absolute top-1/2 right-0 translate-y-[-50%] border text-black"
+                    className="absolute top-1/2 right-0 translate-y-[-50%] border"
                     size="icon"
                     type="button"
                     onClick={() => setHidden((prev) => !prev)}
@@ -144,11 +144,7 @@ const LoginForm = () => {
           >
             Don&apos;t have an account?
           </Link>
-          <Button
-            className="bg-black text-white"
-            type="submit"
-            disabled={isPending}
-          >
+          <Button type="submit" disabled={isPending}>
             {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Submit
           </Button>
