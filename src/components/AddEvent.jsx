@@ -35,6 +35,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
+// Define the schema for the event
 export const eventSchema = z
   .object({
     title: z.string().min(2, {
@@ -62,18 +63,24 @@ export const eventSchema = z
       message: "Image url is required",
     }),
   })
+
+  // Validate that the registration deadline is before the date of the event
   .refine((data) => data.registration_deadline < data.date_event, {
     message: "Registration deadline must be earlier than date of event",
     path: ["registration_deadline"],
   });
 
+// Initialize React Hook Form with the Zod resolver
 const AddEvent = ({ setEvents }) => {
   const form = useForm({
     resolver: zodResolver(eventSchema),
   });
 
+  // Use React Query's useMutation hook
   const { mutate, isPending } = useMutation({
     mutationKey: ["events"],
+
+    // Define the mutation function to handle adding an event
     mutationFn: async (values) => {
       return await axios
         .post(`${BASE_URL}/events`, values)

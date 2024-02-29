@@ -41,7 +41,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Dialog, DialogTrigger } from "./ui/dialog";
 import EditItem from "./EditItem";
-import { productSchema } from "./AddProduct";
+import AddProduct, { productSchema } from "./AddProduct";
 
 const ProductCardList = ({ products, setProducts, filterBy, setFilterBy }) => {
   const [search, setSearch] = useState("");
@@ -118,38 +118,41 @@ const ProductCardList = ({ products, setProducts, filterBy, setFilterBy }) => {
           />
           <Search className="h-4 w-4 absolute top-1/2 translate-y-[-50%] right-3" />
         </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Button>
-              <Filter className="mr-2 h-4 w-4" />
-              Filter
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>Filter columns</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            {[...categories].map((category) => (
-              <DropdownMenuItem
-                onClick={() => {
-                  if (filterBy.includes(category)) {
-                    const updatedFilters = filterBy.filter(
-                      (filter) => filter !== category
-                    );
-                    setFilterBy(updatedFilters);
-                  } else {
-                    setFilterBy((prev) => [...prev, category]);
-                  }
-                }}
-                className="cursor-pointer"
-              >
-                {filterBy.includes(category) && (
-                  <Check className="mr-2 h-4 w-4" />
-                )}
-                {category}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex items-center gap-6">
+          <AddProduct setProducts={setProducts} />
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Button variant="outline">
+                <Filter className="mr-2 h-4 w-4" />
+                Filter
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>Filter columns</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {[...categories].map((category) => (
+                <DropdownMenuItem
+                  onClick={() => {
+                    if (filterBy.includes(category)) {
+                      const updatedFilters = filterBy.filter(
+                        (filter) => filter !== category
+                      );
+                      setFilterBy(updatedFilters);
+                    } else {
+                      setFilterBy((prev) => [...prev, category]);
+                    }
+                  }}
+                  className="cursor-pointer"
+                >
+                  {filterBy.includes(category) && (
+                    <Check className="mr-2 h-4 w-4" />
+                  )}
+                  {category}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
       <div className="mt-10 grid grid-cols-3 gap-6">
         {renderedProducts.slice(pageOffset, endOffset).map((product) => (

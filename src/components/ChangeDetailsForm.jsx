@@ -36,6 +36,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "@/providers/AuthProvider";
 import axios from "axios";
 
+// Define schema for changing user details
 const changeDetailsSchema = z.object({
   first_name: z.string().min(2, {
     message: "First name must be at least 2 characters",
@@ -52,13 +53,17 @@ const changeDetailsSchema = z.object({
   image_url: z.string().optional(),
 });
 
+// Define ChangeDetailsForm component
 const ChangeDetailsForm = () => {
+  // Get user and setUserCred from AuthProvider
   const { getUser, setUserCred } = useAuth();
   const { id, first_name, last_name, email, phone, gender, age, image_url } =
-    getUser();
+    getUser();// Destructure user data
 
+  // State for user interests
   const [interests, setInterests] = useState(["climate"]);
 
+  // Options for user interests
   const interestOptions = [
     {
       text: "Climate",
@@ -70,6 +75,7 @@ const ChangeDetailsForm = () => {
     },
   ];
 
+  // Initialize form with default values and zodResolver
   const form = useForm({
     resolver: zodResolver(changeDetailsSchema),
     defaultValues: {
@@ -83,28 +89,32 @@ const ChangeDetailsForm = () => {
     },
   });
 
+  // Initialize mutation function with useMutation
   const { mutate, isPending } = useMutation({
     mutationKey: ["details"],
     mutationFn: async ([id, values]) => {
       return await axios
         .patch(`${BASE_URL}/users/${id}`, values)
         .then((res) => {
-          toast.success(res.data.message);
-          setUserCred(JSON.stringify(res.data));
+          toast.success(res.data.message); // Show success message
+          setUserCred(JSON.stringify(res.data)); // Update user data
         })
         .catch((err) => {
-          toast.error(err.response.data.message);
+          toast.error(err.response.data.message); // Show error message
         });
     },
   });
 
+  // Handle form submissio
   function onSubmit(values) {
     mutate([id, values]);
   }
 
+  // Render the form
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        {/* First name, last name, and age fields */}
         <div className="flex items-center gap-5">
           <FormField
             control={form.control}
@@ -147,6 +157,8 @@ const ChangeDetailsForm = () => {
           />
         </div>
         <div className="flex items-center gap-5">
+          {/* Email, phone number, and image url fields */}
+
           <FormField
             control={form.control}
             name="email"
@@ -187,6 +199,7 @@ const ChangeDetailsForm = () => {
             )}
           />
         </div>
+        {/* Gender field */}
         <div className="flex items-center gap-5">
           <FormField
             control={form.control}
@@ -212,7 +225,7 @@ const ChangeDetailsForm = () => {
               </FormItem>
             )}
           />
-
+          {/* Interests dropdown */}
           <div className="space-y-2 w-1/2">
             <Label>Interests</Label>
             <DropdownMenu>
@@ -229,6 +242,7 @@ const ChangeDetailsForm = () => {
               <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>Interest list</DropdownMenuLabel>
                 <DropdownMenuSeparator />
+                {/* Map through interest options */}
                 {interestOptions.map(({ text, value }) => {
                   return (
                     <DropdownMenuCheckboxItem
@@ -256,6 +270,7 @@ const ChangeDetailsForm = () => {
             </DropdownMenu>
           </div>
         </div>
+        {/* Submit button */}
         <Button disabled={isPending} type="submit">
           {isPending && <Loader2 className="mr-2 h-4 2-4 animate-spin" />}
           Submit
@@ -264,5 +279,5 @@ const ChangeDetailsForm = () => {
     </Form>
   );
 };
-
+// Export the ChangeDetailsForm component
 export default ChangeDetailsForm;

@@ -20,6 +20,7 @@ import { useAuth } from "@/providers/AuthProvider";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
+// Define schema for password change form
 const passwordSchema = z
   .object({
     current_password: z.string().min(1, {
@@ -32,14 +33,17 @@ const passwordSchema = z
       message: "Confirm password is required",
     }),
   })
+  // Add refinement to ensure new password and confirm password match
   .refine((data) => data.confirm_password === data.new_password, {
     message: "Confirm password and new password do not match",
     path: ["confirm_password"],
   });
 
+// Define ChangePasswordForm component
 const ChangePasswordForm = () => {
+  // Initialize form with useForm hook
   const form = useForm({
-    resolver: zodResolver(passwordSchema),
+    resolver: zodResolver(passwordSchema), // Use zodResolver for form validation
     defaultValues: {
       current_password: "",
       new_password: "",
@@ -47,32 +51,38 @@ const ChangePasswordForm = () => {
     },
   });
 
+  // Get authenticated user information
   const { getUser } = useAuth();
   const user = getUser();
 
+  // Initialize mutation function with useMutation hook
   const { mutate, isPending } = useMutation({
     mutationKey: ["password"],
     mutationFn: async (values) => {
+      // Perform HTTP patch request to change password
       await axios
         .patch(`${BASE_URL}/change_password/${user.id}`, values)
         .then((res) => {
-          toast.success(res.data.message);
-          form.reset();
+          toast.success(res.data.message); // Show success message
+          form.reset(); // Reset form after successful password change
         })
-        .catch((err) => toast.error(err.response.data.message));
+        .catch((err) => toast.error(err.response.data.message)); // Show error message if request fails
     },
   });
 
+  // Handle form submission
   function onSubmit(values) {
     mutate(values);
   }
 
+  // Render the password change form
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-8 max-w-2xl"
       >
+        {/* Current password field */}
         <FormField
           control={form.control}
           name="current_password"
@@ -86,6 +96,7 @@ const ChangePasswordForm = () => {
             </FormItem>
           )}
         />
+        {/* New password field */}
         <FormField
           control={form.control}
           name="new_password"
@@ -99,6 +110,7 @@ const ChangePasswordForm = () => {
             </FormItem>
           )}
         />
+        {/* Confirm password field */}
         <FormField
           control={form.control}
           name="confirm_password"
@@ -112,6 +124,7 @@ const ChangePasswordForm = () => {
             </FormItem>
           )}
         />
+        {/* Submit button */}
         <Button
           disabled={isPending}
           className="bg-black text-white"
