@@ -29,6 +29,7 @@ import { BASE_URL, capitalizeWord, numberFormat } from "@/lib/utils";
 import {
   Check,
   Filter,
+  Loader2,
   MoreHorizontal,
   PenLine,
   Search,
@@ -68,6 +69,54 @@ const UserCardList = ({ users, setUsers, filterBy, setFilterBy }) => {
     const newOffset = (pageNum * 9) % users.length;
     setPageOffset(newOffset);
   };
+
+  const { mutate: suspendAccount, isPending } = useMutation({
+    mutationKey: ["user"],
+    mutationFn: async (id) => {
+      return await axios
+        .patch(`${BASE_URL}/users/${id}`, {
+          account_status: "suspended",
+        })
+        .then((res) => {
+          toast.success(res.data.message);
+          const updatedUsers = users.map((user) => {
+            if (user.id === id) {
+              return res.data.user;
+            }
+
+            return user;
+          });
+          setUsers(updatedUsers);
+        })
+        .catch((err) => {
+          toast.error(err.response.data.message);
+        });
+    },
+  });
+
+    const { mutate: unSuspendAccount, isPending: unSuspendPending } = useMutation({
+      mutationKey: ["user"],
+      mutationFn: async (id) => {
+        return await axios
+          .patch(`${BASE_URL}/users/${id}`, {
+            account_status: "active",
+          })
+          .then((res) => {
+            toast.success(res.data.message);
+            const updatedUsers = users.map((user) => {
+              if (user.id === id) {
+                return res.data.user;
+              }
+
+              return user;
+            });
+            setUsers(updatedUsers);
+          })
+          .catch((err) => {
+            toast.error(err.response.data.message);
+          });
+      },
+    });
 
   return (
     <>
@@ -121,10 +170,48 @@ const UserCardList = ({ users, setUsers, filterBy, setFilterBy }) => {
                 <CardTitle>
                   {user.first_name} {user.last_name}
                 </CardTitle>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <Button size="icon" variant="ghost">
+                      <MoreHorizontal />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="*:cursor-pointer">
+                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      className={
+                        user.account_status !== "suspended" && "text-red-600"
+                      }
+                      onClick={() => {
+                        if(user.account_status === 'suspended'){
+                          unSuspendAccount(user.id);
+                        }else{
+                          suspendAccount(user.id);
+                        }
+                      }}
+                    >
+                      {isPending || unSuspendPending ? (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      ) : (
+                        <PenLine className="mr-2 h-4 w-4" />
+                      )}
+                      {user.account_status === "suspended"
+                        ? "Activate account"
+                        : "Suspend account"}
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
-              <div>
-                <Badge variant="outline">{capitalizeWord(user.role)}</Badge>
-                <Badge variant="outline">
+              <div className="flex items-center gap-2">
+                <Badge>{capitalizeWord(user.role)}</Badge>
+                <Badge
+                  variant={
+                    user.account_status === "suspended"
+                      ? "destructive"
+                      : "outline"
+                  }
+                >
                   {capitalizeWord(user.account_status)}
                 </Badge>
               </div>
