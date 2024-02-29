@@ -80,7 +80,7 @@ const Flights = ({handleFlightData}) => {
 
             // console.log(body);
 
-            const apiKey = "yIntFgYVaWEOFdZmam5w";
+            const apiKey = "KYhhJrQclnJmPFzA4BEgZA	";
             const response = await fetch(`https://www.carboninterface.com/api/v1/estimates`, {
                 method: "POST",
                 headers: {
@@ -100,7 +100,7 @@ const Flights = ({handleFlightData}) => {
             console.log("Response data:", flightData.data.attributes.estimated_at
             )
 
-            handleFlightData(flightData)
+            handleFlightData(flightData,"Flight")
           
         } catch (error) {
             console.error("Error:", error);
@@ -191,6 +191,7 @@ const Flights = ({handleFlightData}) => {
                         <FormField
                             control={form.control}
                             name="return"
+                            
                             render={({ field }) => (
                                 <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
                                     <FormLabel>Return ticket</FormLabel>

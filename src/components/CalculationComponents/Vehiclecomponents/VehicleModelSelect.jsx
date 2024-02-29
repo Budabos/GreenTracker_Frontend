@@ -23,7 +23,7 @@ const VehicleModelSelect = ({ makeId, onSelect }) => {
             throw new Error(response.statusText);
           }
           const data = await response.json();
-          setVehicleModels(data);
+          setVehicleModels(data,"Vehicle");
         } catch (error) {
           console.error("Error fetching vehicle models:", error);
         }
