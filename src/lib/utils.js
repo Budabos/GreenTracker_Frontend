@@ -9,7 +9,7 @@ export function cn(...inputs) {
 
 export const BASE_URL =
   process.env.NODE_ENV === "development"
-    ? "https://localhost:5555"
+    ? `http://localhost:5555`
     : import.meta.env.VITE_BACKEND_URL;
 
 export const numberFormat = (value) =>
