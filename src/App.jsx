@@ -33,6 +33,9 @@ import CalculationPage from "./pages/CalculationPage";
 
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import Shipping from "./pages/Shipping";
+import UserEvents from "./components/UserEvents";
+import TrackGoals from "./pages/TrackGoals";
 
 function App() {
   return (
@@ -52,12 +55,17 @@ function App() {
         <Route path="/carbon-calculation" element={<CalculationPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset/:token" element={<ResetPassword />} />
+        <Route path="/carbon" element={<Shipping />} />
+        <Route
+          path="/carbon-calculation/track-goals"
+          element={<TrackGoals />}
+        />
 
         <Route
           path="/educational-resources"
           element={<EducationalResources />}
         />
-        {/* <Route path="/footprint" element={<Footprint />} />
+        {/* {/* <Route path="/footprint" element={<Footprint />} />
 
      
 {/* 

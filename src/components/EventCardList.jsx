@@ -44,6 +44,7 @@ import { Dialog, DialogTrigger } from "./ui/dialog";
 import EditItem from "./EditItem";
 import { format } from "date-fns";
 import AddEvent, { eventSchema } from "./AddEvent";
+import { ButtonIcon } from "@radix-ui/react-icons";
 
 //Component to display a list of events with filtering, pagination, and actions.
 const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
@@ -132,7 +133,7 @@ const EventCardList = ({ filterBy, setFilterBy, events, setEvents }) => {
                 Filter
               </Button>
             </DropdownMenuTrigger>
- {/* Dropdown menu for filter options */}
+            {/* Dropdown menu for filter options */}
             <DropdownMenuContent>
               <DropdownMenuLabel>Filter locations</DropdownMenuLabel>
               <DropdownMenuSeparator />

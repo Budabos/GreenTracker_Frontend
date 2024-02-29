@@ -10,8 +10,8 @@ const InteractionsContext = createContext();
 const InteractionsProvider = ({ children }) => {
   const { getUser } = useAuth();
   const user = getUser();
-  const [userEvents, setUserEvents] = useState(user?.events);
-  const [userOrders, setUserOrders] = useState(user?.orders);
+  const [userEvents, setUserEvents] = useState(user?.events || []);
+  const [userOrders, setUserOrders] = useState(user?.orders || []);
 
   const { data: eventsData } = useQuery({
     queryKey: ["events"],
@@ -33,27 +33,34 @@ const InteractionsProvider = ({ children }) => {
     },
   });
 
-  console.log(userEvents);
   const events = userEvents?.map((userEvent) => {
-    return eventsData?.find((event) => event.id === userEvent.event_id);
+    if (Array.isArray(eventsData)) {
+      return eventsData?.find((event) => event.id === userEvent.event_id);
+    } else {
+      return [];
+    }
   });
 
   const orderDetails = userOrders?.map(
     ({ total_price, order_products, id }) => {
-      const productIds = order_products?.map(({ product_id }) => product_id);
-      const products = productsData
-        ?.filter((product) => productIds?.includes(product.id))
-        ?.map((product) => ({
-          quantity: order_products?.find(
-            (item) => item?.product_id === product?.id
-          ).quantity,
-          product: product,
-        }));
-      return {
-        total_price,
-        products,
-        id,
-      };
+      if (Array.isArray(productsData)) {
+        const productIds = order_products?.map(({ product_id }) => product_id);
+        const products = productsData
+          ?.filter((product) => productIds?.includes(product.id))
+          ?.map((product) => ({
+            quantity: order_products?.find(
+              (item) => item?.product_id === product?.id
+            ).quantity,
+            product: product,
+          }));
+        return {
+          total_price,
+          products,
+          id,
+        };
+      } else {
+        return [];
+      }
     }
   );
 
