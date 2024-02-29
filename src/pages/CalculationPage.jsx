@@ -6,18 +6,23 @@ import Shipping from '@/components/CalculationComponents/Shipping';
 
 
 
+
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
-
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 
 const CalculationPage = () => {
-  const [currentStep, setCurrentStep] = useState(0);
+  // const [currentStep, setCurrentStep] = useState(0);
   const [responseList, setResponseList] = useState([]);
 
 
@@ -48,7 +53,7 @@ const CalculationPage = () => {
     return responseList.reduce((total, response) => {
       console.log(response.carbonType)
       if (response.carbonType === type) {
-        
+
         switch (unit) {
           case 'g':
             return total + response.data.data.attributes.carbon_g;
@@ -63,10 +68,10 @@ const CalculationPage = () => {
         }
       }
       return total;
-      
+
     }, 0);
   };
-  
+
 
   const calculateTotalEmissions = () => {
     const emissions = {
@@ -79,65 +84,6 @@ const CalculationPage = () => {
     return Object.values(emissions).reduce((total, emission) => total + emission, 0);
   };
 
-
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-  };
-
-
-
-
-
-
-  const nextStep = () => {
-    setCurrentStep(currentStep + 1);
-  };
-
-  const prevStep = () => {
-    setCurrentStep(currentStep - 1);
-  };
-
-  const renderStep = () => {
-    switch (currentStep) {
-      case 0:
-        return (
-
-          <div className="tab">
-            <h1>Flights</h1>
-            <Flights handleFlightData={handleFlightData} />
-          </div>
-
-        );
-      case 1:
-        return (
-          <div className="tab">
-            <h1>Electricity</h1>
-            <Electricity handleElectricityData={handleElectricityData} />
-          </div>
-        );
-      case 2:
-        return (
-          <div className="tab">
-            <h1>Shipping</h1>
-            <Shipping handleShippingData={handleShippingData} />
-
-          </div>
-        );
-      case 3:
-        return (
-          <div className="tab">
-            <h1>Vehicle</h1>
-            <Vehicles handleVehicleData={handleVehicleData} />
-
-          </div>
-        );
-      default:
-        return null;
-    }
-  };
   return (
 
 
@@ -154,20 +100,30 @@ const CalculationPage = () => {
             }}
           >
           </div>
-          <div className="text-white flex justify-center items-center  h-full relative">
-            <div className="flex flex-col justify-center items-center ">
+          <div className=" text-white flex justify-center items-center  h-full relative">
+            <div className="  flex flex-col justify-center items-center ">
               <h2 className="text-3xl font-bold mb-4">GreenTrackr </h2>
-              <div id="regForm" onSubmit={handleSubmit}>
-
-                {renderStep()}
-                <div style={{ overflow: 'auto' }}>
-                  <div style={{ float: 'right' }}>
-                    {currentStep !== 0 && <button type="button" onClick={prevStep}>Previous</button>}
-                    {currentStep !== 3 && <button className='my-7 px-7' type="button" onClick={nextStep}>Next</button>}
-                  </div>
-                </div>
-
-              </div>
+              <Tabs defaultValue="account" className="w-[400px]">
+                <TabsList className=" grid w-full grid-cols-4">
+                  <TabsTrigger value="flight">Flights</TabsTrigger>
+                  <TabsTrigger value="electricity">Electricity</TabsTrigger>
+                  <TabsTrigger value="shipping">Shipping</TabsTrigger>
+                  <TabsTrigger value="vehicle">Vehicle</TabsTrigger>
+                </TabsList>
+                <TabsContent value="flight">
+                  <Flights handleFlightData={handleFlightData} />
+                </TabsContent>
+                <TabsContent value="electricity">
+                  <Electricity handleElectricityData={handleElectricityData} />
+                </TabsContent>
+                <TabsContent value="shipping">
+                  <Shipping handleShippingData={handleShippingData} />
+                </TabsContent>
+                <TabsContent value="vehicle">
+                  <Vehicles handleVehicleData={handleVehicleData} />
+                </TabsContent>
+              </Tabs>
+         
 
 
             </div>
