@@ -18,7 +18,7 @@ const Vehicle = () => {
 
   return (
     <div>
-      <h2>Vehicle Information</h2>
+      <h2 style={{ color: "#ffff" }}>Vehicle Information</h2>
       <VehicleMakeSelect onSelect={handleMakeSelect} />
       {selectedMakeId && (
         <VehicleModelSelect

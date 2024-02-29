@@ -37,11 +37,18 @@ const VehicleMakeSelect = ({ onSelect }) => {
 
   return (
     <div>
-      <label htmlFor="makeSelect">Select Vehicle Make:</label>
+      <label
+        htmlFor="makeSelect"
+        className="block font-medium text-gray-700 mb-2"
+        style={{ paddingTop: "20px", color: "#ffff" }}
+      >
+        Select Vehicle Make:
+      </label>
       <select
         id="makeSelect"
         value={selectedMakeId}
         onChange={handleMakeChange}
+        className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-opacity-50"
       >
         <option value="">Select Vehicle Make</option>
         {vehicleMakes.map((make) => (
