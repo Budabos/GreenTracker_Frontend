@@ -44,10 +44,10 @@ const CalculationPage = () => {
 
 
 
-  const calculateElecSum = (type, unit) => {
+  const calculateSum = (type, unit) => {
     return responseList.reduce((total, response) => {
       console.log(response.carbonType)
-      if (response.carbonType === "Electricity") {
+      if (response.carbonType === type) {
         
         switch (unit) {
           case 'g':
@@ -66,79 +66,14 @@ const CalculationPage = () => {
       
     }, 0);
   };
-  const calculateFlightSum = (type, unit) => {
-    return responseList.reduce((total, response) => {
-      console.log(response.carbonType)
-      if (response.carbonType === "Flight") {
-        
-        switch (unit) {
-          case 'g':
-            return total + response.data.data.attributes.carbon_g;
-          case 'lb':
-            return total + response.data.data.attributes.carbon_lb;
-          case 'kg':
-            return total + response.data.data.attributes.carbon_kg;
-          case 'mt':
-            return total + response.data.data.attributes.carbon_mt;
-          default:
-            return total;
-        }
-      }
-      return total;
-      
-    }, 0);
-  };
-  const calculateShippingSum = (type, unit) => {
-    return responseList.reduce((total, response) => {
-      console.log(response.carbonType)
-      if (response.carbonType === "Shipping") {
-        
-        switch (unit) {
-          case 'g':
-            return total + response.data.data.attributes.carbon_g;
-          case 'lb':
-            return total + response.data.data.attributes.carbon_lb;
-          case 'kg':
-            return total + response.data.data.attributes.carbon_kg;
-          case 'mt':
-            return total + response.data.data.attributes.carbon_mt;
-          default:
-            return total;
-        }
-      }
-      return total;
-      
-    }, 0);
-  };
-  const calculateVehicleSum = (type, unit) => {
-    return responseList.reduce((total, response) => {
-      console.log(response.carbonType)
-      if (response.carbonType === "Vehicle") {
-        
-        switch (unit) {
-          case 'g':
-            return total + response.data.data.attributes.carbon_g;
-          case 'lb':
-            return total + response.data.data.attributes.carbon_lb;
-          case 'kg':
-            return total + response.data.data.attributes.carbon_kg;
-          case 'mt':
-            return total + response.data.data.attributes.carbon_mt;
-          default:
-            return total;
-        }
-      }
-      return total;
-      
-    }, 0);
-  };
+  
 
   const calculateTotalEmissions = () => {
     const emissions = {
-      flight: calculateFlightSum('Flight', 'kg'),
-      vehicle: calculateVehicleSum('Vehicle', 'kg'),
-      shipping: calculateShippingSum('Shipping', 'kg'),
-      electricity: calculateElecSum('Electricity', 'kg'),
+      flight: calculateSum('Flight', 'kg'),
+      vehicle: calculateSum('Vehicle', 'kg'),
+      shipping: calculateSum('Shipping', 'kg'),
+      electricity: calculateSum('Electricity', 'kg'),
     };
 
     return Object.values(emissions).reduce((total, emission) => total + emission, 0);
@@ -248,10 +183,10 @@ const CalculationPage = () => {
         <div className="flex-1 p-2 flex  justify-center">
           <div className=" p-4 ">
             <h2>Your calculated  carbon footprint</h2>
-            <p>Total Emmissions from flights {calculateFlightSum('flight', 'kg')} kg</p>
-            <p>Total Emmissions from Energy use {calculateElecSum('electricity', 'kg')} kg</p>
-            <p>Total Emmissions from Shipping items{calculateShippingSum('shipping', 'kg')} kg</p>
-            <p>Total Emmissions from Vehiclerides{calculateVehicleSum('vehicle', 'kg')} kg</p>
+            <p>Total Emmissions from flights {calculateSum('Flight', 'kg')} kg</p>
+            <p>Total Emmissions from Energy use {calculateSum('Electricity', 'kg')} kg</p>
+            <p>Total Emmissions from Shipping items{calculateSum('Shipping', 'kg')} kg</p>
+            <p>Total Emmissions from Vehicle rides{calculateSum('Vehicle', 'kg')} kg</p>
 
 
             {responseList.map((response) => (
@@ -266,8 +201,8 @@ const CalculationPage = () => {
                   <ul>
                     <li>Grams: {response.data.data.attributes.carbon_g} g</li>
                     <li>Kilograms: {response.data.data.attributes.carbon_kg} kg</li>
-                    {/* <li>Pounds: {response.data.attributes.carbon_lb} lb</li>
-                    <li>Metric Tons: {response.data.data.attributes.carbon_mt} mt</li> */}
+                    <li>Pounds: {response.data.data.attributes.carbon_lb} lb</li>
+                    <li>Metric Tons: {response.data.data.attributes.carbon_mt} mt</li>
                   </ul>
                 </CardContent>
                 <CardFooter className="mt-1">
