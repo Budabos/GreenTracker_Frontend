@@ -1,4 +1,4 @@
-import { useAuth } from "@/providers/AuthProvider";
+import { useAuth } from "@/providers/AuthProvider";// Import useAuth hook for authentication
 import {
   Ghost,
   Loader2,
