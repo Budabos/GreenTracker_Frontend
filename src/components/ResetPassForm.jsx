@@ -15,55 +15,56 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { BASE_URL, cn } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useAuth } from "@/providers/AuthProvider";
 
-const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6, {
-    message: "Password must be at least 6 characters",
-  }),
-});
+const resetPasswordSchema = z
+  .object({
+    email: z.string().email(),
+    token: z.string(),
+    password: z.string().min(6, {
+      message: "Password must be at least 6 characters",
+    }),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.confirmPassword === data.password, {
+    message: "Password and confirm password do not match",
+    path: ["confirmPassword"],
+  });
 
-const LoginForm = () => {
+const ResetPassForm = () => {
   const [hidden, setHidden] = useState(true);
-  const { setUserCred, getUser } = useAuth();
+
+  const { token } = useParams();
+  const decodedToken = JSON.parse(atob(token.split(".")[1]));
   const navigate = useNavigate();
 
-  const {
-    data: res,
-    isPending,
-    mutate,
-  } = useMutation({
-    mutationKey: ["login"],
-    mutationFn: async (values) => {
-      const res = await axios
-        .post(`${BASE_URL}/login`, values)
-        .then((res) => {
-          setUserCred(JSON.stringify(res.data));
-
-          toast.success(res.data.message);
-
-          if (res.data.user.role === "admin") {
-            navigate("/dashboard");
-          } else {
-            navigate("/");
-          }
-        })
-        .catch((err) => toast.error(err.response.data.message));
-
-      return res;
+  const form = useForm({
+    resolver: zodResolver(resetPasswordSchema),
+    defaultValues: {
+      token,
+      email: decodedToken.email,
     },
   });
 
-  const form = useForm({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["reset-password"],
+    mutationFn: async (values) => {
+      return await axios
+        .post(`${BASE_URL}/reset`, values)
+        .then((res) => {
+          toast.success(res.data.message);
+          form.reset();
+        })
+        .catch((err) => {
+          toast.error(err.response.data.message);
+        });
+    },
+    onSuccess: () => {
+      navigate("/login");
     },
   });
 
@@ -74,22 +75,6 @@ const LoginForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="johndoe@gmail.com" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <FormField
           control={form.control}
           name="password"
@@ -104,7 +89,38 @@ const LoginForm = () => {
                     {...field}
                   />
                   <Button
-                    className="absolute top-1/2 right-0 translate-y-[-50%] border"
+                    className="absolute top-1/2 right-0 translate-y-[-50%] border text-black"
+                    size="icon"
+                    type="button"
+                    onClick={() => setHidden((prev) => !prev)}
+                  >
+                    {hidden ? (
+                      <Eye className="h-4 w-4" />
+                    ) : (
+                      <EyeOff className="h-4 w-4" />
+                    )}
+                  </Button>
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm Password</FormLabel>
+              <FormControl>
+                <div className="relative">
+                  <Input
+                    type={hidden ? "password" : "text"}
+                    placeholder="secret-password"
+                    {...field}
+                  />
+                  <Button
+                    className="absolute top-1/2 right-0 translate-y-[-50%] border text-black"
                     size="icon"
                     type="button"
                     onClick={() => setHidden((prev) => !prev)}
@@ -123,7 +139,7 @@ const LoginForm = () => {
         />
         <div className="flex flex-col items-start">
           <Link
-            to={"/forgot-password"}
+            to={"/login"}
             className={cn(
               buttonVariants({
                 variant: "link",
@@ -131,7 +147,7 @@ const LoginForm = () => {
               "pl-0"
             )}
           >
-            Forgot password?
+            Already have an account?
           </Link>
           <Link
             to={"/signup"}
@@ -144,7 +160,11 @@ const LoginForm = () => {
           >
             Don&apos;t have an account?
           </Link>
-          <Button type="submit" disabled={isPending}>
+          <Button
+            className="bg-black text-white"
+            type="submit"
+            disabled={isPending}
+          >
             {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Submit
           </Button>
@@ -154,4 +174,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default ResetPassForm;

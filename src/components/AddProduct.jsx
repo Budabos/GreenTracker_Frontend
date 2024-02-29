@@ -26,6 +26,7 @@ import { z } from "zod";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 
+// Define the schema for the product
 export const productSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters",
@@ -53,25 +54,34 @@ export const productSchema = z.object({
   }),
 });
 
+// Initialize React Hook Form with the Zod resolver
 const AddProduct = ({  setProducts }) => {
   const form = useForm({
     resolver: zodResolver(productSchema),
   });
 
+  // Use React Query's useMutation hook
   const { mutate, isPending } = useMutation({
     mutationKey: ["products"],
+
+    // Define the mutation function to handle adding a product
     mutationFn: async (values) => {
       return await axios
-        .post(`${BASE_URL}/products`, values)
+        .post(`${BASE_URL}/products`, values)   // Send a POST request to the server to add the product
         .then((res) => {
+          // Display a success toast message
           toast.success(res.data.message);
+          // Reset the form fields
           form.reset();
+          // Update the list of products
           setProducts((prevProducts) => [...prevProducts, res.data.product]);
         })
+
+        // Log any errors that occur
         .catch((err) => console.log(err));
     },
   });
-
+  // Handle form submission
   function onSubmit(values) {
     mutate(values);
   }
@@ -87,11 +97,13 @@ const AddProduct = ({  setProducts }) => {
             Create a product
           </DialogTitle>
           <DialogDescription>
+            {/* Form for creating a product */}
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-8"
               >
+                {/* Description field */}
                 <FormField
                   control={form.control}
                   name="name"
@@ -122,6 +134,7 @@ const AddProduct = ({  setProducts }) => {
                     </FormItem>
                   )}
                 />
+                {/* Category and Image URL fields */}
                 <div className="flex items-center gap-6 *:w-1/2">
                   <FormField
                     control={form.control}
@@ -153,6 +166,7 @@ const AddProduct = ({  setProducts }) => {
                     )}
                   />
                 </div>
+                {/* Price and Eco Rating fields */}
                 <div className="flex items-center gap-6 *:w-1/2">
                   <FormField
                     control={form.control}
@@ -181,7 +195,7 @@ const AddProduct = ({  setProducts }) => {
                     )}
                   />
                 </div>
-
+                {/* Submit button */}
                 <Button disabled={isPending} type="submit">
                   {isPending && (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />

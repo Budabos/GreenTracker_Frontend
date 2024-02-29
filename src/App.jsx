@@ -1,45 +1,38 @@
 import { Route, Routes } from "react-router-dom";
 
+import AboutUs from "../src/pages/AboutUs";
+import ContactUs from "../src/pages/ContactUs";
+import Faqs from "../src/pages/Faqs";
+import Feedback from "../src/pages/Feedback";
 import Home from "../src/pages/Home";
 import Login from "../src/pages/Login";
 import Signup from "../src/pages/Signup";
 import Footer from "./components/Footer";
-import Donation from "./pages/Donation";
-import AboutUs from "../src/pages/AboutUs";
-import ContactUs from "../src/pages/ContactUs";
-import Review from "./pages/Review";
-import Profile from "./pages/Profile";
-import Faqs from "../src/pages/Faqs";
-import Feedback from "../src/pages/Feedback";
-import Products from "./pages/Products";
 import Carbon from "./pages/Carbon";
+import Donation from "./pages/Donation";
 import EducationalResources from "./pages/EducationalResources";
+import Products from "./pages/Products";
+import Profile from "./pages/Profile";
+import Review from "./pages/Review";
 
-
-import  SustainableHabits  from "./pages/CalculationPage";
 // import { Track } from "./pages/subpages/Track";
 // import { Reduce } from "./pages/subpages/Reduce";
 // import { Engage } from "./pages/subpages/Engage";
-import Footprint from "./pages/Footprint";
-
 
 import Events from "./pages/Events";
 import ProductById from "./pages/ProductById";
 
+import AuthWrapper from "./components/AuthWrapper";
 import CarbonCalculator from "./pages/CarbonCalculator";
 import Dashboard from "./pages/dashboard/Dashboard";
-import AuthWrapper from "./components/AuthWrapper";
 import DashboardEvents from "./pages/dashboard/DashboardEvents";
 import DashboardProducts from "./pages/dashboard/DashboardProducts";
 import DashboardUsers from "./pages/dashboard/DashboardUsers";
 
 import CalculationPage from "./pages/CalculationPage";
 
-
-import DashboardBookings from "./pages/dashboard/DashboardBookings";
-
-
-
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   return (
@@ -56,9 +49,14 @@ function App() {
         <Route path="/review" element={<Review />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/donations" element={<Donation />} />
-        <Route path="/carbon-calculation" element={< CalculationPage/>} />
+        <Route path="/carbon-calculation" element={<CalculationPage />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset/:token" element={<ResetPassword />} />
 
-        <Route path="/educational-resources" element={<EducationalResources />} />
+        <Route
+          path="/educational-resources"
+          element={<EducationalResources />}
+        />
         {/* <Route path="/footprint" element={<Footprint />} />
 
      
@@ -66,7 +64,7 @@ function App() {
         <Route path="/vehicle" element={<Vehicles/>} > */}
 
         {/* </Route> */}
-          {/* <Route path="/sustainable-habits" element={<Track/>} />
+        {/* <Route path="/sustainable-habits" element={<Track/>} />
           <Route path="/sustainable-habits/reduce" element={<Reduce/>} />
 
  
@@ -76,7 +74,6 @@ function App() {
 
           <Route path="/sustainable-habits/engage" element={<Engage/>} />
         </Route> */}
-
 
         <Route
           path="/educational-resources"
@@ -93,10 +90,8 @@ function App() {
           <Route path="/dashboard/events" element={<DashboardEvents />} />
           <Route path="/dashboard/products" element={<DashboardProducts />} />
           <Route path="/dashboard/users" element={<DashboardUsers />} />
-          <Route path="/dashboard/bookings" element={<DashboardBookings />} />
         </Route>
       </Routes>
-
       <Footer />
     </>
   );

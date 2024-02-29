@@ -121,53 +121,12 @@ const UserCardList = ({ users, setUsers, filterBy, setFilterBy }) => {
                 <CardTitle>
                   {user.first_name} {user.last_name}
                 </CardTitle>
-                <Dialog>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger>
-                      <Button size="icon" variant="ghost">
-                        <MoreHorizontal />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DialogTrigger asChild onClick={() => setDialog("edit")}>
-                        <DropdownMenuItem>
-                          <PenLine className="mr-2 h-4 w-4" />
-                          Edit user
-                        </DropdownMenuItem>
-                      </DialogTrigger>
-                      <DialogTrigger
-                        onClick={() => setDialog("delete")}
-                        asChild
-                      >
-                        <DropdownMenuItem className="text-red-600">
-                          <Trash className="mr-2 h-4 w-4" />
-                          Delete user
-                        </DropdownMenuItem>
-                      </DialogTrigger>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                  {/* {dialog === "delete" && (
-                    <DeleteItem
-                      itemType="user"
-                      id={user.id}
-                      isPending={pendingDeletion}
-                      action={deleteProduct}
-                    />
-                  )} */}
-                  {/* {dialog === "edit" && (
-                    <EditItem
-                      item={user}
-                      action={editProduct}
-                      isPending={pendingEdit}
-                      schema={userSchema}
-                    />
-                  )} */}
-                </Dialog>
               </div>
               <div>
                 <Badge variant="outline">{capitalizeWord(user.role)}</Badge>
+                <Badge variant="outline">
+                  {capitalizeWord(user.account_status)}
+                </Badge>
               </div>
               <CardDescription className="pt-6">
                 {capitalizeWord(user.gender)}

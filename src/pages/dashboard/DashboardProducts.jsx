@@ -10,7 +10,6 @@ import { Ghost, Loader2 } from "lucide-react";
 import { useState } from "react";
 
 const DashboardProducts = () => {
-  const [active, setActive] = useState("grid");
   const [products, setProducts] = useState([]);
   const [filterBy, setFilterBy] = useState([]);
 
@@ -48,21 +47,14 @@ const DashboardProducts = () => {
       <div>
         <div className="flex items-center justify-between">
           <h1 className="text-4xl font-bold">Products</h1>
-          <div className="flex items-center gap-10">
-            <AddProduct setProducts={setProducts} />
-            <ViewSelector active={active} setActive={setActive} />
-          </div>
         </div>
       </div>
-      {active === "grid" && (
-        <ProductCardList
-          filterBy={filterBy}
-          setFilterBy={setFilterBy}
-          products={products}
-          setProducts={setProducts}
-        />
-      )}
-      {active === "list" && <DataTable data={products} columns={columns} />}
+      <ProductCardList
+        filterBy={filterBy}
+        setFilterBy={setFilterBy}
+        products={products}
+        setProducts={setProducts}
+      />
     </div>
   );
 };

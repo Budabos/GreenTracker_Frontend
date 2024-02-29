@@ -40,6 +40,7 @@ import axios from "axios";
 import { BASE_URL } from "@/lib/utils";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
+import { useInteractions } from "@/providers/InteractionsProvider";
 
 const Navbar = () => {
   const { userCred, logout, getUser } = useAuth();
@@ -49,17 +50,19 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
   const [display, setDisplay] = useState(true);
+  const { setUserOrders } = useInteractions();
 
   useEffect(() => {
-    const excludes = ["/login", "/signup"];
-    if (excludes.includes(pathname) || user?.role === "admin") {
+    const excludes = ["/login", "/signup", "/forgot-password", "/reset"];
+    if (
+      excludes.some((excludePath) => pathname.startsWith(excludePath)) ||
+      user?.role === "admin"
+    ) {
       setDisplay(false);
     } else {
       setDisplay(true);
     }
   }, [pathname, user]);
-
-  console.log(display);
 
   const {
     cart,
@@ -78,6 +81,7 @@ const Navbar = () => {
         .post(`${BASE_URL}/orders`, values)
         .then((res) => {
           toast.success(res.data.message);
+          setUserOrders(res.data.updated_user.orders);
         })
         .catch((err) => {
           toast.error(err.response.data.message);

@@ -1,5 +1,7 @@
+import Bookings from "@/components/Bookings";
 import ChangeDetailsForm from "@/components/ChangeDetailsForm";
 import ChangePasswordForm from "@/components/ChangePasswordForm";
+import Orders from "@/components/Orders";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +14,8 @@ function Profile() {
   if (!user || !userCred) {
     navigate("/login");
   }
+
+  console.log(user.events);
 
   return (
     <div className="container mx-auto p-4">
@@ -48,6 +52,22 @@ function Profile() {
           </div>
         </div>
       )}
+      <Tabs defaultValue="account" className="mt-10">
+        <TabsList>
+          <TabsTrigger value="orders" className="text-xl font-bold mb-2">
+            My Orders
+          </TabsTrigger>
+          <TabsTrigger value="bookings" className="text-xl font-bold mb-2">
+            My Bookings
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="orders">
+          <Orders />
+        </TabsContent>
+        <TabsContent value="bookings">
+          <Bookings />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

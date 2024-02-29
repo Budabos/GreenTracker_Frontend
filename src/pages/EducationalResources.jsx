@@ -20,13 +20,14 @@ const EducationalResources = () => {
   });
 
   const ResourceCard = ({ resource }) => (
-    <div className="bg-white p-4 rounded-lg shadow-md mb-4">
+    <div className="bg-white p-4 rounded-lg shadow-md mb-4 w-full">
       <h3 className="text-xl font-bold mb-2">{resource.title}</h3>
       <img
-        src={resource.image_url}
-        alt={resource.title}
-        className="w-full h-auto mb-2"
-      />
+  src={resource.image_url}
+  alt={resource.title}
+  className="w-full mb-2"
+  style={{ maxHeight: '350px' }}
+/>
       <p className="text-black-700 mb-2 ">{resource.description}</p>
       <p className="text-black mb-2">
         <strong>Author:</strong> {resource.author}

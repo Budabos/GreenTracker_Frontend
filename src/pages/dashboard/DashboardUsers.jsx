@@ -11,7 +11,6 @@ import { Ghost, Loader2 } from "lucide-react";
 import { useState } from "react";
 
 const DashboardUsers = () => {
-  const [active, setActive] = useState("grid");
   const [users, setUsers] = useState([]);
   const [filterBy, setFilterBy] = useState([]);
 
@@ -49,21 +48,15 @@ const DashboardUsers = () => {
       <div>
         <div className="flex items-center justify-between">
           <h1 className="text-4xl font-bold">Users</h1>
-          <div className="flex items-center gap-10">
-            {/* <AddProduct setUsers={setUsers} />
-            <ViewSelector active={active} setActive={setActive} /> */}
-          </div>
+          <div className="flex items-center gap-10"></div>
         </div>
       </div>
-      {active === "grid" && (
-        <UserCardList
-          filterBy={filterBy}
-          setFilterBy={setFilterBy}
-          users={users}
-          setUsers={setUsers}
-        />
-      )}
-      {/* {active === "list" && <DataTable data={products} columns={columns} />} */}
+      <UserCardList
+        filterBy={filterBy}
+        setFilterBy={setFilterBy}
+        users={users}
+        setUsers={setUsers}
+      />
     </div>
   );
 };
