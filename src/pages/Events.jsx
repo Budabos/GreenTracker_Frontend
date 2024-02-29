@@ -138,23 +138,23 @@ const Events = () => {
                   <div className="px-6 py-4">
                     <div className="font-bold text-xl mb-2">{event.title}</div>
                     <p className="text-gray-700 text-base mb-2">
-                      Date: {format(event.date_event, "PPP")}
+                      Date: {format(event?.date_event, "PPP")}
                     </p>
                     <p className="text-gray-700 text-base mb-2">
-                      Location: {event.location}
+                      Location: {event?.location}
                     </p>
                     <p className="text-gray-700 text-base mb-2">
-                      Organizer: {event.organizer}
+                      Organizer: {event?.organizer}
                     </p>
                     <p className="text-gray-700 text-base mb-2">
-                      Contact Info: {event.contact_info}
+                      Contact Info: {event?.contact_info}
                     </p>
                     <p className="text-gray-700 text-base mb-2">
                       Registration Deadline:{" "}
-                      {format(event.registration_deadline, "PPP")}
+                      {format(event?.registration_deadline, "PPP")}
                     </p>
                     <p className="text-gray-700 text-base">
-                      Description: {event.description}
+                      Description: {event?.description}
                     </p>
                     <div className="mt-6">
                       {!user ? (
