@@ -34,6 +34,7 @@ import CalculationPage from "./pages/CalculationPage";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Shipping from "./pages/Shipping";
+import UserEvents from "./components/UserEvents";
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset/:token" element={<ResetPassword />} />
         <Route path="/carbon" element={<Shipping />} />
+        <Route path="/my-events" element={<UserEvents />} />
 
         <Route
           path="/educational-resources"

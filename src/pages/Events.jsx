@@ -299,6 +299,7 @@ const Events = () => {
             </div>
           ))}
         </div>
+        <button>View my events</button>
       </div>
     </div>
   );
