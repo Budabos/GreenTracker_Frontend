@@ -18,28 +18,29 @@ import { format } from "date-fns";
 
 const Bookings = () => {
   const { events } = useInteractions();
+
+  const data = new Set([...events]);
+
   return (
     <div className="mb-14 mt-8">
       <div className="gap-10 grid grid-cols-2">
-        {events.map((event) => {
-          if (event) {
-            return (
-              <Card key={event.id}>
-                <CardHeader>
-                  <CardTitle>{event.title}</CardTitle>
-                  <div>
-                    <Badge variant="outline">{event.location}</Badge>
-                  </div>
-                  <CardDescription className="pt-6">
-                    {event.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="opacity-80 text-sm">
-                  <p>{format(event.date_event, "PPP")}</p>
-                </CardContent>
-              </Card>
-            );
-          }
+        {[...data]?.map((event) => {
+          return (
+            <Card key={event?.id}>
+              <CardHeader>
+                <CardTitle>{event?.title}</CardTitle>
+                <div>
+                  <Badge variant="outline">{event?.location}</Badge>
+                </div>
+                <CardDescription className="pt-6">
+                  {event?.description}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="opacity-80 text-sm">
+                <p>{format(event?.date_event, "PPP")}</p>
+              </CardContent>
+            </Card>
+          );
         })}
       </div>
     </div>

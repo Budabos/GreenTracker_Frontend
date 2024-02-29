@@ -33,18 +33,19 @@ const InteractionsProvider = ({ children }) => {
     },
   });
 
+  console.log(userEvents);
   const events = userEvents.map((userEvent) => {
-    return eventsData?.find((event) => event.id === userEvent.id);
+    return eventsData?.find((event) => event.id === userEvent.event_id);
   });
 
   const orderDetails = userOrders?.map(
     ({ total_price, order_products, id }) => {
       const productIds = order_products?.map(({ product_id }) => product_id);
       const products = productsData
-        ?.filter((product) => productIds.includes(product.id))
+        ?.filter((product) => productIds?.includes(product.id))
         ?.map((product) => ({
           quantity: order_products?.find(
-            (item) => item.product_id === product.id
+            (item) => item?.product_id === product?.id
           ).quantity,
           product: product,
         }));
@@ -56,7 +57,7 @@ const InteractionsProvider = ({ children }) => {
     }
   );
 
-  console.log(orderDetails);
+  console.log(userOrders);
 
   const contextValue = useMemo(
     () => ({
