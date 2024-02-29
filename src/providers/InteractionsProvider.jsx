@@ -34,7 +34,7 @@ const InteractionsProvider = ({ children }) => {
   });
 
   console.log(userEvents);
-  const events = userEvents.map((userEvent) => {
+  const events = userEvents?.map((userEvent) => {
     return eventsData?.find((event) => event.id === userEvent.event_id);
   });
 
