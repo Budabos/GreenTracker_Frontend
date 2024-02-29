@@ -14,6 +14,7 @@ export function DataTableViewOptions({ table }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
+        {/* Button to trigger dropdown menu */}
         <Button
           variant="outline"
           size="sm"
@@ -23,9 +24,13 @@ export function DataTableViewOptions({ table }) {
           Toogle columns
         </Button>
       </DropdownMenuTrigger>
+      {/* Dropdown menu content */}
       <DropdownMenuContent align="end" className="w-[150px]">
+        {/* Label for the dropdown menu */}
         <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
+        {/* Separator */}
         <DropdownMenuSeparator />
+        {/* Map over each column to display toggle options */}
         {table
           .getAllColumns()
           .filter(

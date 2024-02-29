@@ -1,5 +1,6 @@
 import ChangeDetailsForm from "@/components/ChangeDetailsForm";
 import ChangePasswordForm from "@/components/ChangePasswordForm";
+import Orders from "@/components/Orders";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +13,8 @@ function Profile() {
   if (!user || !userCred) {
     navigate("/login");
   }
+
+  console.log(user.orders);
 
   return (
     <div className="container mx-auto p-4">
@@ -48,6 +51,7 @@ function Profile() {
           </div>
         </div>
       )}
+      <Orders />
     </div>
   );
 }

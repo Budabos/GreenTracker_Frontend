@@ -43,17 +43,12 @@ const Sidebar = () => {
       link: "/dashboard/users",
       icon: <Users className="h-6 w-6" />,
     },
-    {
-      text: "Bookings",
-      link: "/dashboard/bookings",
-      icon: <CalendarCheck className="h-6 w-6" />,
-    },
   ];
 
   const { logout } = useAuth();
 
   return (
-    <div className="h-screen bg-[#245501] pl-10 pr-16 pt-10">
+    <div className="h-screen bg-[#245501] px-8 pt-10 fixed">
       <div className="flex items-center justify-end">
         <Button
           onClick={() => setExpanded((prev) => !prev)}
@@ -100,8 +95,12 @@ const Sidebar = () => {
       </div>
       <TooltipProvider>
         <Tooltip>
-          <TooltipTrigger className="mt-28 flex flex-col font-bold text-lg *:p-2 *:rounded *:flex *:items-center *:transition-colors *:duration-300">
-            <Button onClick={logout} variant="ghost" className="text-primary-foreground">
+          <TooltipTrigger className="mt-36 flex flex-col font-bold text-lg *:p-2 *:rounded *:flex *:items-center *:transition-colors *:duration-300">
+            <Button
+              onClick={logout}
+              variant="ghost"
+              className="text-primary-foreground"
+            >
               <LogOut />
               <span
                 className={`overflow-hidden transition-all ${
