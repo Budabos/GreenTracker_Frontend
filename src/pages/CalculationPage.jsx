@@ -7,10 +7,6 @@ import Shipping from '@/components/CalculationComponents/Shipping';
 
 
 
-
-
-
-
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -25,34 +21,26 @@ import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 
-
-
 const CalculationPage = () => {
   // const [currentStep, setCurrentStep] = useState(0);
   const [responseList, setResponseList] = useState([]);
 
 
-
-
   const handleFlightData = (flightData, type) => {
-
 
     console.log(type)
     setResponseList([...responseList, { data: flightData, carbonType: type }]);
   };
-
 
   const handleVehicleData = (vehicleData, type) => {
     console.log(type)
     setResponseList([...responseList, { data: vehicleData, carbonType: type }]);
   };
 
-
   const handleShippingData = (result, type) => {
     console.log(type)
     setResponseList([...responseList, { data: result, carbonType: type }]);
   };
-
 
   const handleElectricityData = (result, type) => {
     console.log(type)
@@ -61,14 +49,10 @@ const CalculationPage = () => {
 
 
 
-
-
-
   const calculateSum = (type, unit) => {
     return responseList.reduce((total, response) => {
       console.log(response.carbonType)
       if (response.carbonType === type) {
-
 
         switch (unit) {
           case 'g':
@@ -85,11 +69,8 @@ const CalculationPage = () => {
       }
       return total;
 
-
     }, 0);
   };
-
-
 
 
   const calculateTotalEmissions = () => {
@@ -100,15 +81,10 @@ const CalculationPage = () => {
       electricity: calculateSum('Electricity', 'kg'),
     };
 
-
     return Object.values(emissions).reduce((total, emission) => total + emission, 0);
   };
 
-
   return (
-
-
-
 
 
 
@@ -147,16 +123,11 @@ const CalculationPage = () => {
                   <Vehicles handleVehicleData={handleVehicleData} />
                 </TabsContent>
               </Tabs>
-         
-
-
 
 
 
             </div>
           </div>
-
-
 
 
         </div>
@@ -165,21 +136,8 @@ const CalculationPage = () => {
 
 
 
-
-
-
-
-
         <div className="flex flex-1  justify-center">
           <div className=" p-4 ">
-            <h2>Your calculated  carbon footprint</h2>
-            <p>Total Emmissions from flights {calculateSum('Flight', 'kg')} kg</p>
-            <p>Total Emmissions from Energy use {calculateSum('Electricity', 'kg')} kg</p>
-            <p>Total Emmissions from Shipping items{calculateSum('Shipping', 'kg')} kg</p>
-            <p>Total Emmissions from Vehicle rides{calculateSum('Vehicle', 'kg')} kg</p>
-
-
-
             <div className="w-400 mb-3 text-center bg-white border border-green-200 rounded-lg shadow sm:p-8">
               <h2 className="mb-2 text-3xl  text-gray-900 dark:text-white">Your calculated  carbon footprint</h2>
 
@@ -213,11 +171,6 @@ const CalculationPage = () => {
 
             <div className="" >
 
-            {responseList.map((response) => (
-              <Card key={response.data.data.id} className="border w-400 h-40 border-gray-200 rounded-md flex flex-col mb-2">
-                <CardHeader className="mb-1">
-                  <CardTitle>{response.carbonType}</CardTitle>
-
               {responseList.map((response) => (
                 <Card key={response.data.data.id} className="flex flex-col   rounded-md w-300 h-40 border-green-200  mb-3 shadow md:flex-col md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                   <CardHeader className="flex flex-col justify-between p-3 leading-normal">
@@ -237,7 +190,6 @@ const CalculationPage = () => {
                   <CardFooter className="mt-1">
                     <p><span className="font-semibold">Estimated At:</span> {response.data.data.attributes.estimated_at}</p>
 
-
                   </CardFooter>
                 </Card>
               ))}
@@ -250,11 +202,8 @@ const CalculationPage = () => {
       </div >
     </>
 
-
   );
 
-
 }
-
 
 export default CalculationPage
