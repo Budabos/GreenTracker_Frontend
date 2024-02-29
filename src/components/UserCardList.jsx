@@ -124,6 +124,9 @@ const UserCardList = ({ users, setUsers, filterBy, setFilterBy }) => {
               </div>
               <div>
                 <Badge variant="outline">{capitalizeWord(user.role)}</Badge>
+                <Badge variant="outline">
+                  {capitalizeWord(user.account_status)}
+                </Badge>
               </div>
               <CardDescription className="pt-6">
                 {capitalizeWord(user.gender)}

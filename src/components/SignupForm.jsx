@@ -268,7 +268,7 @@ const SignupForm = () => {
                       {...field}
                     />
                     <Button
-                      className="absolute top-1/2 right-0 translate-y-[-50%] border text-black"
+                      className="absolute top-1/2 right-0 translate-y-[-50%] border"
                       size="icon"
                       onClick={() => setHidden((prev) => !prev)}
                       type="button"
@@ -299,7 +299,7 @@ const SignupForm = () => {
                       {...field}
                     />
                     <Button
-                      className="absolute top-1/2 right-0 translate-y-[-50%] border text-black"
+                      className="absolute top-1/2 right-0 translate-y-[-50%] border"
                       size="icon"
                       onClick={() => setHidden((prev) => !prev)}
                       type="button"

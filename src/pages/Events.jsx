@@ -3,6 +3,7 @@ import { BASE_URL, cn } from "@/lib/utils";
 import { useAuth } from "@/providers/AuthProvider";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { format } from "date-fns";
 import { Loader2 } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -197,7 +198,9 @@ const Events = () => {
           ></div>
           <div className="p-6 lg:w-1/2">
             <h2 className="text-2xl font-semibold mb-2">{events[0].title}</h2>
-            <p className="text-gray-700 mb-2">Date: {events[0].date_event}</p>
+            <p className="text-gray-700 mb-2">
+              Date: {format(events[0].date_event, "PPP")}
+            </p>
             <p className="text-gray-700 mb-2">Location: {events[0].location}</p>
             <p className="text-gray-700 mb-2">
               Organizer: {events[0].organizer}
@@ -206,7 +209,8 @@ const Events = () => {
               Contact Info: {events[0].contact_info}
             </p>
             <p className="text-gray-700 mb-2">
-              Registration Deadline: {events[0].registration_deadline}
+              Registration Deadline:{" "}
+              {format(events[0].registration_deadline, "PPP")}
             </p>
             <p className="text-gray-700 mb-2">
               Description: {events[0].description}
@@ -254,7 +258,7 @@ const Events = () => {
               <div className="px-6 py-4">
                 <div className="font-bold text-xl mb-2">{event.title}</div>
                 <p className="text-gray-700 text-base mb-2">
-                  Date: {event.date_event}
+                  Date: {format(event.date_event, "PPP")}
                 </p>
                 <p className="text-gray-700 text-base mb-2">
                   Location: {event.location}
@@ -266,7 +270,8 @@ const Events = () => {
                   Contact Info: {event.contact_info}
                 </p>
                 <p className="text-gray-700 text-base mb-2">
-                  Registration Deadline: {event.registration_deadline}
+                  Registration Deadline:{" "}
+                  {format(event.registration_deadline, "PPP")}
                 </p>
                 <p className="text-gray-700 text-base">
                   Description: {event.description}

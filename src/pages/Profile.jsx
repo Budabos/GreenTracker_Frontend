@@ -1,3 +1,4 @@
+import Bookings from "@/components/Bookings";
 import ChangeDetailsForm from "@/components/ChangeDetailsForm";
 import ChangePasswordForm from "@/components/ChangePasswordForm";
 import Orders from "@/components/Orders";
@@ -14,7 +15,7 @@ function Profile() {
     navigate("/login");
   }
 
-  console.log(user.orders);
+  console.log(user.events);
 
   return (
     <div className="container mx-auto p-4">
@@ -51,7 +52,22 @@ function Profile() {
           </div>
         </div>
       )}
-      <Orders />
+      <Tabs defaultValue="account" className="mt-10">
+        <TabsList>
+          <TabsTrigger value="orders" className="text-xl font-bold mb-2">
+            My Orders
+          </TabsTrigger>
+          <TabsTrigger value="bookings" className="text-xl font-bold mb-2">
+            My Bookings
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="orders">
+          <Orders />
+        </TabsContent>
+        <TabsContent value="bookings">
+          <Bookings />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
